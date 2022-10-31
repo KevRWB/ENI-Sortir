@@ -49,6 +49,10 @@ class Event
     #[ORM\JoinColumn(nullable: false)]
     private ?Location $location = null;
 
+    #[ORM\ManyToOne(inversedBy: 'events')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Campus $campus = null;
+
     public function __construct()
     {
         $this->goers = new ArrayCollection();
@@ -190,6 +194,18 @@ class Event
     public function setLocation(?Location $location): self
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
 
         return $this;
     }
