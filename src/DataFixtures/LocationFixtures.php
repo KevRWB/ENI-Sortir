@@ -4,77 +4,90 @@ namespace App\DataFixtures;
 
 use App\Entity\Location;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class LocationFixtures extends Fixture
+class LocationFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        $nantes = new Location();
-        $nantes->setName('Parc-CRAPA');
-        $nantes->setStreet('Rue-du-Pré-Salé');
-        $nantes->setLatitude('47.219746742250756');
-        $nantes->setLongitude('-1.5040284117821785');
-        $nantes->setCity($this->getReference('Nantes'));
-        $manager->persist($nantes);
-        $this->addReference('location-nantes', $nantes);
+        $crapa = new Location();
+        $crapa->setName('Parc CRAPA');
+        $crapa->setStreet('Rue du Pré-Salé');
+        $crapa->setLatitude('47.219746742250756');
+        $crapa->setLongitude('-1.5040284117821785');
+        $crapa->setCity($this->getReference('city-nantes'));
+        $manager->persist($crapa);
+        $this->addReference('parc-crapa-nantes', $crapa);
 
-        $nantes = new Location();
-        $nantes->setName('Les-Machines-de-l\'Île');
-        $nantes->setStreet('Parc-des-Chantiers,-Boulevard-Léon-Bureau');
-        $nantes->setLatitude('47.211700432066976');
-        $nantes->setLongitude('-1.5481968353916553');
-        $manager->persist($nantes);
-        $this->addReference('location-nantes', $nantes);
+        $machines = new Location();
+        $machines->setName('Les Machines de l\'Île');
+        $machines->setStreet('Boulevard Léon Bureau');
+        $machines->setLatitude('47.211700432066976');
+        $machines->setLongitude('-1.5481968353916553');
+        $machines->setCity($this->getReference('city-nantes'));
+        $manager->persist($machines);
+        $this->addReference('machines-nantes', $machines);
 
-        $rennes = new Location();
-        $rennes->setName('Patinoire-Le-Blizz');
-        $rennes->setStreet('Avenue-des-Gayeulles');
-        $rennes->setLatitude('48.132798156271036');
-        $rennes->setLongitude('-1.647422656360182');
-        $manager->persist($rennes);
-        $this->addReference('location-rennes', $rennes);
+        $blizz = new Location();
+        $blizz->setName('Patinoire Le Blizz');
+        $blizz->setStreet('8 Avenue des Gayeulles');
+        $blizz->setLatitude('48.132798156271036');
+        $blizz->setLongitude('-1.647422656360182');
+        $blizz->setCity($this->getReference('city-rennes'));
+        $manager->persist($blizz);
+        $this->addReference('patinoire-rennes', $blizz);
 
-        $rennes = new Location();
-        $rennes->setName('Space-Laser');
-        $rennes->setStreet('Rue Jules Vallès');
-        $rennes->setLatitude('48.105961907077216');
-        $rennes->setLongitude('-1.705084034749394');
-        $manager->persist($rennes);
-        $this->addReference('location-rennes', $rennes);
+        $laser = new Location();
+        $laser->setName('Space Laser');
+        $laser->setStreet('12 Rue Jules Vallès');
+        $laser->setLatitude('48.105961907077216');
+        $laser->setLongitude('-1.705084034749394');
+        $laser->setCity($this->getReference('city-rennes'));
+        $manager->persist($laser);
+        $this->addReference('laser-rennes', $laser);
 
-        $quimper = new Location();
-        $quimper->setName('Gorges-du-Stangala');
-        $quimper->setStreet('Route-du-Stangala');
-        $quimper->setLatitude('48.030283271727754');
-        $quimper->setLongitude('-4.047447994250477');
-        $manager->persist($quimper);
-        $this->addReference('location-quimper', $quimper);
+        $stangala = new Location();
+        $stangala->setName('Gorges du Stangala');
+        $stangala->setStreet('103 Route du Stangala');
+        $stangala->setLatitude('48.030283271727754');
+        $stangala->setLongitude('-4.047447994250477');
+        $stangala->setCity($this->getReference('city-quimper'));
+        $manager->persist($stangala);
+        $this->addReference('stangala-quimper', $stangala);
 
-        $quimper = new Location();
-        $quimper->setName('Golf-Bluegreen-l\'Odet');
-        $quimper->setStreet('Clohars-Fouesnant,-Bénodet');
-        $quimper->setLatitude('47.892486869088074');
-        $quimper->setLongitude('-4.052501946817509');
-        $manager->persist($quimper);
-        $this->addReference('location-quimper', $quimper);
+        $golf = new Location();
+        $golf->setName('Golf de Quimper');
+        $golf->setStreet('90 allée de Lanniron');
+        $golf->setLatitude('47.892486869088074');
+        $golf->setLongitude('-4.052501946817509');
+        $golf->setCity($this->getReference('city-quimper'));
+        $manager->persist($golf);
+        $this->addReference('golf-quimper', $golf);
 
-        $niort = new Location();
-        $niort->setName('Musée-du-Donjon');
-        $niort->setStreet('Rue-du-Guesclin');
-        $niort->setLatitude('46.32571641683182');
-        $niort->setLongitude('-0.46383040903641315');
-        $manager->persist($niort);
-        $this->addReference('location-niort', $niort);
+        $donjon = new Location();
+        $donjon->setName('Musée du Donjon');
+        $donjon->setStreet('Rue du Guesclin');
+        $donjon->setLatitude('46.32571641683182');
+        $donjon->setLongitude('-0.46383040903641315');
+        $donjon->setCity($this->getReference('city-niort'));
+        $manager->persist($donjon);
+        $this->addReference('musee-donjon-niort', $donjon);
 
-        $niort = new Location();
-        $niort->setName('Musée-Bernard-d\'Agesci');
-        $niort->setStreet('Avenue-de-Limoges');
-        $niort->setLatitude('46.32182783076171');
-        $niort->setLongitude('-0.4510767343789234');
-        $manager->persist($niort);
-        $this->addReference('location-niort', $niort);
+        $agesci = new Location();
+        $agesci->setName('Musée Bernard d\'Agesci');
+        $agesci->setStreet('26 Avenue de Limoges');
+        $agesci->setLatitude('46.32182783076171');
+        $agesci->setLongitude('-0.4510767343789234');
+        $agesci->setCity($this->getReference('city-niort'));
+        $manager->persist($agesci);
+        $this->addReference('musee-agesci-niort', $agesci);
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [CityFixtures::class];
     }
 }
