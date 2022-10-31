@@ -72,7 +72,7 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
         $donjon->setLongitude('-0.46383040903641315');
         $donjon->setCity($this->getReference('city-niort'));
         $manager->persist($donjon);
-        $this->addReference('musee-donjon-niort', $donjon);
+        $this->addReference('donjon-niort', $donjon);
 
         $agesci = new Location();
         $agesci->setName('Musée Bernard d\'Agesci');
@@ -81,7 +81,7 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
         $agesci->setLongitude('-0.4510767343789234');
         $agesci->setCity($this->getReference('city-niort'));
         $manager->persist($agesci);
-        $this->addReference('musee-agesci-niort', $agesci);
+        $this->addReference('agesci-niort', $agesci);
 
         $manager->flush();
     }

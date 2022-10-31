@@ -15,7 +15,7 @@ class EventFixtures extends Fixture  implements DependentFixtureInterface
         $patinoireRennes = new Event();
         $patinoireRennes->setName('Blizz Rennes');
         $patinoireRennes->setStartDate(new \DateTime( '2022-11-30 12:00:00'));
-        $patinoireRennes->setDuration(new Time('00:02:00'));
+        $patinoireRennes->setDuration(new \DateTime('01:45:00'));
         $patinoireRennes->setSubscriptionLimit(new \DateTime( '2022-11-29 12:00:00'));
         $patinoireRennes->setMaxUsers(5);
         $patinoireRennes->setInfos('Super sortie à la patinoire');
@@ -32,7 +32,7 @@ class EventFixtures extends Fixture  implements DependentFixtureInterface
         $laserRennes = new Event();
         $laserRennes->setName('Laser game Rennes');
         $laserRennes->setStartDate(new \DateTime( '2022-11-05 12:00:00'));
-        $laserRennes->setDuration(new Time('00:01:30'));
+        $laserRennes->setDuration(new \DateTime('01:15:30'));
         $laserRennes->setSubscriptionLimit(new \DateTime( '2022-11-04 12:00:00'));
         $laserRennes->setMaxUsers(6);
         $laserRennes->setInfos('Pan pan piou piou');
@@ -49,8 +49,8 @@ class EventFixtures extends Fixture  implements DependentFixtureInterface
         $machinesNantes = new Event();
         $machinesNantes->setName('Les machines de l\ile');
         $machinesNantes->setStartDate(new \DateTime( '2022-11-10 17:00:00'));
-        $machinesNantes->setDuration(new Time('00:02:00'));
-        $machinesNantes->setSubscriptionLimit(new \DateTime( '2022-11-09 17:00:00'));
+        $machinesNantes->setDuration(new \DateTime('2:30:00'));
+        $machinesNantes->setSubscriptionLimit(new \DateTime('2022-11-09 17:00:00'));
         $machinesNantes->setMaxUsers(4);
         $machinesNantes->setInfos('Sortie Chill');
         $machinesNantes->setOrganizater($this->getReference('marcela'));
@@ -65,7 +65,7 @@ class EventFixtures extends Fixture  implements DependentFixtureInterface
         $crapaNantes = new Event();
         $crapaNantes->setName('Sortie CRAPA de Nantes');
         $crapaNantes->setStartDate(new \DateTime( '2022-11-12 19:30:00'));
-        $crapaNantes->setDuration(new Time('00:02:00'));
+        $crapaNantes->setDuration(new \DateTime('02:00:00'));
         $crapaNantes->setSubscriptionLimit(new \DateTime( '2022-11-11 19:30:00'));
         $crapaNantes->setMaxUsers(4);
         $crapaNantes->setInfos('Go sport');
@@ -80,7 +80,7 @@ class EventFixtures extends Fixture  implements DependentFixtureInterface
         $stangalaQuimper = new Event();
         $stangalaQuimper->setName('Visite des gorges de Stangala');
         $stangalaQuimper->setStartDate(new \DateTime( '2022-11-07 09:00:00'));
-        $stangalaQuimper->setDuration(new Time('00:02:00'));
+        $stangalaQuimper->setDuration(new \DateTime('02:00:00'));
         $stangalaQuimper->setSubscriptionLimit(new \DateTime( '2022-11-06 09:00:00'));
         $stangalaQuimper->setMaxUsers(4);
         $stangalaQuimper->setInfos('Hop hop hop on marche');
@@ -89,6 +89,50 @@ class EventFixtures extends Fixture  implements DependentFixtureInterface
         $stangalaQuimper->setCampus($this->getReference('campus-quimper'));
         $stangalaQuimper->setLocation($this->getReference('stangala-quimper'));
         $manager->persist($stangalaQuimper);
+
+        $golfQuimper = new Event();
+        $golfQuimper->setName('Golf de quimper');
+        $golfQuimper->setStartDate(new \DateTime( '2022-10-15 09:00:00'));
+        $golfQuimper->setDuration(new \DateTime('02:00:00'));
+        $golfQuimper->setSubscriptionLimit(new \DateTime( '2022-10-14 09:00:00'));
+        $golfQuimper->setMaxUsers(4);
+        $golfQuimper->setInfos('bing, dans l trou');
+        $golfQuimper->setOrganizater($this->getReference('roman'));
+        $golfQuimper->setState($this->getReference('passed'));
+        $golfQuimper->setCampus($this->getReference('campus-quimper'));
+        $golfQuimper->setLocation($this->getReference('golf-quimper'));
+        $crapaNantes->addGoer($this->getReference('alan'));
+        $crapaNantes->addGoer($this->getReference('maxime'));
+        $manager->persist($golfQuimper);
+
+        $donjonNiort = new Event();
+        $donjonNiort->setName('Musée du donjon');
+        $donjonNiort->setStartDate(new \DateTime( '2022-11-01 09:00:00'));
+        $donjonNiort->setDuration(new \DateTime('24:00:00'));
+        $donjonNiort->setSubscriptionLimit(new \DateTime( '2022-10-30 09:00:00'));
+        $donjonNiort->setMaxUsers(4);
+        $donjonNiort->setInfos('Vivre dans in dooonjooonnn');
+        $donjonNiort->setOrganizater($this->getReference('kevin'));
+        $donjonNiort->setState($this->getReference('inProgress'));
+        $donjonNiort->setCampus($this->getReference('campus-niort'));
+        $donjonNiort->setLocation($this->getReference('donjon-niort'));
+        $donjonNiort->addGoer($this->getReference('jesse'));
+        $donjonNiort->addGoer($this->getReference('eliot'));
+        $donjonNiort->addGoer($this->getReference('marcela'));
+        $manager->persist($donjonNiort);
+
+        $agesciNiort = new Event();
+        $agesciNiort->setName('Visite du musée d\'Agesci');
+        $agesciNiort->setStartDate(new \DateTime( '2022-11-15 09:00:00'));
+        $agesciNiort->setDuration(new \DateTime('00:30:00'));
+        $agesciNiort->setSubscriptionLimit(new \DateTime( '2022-11-14 09:00:00'));
+        $agesciNiort->setMaxUsers(2);
+        $agesciNiort->setInfos('Bah oui, encore un musée...');
+        $agesciNiort->setOrganizater($this->getReference('axelle'));
+        $agesciNiort->setState($this->getReference('passed'));
+        $agesciNiort->setCampus($this->getReference('campus-niort'));
+        $agesciNiort->setLocation($this->getReference('agesci-niort'));
+        $manager->persist($agesciNiort);
 
         $manager->flush();
     }
