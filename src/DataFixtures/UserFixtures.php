@@ -22,6 +22,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $admin->setIsActive(true);
         $admin->setIsAdmin(true);
         $admin->setCampus($this->getReference('campus-rennes'));
+        $this->addReference('admin', $admin);
         $manager->persist($admin);
 
         $jesse = new User();
@@ -31,6 +32,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $jesse->setIsActive(true);
         $jesse->setIsAdmin(false);
         $jesse->setCampus($this->getReference('campus-rennes'));
+        $this->addReference('jesse', $jesse);
         $manager->persist($jesse);
 
         $emerick = new User();
@@ -40,6 +42,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $emerick->setIsActive(true);
         $emerick->setIsAdmin(false);
         $emerick->setCampus($this->getReference('campus-quimper'));
+        $this->addReference('emerick', $emerick);
         $manager->persist($emerick);
 
         $kevin = new User();
@@ -49,6 +52,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $kevin->setIsActive(true);
         $kevin->setIsAdmin(false);
         $kevin->setCampus($this->getReference('campus-niort'));
+        $this->addReference('kevin', $kevin);
         $manager->persist($kevin);
 
         $maxime = new User();
@@ -58,6 +62,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $maxime->setIsActive(true);
         $maxime->setIsAdmin(false);
         $maxime->setCampus($this->getReference('campus-nantes'));
+        $this->addReference('maxime', $maxime);
         $manager->persist($maxime);
 
         $alan = new User();
@@ -67,6 +72,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $alan->setIsActive(true);
         $alan->setIsAdmin(false);
         $alan->setCampus($this->getReference('campus-nantes'));
+        $this->addReference('alan', $alan);
         $manager->persist($alan);
 
 
