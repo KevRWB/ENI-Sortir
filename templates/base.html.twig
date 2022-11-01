@@ -1,17 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang=fr>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>{% block title %}Sortir{% endblock %}</title>
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-
+        <link rel="icon" href={{ asset('') }}>
+        <link rel="stylesheet" href={{ asset('css/normalize.css')}}>
+        <link rel="stylesheet" href={{ asset('css/style.css') }}>
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
+
+
     <body>
-        {% block body %}{% endblock %}
+    {#DIV CONTAINER#}
+        <div class="container">
+            {#HEADER#}
+            <header>
+                <a href="{{ path('homepage') }}"><div id="divLogo">
+                        <img id="imgLogo" src="#" alt="Logo">
+                        <div id="divTitlesLogo">
+                            <h2>SORTIR</h2>
+                            <p id="slogan">Keskonfé donc ?</p>
+                        </div>
+                    </div></a>
+
+                {% include 'inc/_nav.html.twig' %}
+            </header>
+
+            {#MAIN#}
+            <main>
+                <div class="divh1">
+                    {% block h1%}{% endblock %}
+                </div>
+
+                {#MESSAGES FLASH#}
+                <div class="divContent">
+                    {#                messages flash#}
+                    {% for label, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="flash flash-{{ label}}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+
+                    {% block content%}{% endblock %}
+
+                </div>
+            </main>
+
+            {#FOOTER#}
+            <footer>
+                <div id="divCopyright">
+                    <p>© sortir.fr</p>
+                    <p>{{  'now'|date("Y") }}</p>
+                </div>
+            </footer>
+        </div>
     </body>
 </html>

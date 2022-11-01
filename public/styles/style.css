@@ -1,0 +1,28 @@
+/* GENERAL STYLE FOR "SORTIR" ENI APPLICATION*/
+
+
+/*FONTS*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Satisfy&family=Secular+One&display=swap');
+
+/*GLOBAL STYLE*/
+*{
+    font-family: 'Roboto', sans-serif;
+    padding: 0px;
+    margin:0px;
+}
+
+
+body {
+    background: linear-gradient(#000000, #132135);
+    background-attachment: fixed;
+    background-position: center center;
+    background-size: cover;
+    color: #EEE;
+    font-family: 'Roboto', serif;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 5px;
+}
