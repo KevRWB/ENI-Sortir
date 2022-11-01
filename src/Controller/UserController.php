@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\ProfilType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,8 +17,17 @@ class UserController extends AbstractController
 
         $this->denyAccessUnlessGranted('ROLE_USER');
 
+        $user = new User();
+
+        $profilForm = $this->createForm(ProfilType::class, $user );
+        $profilForm->handleRequest($request);
+
+        if($profilForm->isSubmitted() && $profilForm->isValid()){
+
+        }
+
         return $this->render('user/profil.html.twig', [
-            'controller_name' => 'UserController',
+            'profilForm' => $profilForm->createView(),
         ]);
     }
 }

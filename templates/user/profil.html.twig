@@ -8,4 +8,9 @@
 
 {% block content %}
 
+    {{ form_start(profilForm) }}
+    {{ form_widget(profilForm) }}
+    <button type="submit" class="noselect buttonAnim">Modifer Profil</button>
+    {{ form_end(profilForm) }}
+
 {% endblock %}
