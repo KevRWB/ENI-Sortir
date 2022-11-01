@@ -20,8 +20,11 @@ security:
 
             custom_authenticator: App\Security\SortirAuthenticator
 
+
+
             logout:
                 path: app_logout
+                target: /
 
             remember_me:
                 secret: '%kernel.secret%' # required

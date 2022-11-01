@@ -46,6 +46,9 @@ class SortirAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
+        // add a custom flash message
+        //$request->getSession()->getFlashBag()->add('note', 'Informations erronnées');
+
         return new RedirectResponse($this->urlGenerator->generate('homepage'));
         // return new RedirectResponse($this->urlGenerator->generate('some_route'));
         throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
