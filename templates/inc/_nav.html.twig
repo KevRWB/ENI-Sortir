@@ -1,7 +1,7 @@
 
 <nav class="nav">
     <a href="{{ path('homepage') }}" class="nav-link">Accueil</a>
-    <a href="#" class="nav-link">Mon profil</a>
+    <a href="{{ path('profil') }}" class="nav-link">Mon profil</a>
     {% if app.user %}
         <a href="{{ path('app_logout') }}">Déconnexion</a>
     {% else %}

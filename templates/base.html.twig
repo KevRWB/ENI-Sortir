@@ -28,7 +28,11 @@
                         </div>
                     </div></a>
 
-                {% include 'inc/_nav.html.twig' %}
+                {% if is_granted('ROLE_USER') %}
+                    {% include 'inc/_nav.html.twig' %}
+                {% endif %}
+                
+
             </header>
 
             {#MAIN#}
