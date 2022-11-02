@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ProfilType;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     #[Route('/profil', name: 'profil')]
-    public function index(Request $request): Response
+    public function profilName(Request $request): Response
     {
 
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -26,8 +27,23 @@ class UserController extends AbstractController
 
         }
 
-        return $this->render('user/profil.html.twig', [
+        return $this->render('user/monProfil.html.twig', [
             'profilForm' => $profilForm->createView(),
         ]);
     }
+
+    #[Route('/profil/{pseudo}', name: 'profil')]
+    public function userName(UserRepository $userRepository,string $pseudo): Response
+    {
+        $user = $userRepository->findOneBy(['pseudo'=>$pseudo]);
+
+        if ($user === null) {
+            throw $this->createNotFoundException('Cet utilisateur n\'existe pas');
+        }
+
+        return $this->render('user/profil.html.twig', [
+            'user' => $user
+        ]);
+    }
+
 }
