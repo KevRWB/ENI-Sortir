@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block h1 %}
+    <h1>Mon profil</h1>
+{% endblock %}
+
+{% block content %}
+
+    {{ form_start(profilForm) }}
+    {{ form_widget(profilForm) }}
+    <button type="submit" class="noselect buttonAnim">Modifier Profil</button>
+    {{ form_end(profilForm) }}
+
+{% endblock %}
