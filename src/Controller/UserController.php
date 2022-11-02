@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('user/monProfil', name: 'profil')]
+    #[Route('/monProfil', name: 'monProfil')]
     public function monProfil(Request $request): Response
     {
 
