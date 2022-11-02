@@ -2,7 +2,6 @@
 
 namespace App\Form\Model;
 
-use App\Data\dateTime;
 use App\Entity\Campus;
 
 class SearchData
@@ -11,40 +10,187 @@ class SearchData
     /**
      * @var string
      */
-    public $search = '';
+    public ?string $search;
 
     /**
-     * @var Campus[]
+     * @var Campus
      */
-    public $Campus = [];
+    public ? Campus $Campus ;
 
     /**
-     * @var dateTime
+     * @var \DateTime
      */
-    public $startDate;
+    public ?\DateTime $startDate;
 
     /**
-     * @var dateTime
+     * @var \DateTime
      */
-    public $endDate;
-
-    /**
-     * @var boolean
-     */
-    public $isOrganizer = false;
+    public ?\DateTime $endDate;
 
     /**
      * @var boolean
      */
-    public $isBooked = false;
+    public ?bool $isOrganizer = false;
 
     /**
      * @var boolean
      */
-    public $isNotBooked = false;
+    public ?bool $isBooked = false;
 
     /**
      * @var boolean
      */
-    public $passedEvents = false;
+    public ?bool $isNotBooked = false;
+
+    /**
+     * @var boolean
+     */
+    public ?bool $passedEvents = false;
+
+    /**
+     * @return string
+     */
+    public function getSearch(): string
+    {
+        return $this->search;
+    }
+
+    /**
+     * @param string $search
+     * @return SearchData
+     */
+    public function setSearch(?string $search): SearchData
+    {
+        $this->search = $search;
+        return $this;
+    }
+
+    /**
+     * @return Campus
+     */
+    public function getCampus(): Campus
+    {
+        return $this->Campus;
+    }
+
+    /**
+     * @param Campus $Campus
+     * @return SearchData
+     */
+    public function setCampus(?Campus $Campus): SearchData
+    {
+        $this->Campus = $Campus;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getStartDate(): \DateTime
+    {
+        return $this->startDate;
+    }
+
+    /**
+     * @param \DateTime $startDate
+     * @return SearchData
+     */
+    public function setStartDate(?\DateTime $startDate): SearchData
+    {
+        $this->startDate = $startDate;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getEndDate(): \DateTime
+    {
+        return $this->endDate;
+    }
+
+    /**
+     * @param \DateTime $endDate
+     * @return SearchData
+     */
+    public function setEndDate(?\DateTime $endDate): SearchData
+    {
+        $this->endDate = $endDate;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOrganizer(): bool
+    {
+        return $this->isOrganizer;
+    }
+
+    /**
+     * @param bool $isOrganizer
+     * @return SearchData
+     */
+    public function setIsOrganizer(?bool $isOrganizer): SearchData
+    {
+        $this->isOrganizer = $isOrganizer;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBooked(): bool
+    {
+        return $this->isBooked;
+    }
+
+    /**
+     * @param bool $isBooked
+     * @return SearchData
+     */
+    public function setIsBooked(?bool $isBooked): SearchData
+    {
+        $this->isBooked = $isBooked;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNotBooked(): bool
+    {
+        return $this->isNotBooked;
+    }
+
+    /**
+     * @param bool $isNotBooked
+     * @return SearchData
+     */
+    public function setIsNotBooked(?bool $isNotBooked): SearchData
+    {
+        $this->isNotBooked = $isNotBooked;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPassedEvents(): bool
+    {
+        return $this->passedEvents;
+    }
+
+    /**
+     * @param bool $passedEvents
+     * @return SearchData
+     */
+    public function setPassedEvents(?bool $passedEvents): SearchData
+    {
+        $this->passedEvents = $passedEvents;
+        return $this;
+    }
+
+
+
 }

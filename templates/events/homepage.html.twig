@@ -8,4 +8,19 @@
 
 {% block content %}
     <h3>Liste des sorties</h3>
+
+    {{ form_start(searchForm) }}
+    {{ form_widget(searchForm) }}
+    <button type="submit" class="noselect buttonAnim">Rechercher</button>
+    {{ form_end(searchForm) }}
+
+
+
+    {% if events is defined %}
+        {% for event in events %}
+            <p>Nom sortie: {{ event.name }}</p>
+        {% endfor %}
+    {% endif %}
+
+
 {% endblock %}
