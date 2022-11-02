@@ -11,8 +11,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('/profil', name: 'profil')]
-    public function index(Request $request): Response
+    #[Route('/monProfil', name: 'profil')]
+    public function monProfil(Request $request): Response
     {
 
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -26,7 +26,7 @@ class UserController extends AbstractController
 
         }
 
-        return $this->render('user/profil.html.twig', [
+        return $this->render('monProfil.html.twig', [
             'profilForm' => $profilForm->createView(),
         ]);
     }
