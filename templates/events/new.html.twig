@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h1>Create Event</h1>
+
+    {{ form_start(eventForm) }}
+    {{ form_widget(eventForm) }}
+
+    <button>Add</button>
+    {{ form_end(eventForm) }}
+{% endblock %}
