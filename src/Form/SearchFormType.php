@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,24 +33,29 @@ class SearchFormType extends AbstractType
 //                'expanded' => true,
 //                'multiple' => false
 //            ])
-            ->add('startDate', DateTimeType::class, [
+            ->add('startDate', DateType::class, [
+                'widget' => 'single_text',
                 'label' => 'Date début',
                 'required' => false,
             ])
-            ->add('endDate', DateTimeType::class, [
+            ->add('endDate', DateType::class, [
+                'widget' => 'single_text',
                 'label' => 'Date fin',
                 'required' => false,
             ])
             ->add('isOrganizer',  CheckboxType::class, [
                 'label' => 'Je suis organisateur',
+                'data' => true,
                 'required' => false,
             ])
             ->add('isBooked',  CheckboxType::class, [
                 'label' => 'Je participe',
+                'data' => true,
                 'required' => false,
             ])
             ->add('isNotBooked', CheckboxType::class, [
                 'label' => 'Je ne participe pas',
+                'data' => true,
                 'required' => false,
             ] )
             ->add('passedEvents', CheckboxType::class, [
