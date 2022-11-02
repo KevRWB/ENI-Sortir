@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Event;
+use App\Form\CreateEventType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,4 +23,23 @@ class EventsController extends AbstractController
             'controller_name' => 'EventsController',
         ]);
     }
+
+    public function new(Request $request, EntityManagerInterface $em): Response
+    {
+        $event = new Event();
+        $eventForm = $this->createForm(CreateEventType::class, $event);
+
+        $eventForm->handleRequest($request);
+        if($eventForm->isSubmitted() && $eventForm->isValid()){
+            $em->persist($event);
+            $em->flush();
+
+            return $this->redirectToRoute('homepage');
+        }
+        return $this->render('events/homepage.html.twig', [
+            'eventForm'=>$eventForm->createView()
+        ]);
+    }
+
+
 }
