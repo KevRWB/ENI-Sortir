@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Form\CreateEventType;
+use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,5 +42,18 @@ class EventsController extends AbstractController
         ]);
     }
 
+    #[Route('/event/{id}', name: 'event')]
+    public function eventName(EventRepository $eventRepository, int $id): Response
+    {
+        $event = $eventRepository->find($id);
+
+        if ($event === null) {
+            throw $this->createNotFoundException('Cette sortie n\'existe pas');
+        }
+
+        return $this->render('events/event.html.twig', [
+            'event' => $event
+        ]);
+    }
 
 }

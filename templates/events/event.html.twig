@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sorties{% endblock %}
+
+{% block content %}
+
+    <p>{{ event.name }}</p>
+    <p>{{ event.startDate|date('d/m/Y') }}</p>
+    <p>{{ event.subscriptionLimit|date('d/m/Y') }}</p>
+    <p>{{ event.maxUsers }}</p>
+    <p>{{ event.duration|date('H:i:s') }}</p>
+    <p>{{ event.infos }}</p>
+    <p>{{ event.organizater.userName }}</p>
+    <p>{{ event.location.city.name }}</p>
+    <p>{{ event.campus.name }}</p>
+    <p>{{ event.location.name }}</p>
+    <p>{{ event.location.street }}</p>
+    <p>{{ event.location.city.codePostal }}</p>
+    <p>{{ event.location.latitude }}</p>
+    <p>{{ event.location.longitude }}</p>
+
+    <p>Liste des participants inscrits :</p>
+
+    {% for pseudo in user %}
+        <tr>
+            <td class="pseudo"{{ user.pseudo }}>
+                <td class="name">
+
+                </td>
+            </td>
+        </tr>
+    {% endfor %}
+
+{% endblock %}
