@@ -39,6 +39,12 @@ class CityRepository extends ServiceEntityRepository
         }
     }
 
+    public function selectAllCities(){
+
+        $qd = $this->createQueryBuilder('city');
+        return $qd->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return City[] Returns an array of City objects
 //     */

@@ -6,6 +6,19 @@
     {{ form_start(eventForm) }}
     {{ form_widget(eventForm) }}
 
+{#    campus : {{ app.user.campus.name }}#}
+
+
+{#    <label for="city-select"></label>#}
+{#    <select name="city-select" id="city-select">#}
+{#        {% for city in cities %}#}
+{#            {{ city.name }}#}
+
+{#            <option value="{{city.name}}"{% set selected = app.user.campus.name %}>{{city.name}}</option>#}
+{#        {% endfor %}#}
+{#    </select>#}
+
+    <br>
     <button>Add</button>
     {{ form_end(eventForm) }}
 {% endblock %}

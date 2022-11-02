@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Form\CreateEventType;
+use App\Repository\CityRepository;
+use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,6 +33,7 @@ class EventsController extends AbstractController
     {
         $event = new Event();
         $eventForm = $this->createForm(CreateEventType::class, $event);
+        //$cities = $cityRepository->findAll();
 
         $eventForm->handleRequest($request);
 
@@ -42,6 +45,7 @@ class EventsController extends AbstractController
         }
         return $this->render('events/new.html.twig', [
             'eventForm'=>$eventForm->createView(),
+            //'cities'=>$cities,
         ]);
     }
 
