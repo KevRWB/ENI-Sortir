@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('/monProfil', name: 'profil')]
+    #[Route('user/monProfil', name: 'profil')]
     public function monProfil(Request $request): Response
     {
 
@@ -26,8 +26,23 @@ class UserController extends AbstractController
 
         }
 
-        return $this->render('monProfil.html.twig', [
+        return $this->render('user/monProfil.html.twig', [
             'profilForm' => $profilForm->createView(),
         ]);
     }
+
+    #[Route('/profil/{pseudo}', name: 'profil')]
+    public function userName(UserRepository $userRepository,string $pseudo): Response
+    {
+        $user = $userRepository->findOneBy(['pseudo'=>$pseudo]);
+
+        if ($user === null) {
+            throw $this->createNotFoundException('Cet utilisateur n\'existe pas');
+        }
+
+        return $this->render('user/profil.html.twig', [
+            'user' => $user
+        ]);
+    }
+
 }
