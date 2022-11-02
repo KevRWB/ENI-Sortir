@@ -3,7 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Event;
+use App\Entity\User;
+use App\Form\Model\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -41,56 +44,52 @@ class EventRepository extends ServiceEntityRepository
 
 
     /**
-     * Récupère les produits en lien avec une recherche
-     * @return PaginationInterface
+     * Récupère les events en lien avec une recherche
+     *
      */
-    public function findSearch(SearchData $search): PaginationInterface
+
+
+
+    public function findEvents(SearchData $search, User $user): Paginator
     {
 
-        $query = $this
-            ->createQueryBuilder('p')
-            ->select('c', 'p')
-            ->join('p.categories', 'c');
+        $qb = $this ->createQueryBuilder('events');
 
-        if (!empty($search->q)) {
-            $query = $query
-                ->andWhere('p.name LIKE :q')
-                ->setParameter('q', "%{$search->q}%");
+        if (!empty($search->search)) {
+            $qb ->andWhere('events.name LIKE :q')
+                ->setParameter('q',"%{$search->search}%");
         }
 
-        if (!empty($search->min)) {
-            $query = $query
-                ->andWhere('p.price >= :min')
-                ->setParameter('min', $search->min);
+//        if (!empty($search->Campus)) {
+//            $qb
+//                ->andWhere('events.campus = campus')
+//                ->setParameter('campus', "%{$search->campus}%");
+//        }
+//
+//
+        if ($search->isOrganizer = true) {
+            $qb->andWhere('events.organizater = :user')
+                ->setParameter('user', $user);
         }
+//
+//        if (!empty($search->promo)) {
+//            $qb = $qb
+//                ->andWhere('p.promo = 1');
+//        }
+//
+//        if (!empty($search->categories)) {
+//            $qb = $qb
+//                ->andWhere('c.id IN (:categories)')
+//                ->setParameter('categories', $search->categories);
+//        }
 
-        if (!empty($search->max)) {
-            $query = $query
-                ->andWhere('p.price <= :max')
-                ->setParameter('max', $search->max);
-        }
+        $query = $qb->getQuery();
+        $query->setMaxResults(20);
 
-        if (!empty($search->promo)) {
-            $query = $query
-                ->andWhere('p.promo = 1');
-        }
+        return new Paginator($query);
 
-        if (!empty($search->categories)) {
-            $query = $query
-                ->andWhere('c.id IN (:categories)')
-                ->setParameter('categories', $search->categories);
-        }
-
-        return $this->paginator->paginate(
-            $query,
-            $search->page,
-            9
-        );
     }
 
-    private function getSearchQuery(SearchData $search, $ignorePrice = false): QueryBuilder
-    {
-    }
 
 
 }
