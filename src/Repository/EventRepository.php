@@ -50,8 +50,6 @@ class EventRepository extends ServiceEntityRepository
      *
      */
 
-
-
     public function findEvents(SearchData $search, User $user): Paginator
     {
 
@@ -62,13 +60,23 @@ class EventRepository extends ServiceEntityRepository
                 ->setParameter('q',"%{$search->search}%");
         }
 
-//        if (!empty($search->Campus)) {
-//            $qb
-//                ->andWhere('events.campus = campus')
-//                ->setParameter('campus', "%{$search->campus}%");
-//        }
-//
-//
+        if (!empty($search->campus)) {
+            $qb->andWhere('events.campus = :c')
+                ->setParameter('c', $search->campus);
+        }
+
+        if (!empty($search->startDate) && !empty($search->endDate) ) {
+            $qb->andWhere('events.startDate BETWEEN :start AND :end')
+                ->setParameter('start', $search->startDate)
+                ->setParameter('end', $search->endDate);
+        }elseif(!empty($search->startDate)){
+            $qb->andWhere('events.startDate > :start')
+                ->setParameter('start', $search->startDate);
+        }elseif (!empty($search->endDate)){
+            $qb->andWhere('events.startDate < :end')
+                ->setParameter('end', $search->endDate);
+        }
+
         if ($search->isOrganizer) {
             $qb->andWhere('events.organizater = :user')
                 ->setParameter('user', $this->security->getUser());
@@ -84,15 +92,14 @@ class EventRepository extends ServiceEntityRepository
         if ($search->isNotBooked) {
             $qb->addselect('u')
                 ->leftJoin('events.goers', 'u')
-                ->andWhere()
+                ->andWhere(':user NOT MEMBER OF u')
                 ->setParameter('user', $this->security->getUser());
         }
-
 
         if ($search->passedEvents) {
             $qb->addSelect('state')
                 ->leftJoin('events.state', 'state')
-                ->andWhere('state.libelle = passed')
+                ->andWhere('state.libelle = :passed')
                 ->setParameter('passed', 'passed');
         }
 

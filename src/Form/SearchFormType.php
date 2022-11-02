@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Campus;
 use App\Form\Model\SearchData;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -25,22 +26,25 @@ class SearchFormType extends AbstractType
                     'placeholder' => 'Rechercher'
                 ]
             ])
-//            ->add('campus', EntityType::class, [
-//                'label' => 'Campus',
-//                'choice_label' => 'name',
-//                'required' => false,
-//                'class' => Campus::class,
-//                'expanded' => true,
-//                'multiple' => false
-//            ])
+
+            ->add('campus', EntityType::class, [
+                'label' => 'Campus',
+                'class' => Campus::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')->orderBy('c.name', 'ASC');
+                },
+                'choice_label' => 'name',
+                'required' => false,
+            ])
+
             ->add('startDate', DateType::class, [
                 'widget' => 'single_text',
-                'label' => 'Date début',
+                'label' => 'Entre',
                 'required' => false,
             ])
             ->add('endDate', DateType::class, [
                 'widget' => 'single_text',
-                'label' => 'Date fin',
+                'label' => 'et',
                 'required' => false,
             ])
             ->add('isOrganizer',  CheckboxType::class, [

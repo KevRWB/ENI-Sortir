@@ -2,12 +2,8 @@
 
 {% block title %}Accueil{% endblock %}
 
-{% block h1 %}
-    <h1>Accueil</h1>
-{% endblock %}
-
 {% block content %}
-    <h3>Liste des sorties</h3>
+    <h1>Liste des sorties</h1>
 
     {{ form_start(searchForm) }}
     {{ form_widget(searchForm) }}
@@ -15,12 +11,14 @@
     {{ form_end(searchForm) }}
 
 
-
     {% if events is defined %}
         {% for event in events %}
-            <p>Nom sortie: {{ event.name }}</p>
+
+            <div class="cardEvent">
+                <p>Nom sortie: {{ event.name }}</p>
+            </div>>
+
         {% endfor %}
     {% endif %}
-
 
 {% endblock %}

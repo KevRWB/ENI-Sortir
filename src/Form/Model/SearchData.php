@@ -15,7 +15,7 @@ class SearchData
     /**
      * @var Campus
      */
-    public ? Campus $Campus ;
+    public ? Campus $campus ;
 
     /**
      * @var \DateTime
@@ -70,16 +70,16 @@ class SearchData
      */
     public function getCampus(): Campus
     {
-        return $this->Campus;
+        return $this->campus;
     }
 
     /**
      * @param Campus $Campus
      * @return SearchData
      */
-    public function setCampus(?Campus $Campus): SearchData
+    public function setCampus(?Campus $campus): SearchData
     {
-        $this->Campus = $Campus;
+        $this->campus = $campus;
         return $this;
     }
 
