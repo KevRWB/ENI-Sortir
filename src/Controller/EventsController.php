@@ -26,20 +26,24 @@ class EventsController extends AbstractController
 //        ]);
 //    }
 
+
+
+    #[Route('/new', name: 'event_new')]
     public function new(Request $request, EntityManagerInterface $em): Response
     {
         $event = new Event();
         $eventForm = $this->createForm(CreateEventType::class, $event);
 
         $eventForm->handleRequest($request);
+
         if($eventForm->isSubmitted() && $eventForm->isValid()){
             $em->persist($event);
             $em->flush();
 
             return $this->redirectToRoute('homepage');
         }
-        return $this->render('events/homepage.html.twig', [
-            'eventForm'=>$eventForm->createView()
+        return $this->render('events/new.html.twig', [
+            'eventForm'=>$eventForm->createView(),
         ]);
     }
 
