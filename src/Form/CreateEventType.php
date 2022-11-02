@@ -56,10 +56,7 @@ class CreateEventType extends AbstractType
                 },
                 'choice_label' => 'name',
                 'mapped' => false,
-                //'data' => $this->security->getUser()->getCampus(),
             ])
-
-
 
             ->add('location', EntityType::class, [
                 'class' => Location::class,
@@ -74,14 +71,6 @@ class CreateEventType extends AbstractType
             ->add('publish', SubmitType::class, ['label' => 'Publish'])
 
             ->add('cancel', SubmitType::class, ['label' => 'cancel'])
-//            ->add('city')
-//            ->add('location')
-
-            /*
-            ->add('campus')
-            ->add('goers')
-            ->add('state')
-            */
         ;
     }
 
