@@ -8,6 +8,13 @@
 
 {% block content %}
 
-    {{ user.pseudo }}
+    <h2>{{ user.pseudo }}</h2>
+    <p>{{ user.firstName }}</p>
+    <p>{{ user.lastName }}</p>
+    <p>{{ user.phoneNumber }}</p>
+    <p>{{ user.email }}</p>
+    <p>{{ user.campus.name }}</p>
+
+    <button type="submit" class="noselect buttonAnim">Retour</button>
 
 {% endblock %}
