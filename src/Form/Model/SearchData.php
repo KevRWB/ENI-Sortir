@@ -2,7 +2,6 @@
 
 namespace App\Form\Model;
 
-use App\Data\dateTime;
 use App\Entity\Campus;
 
 class SearchData
@@ -19,12 +18,12 @@ class SearchData
     public $Campus = [];
 
     /**
-     * @var dateTime
+     * @var \DateTime
      */
     public $startDate;
 
     /**
-     * @var dateTime
+     * @var \DateTime
      */
     public $endDate;
 
