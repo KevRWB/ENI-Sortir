@@ -16,6 +16,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -49,14 +50,16 @@ class CreateEventType extends AbstractType
             ])
 
             ->add('city', EntityType::class, [
-                'class' => Campus::class,
+                'class' => City::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')->orderBy('c.name', 'ASC');
                 },
                 'choice_label' => 'name',
                 'mapped' => false,
-                'data' => $this->security->getUser()->getCampus(),
+                //'data' => $this->security->getUser()->getCampus(),
             ])
+
+
 
             ->add('location', EntityType::class, [
                 'class' => Location::class,
@@ -66,11 +69,14 @@ class CreateEventType extends AbstractType
                 'choice_label' => 'name',
             ])
 
-/*
-            ->add('organizater')
-            ->add('city')
-            ->add('location')
-*/
+            ->add('save', SubmitType::class, ['label' => 'Save'])
+
+            ->add('publish', SubmitType::class, ['label' => 'Publish'])
+
+            ->add('cancel', SubmitType::class, ['label' => 'cancel'])
+//            ->add('city')
+//            ->add('location')
+
             /*
             ->add('campus')
             ->add('goers')

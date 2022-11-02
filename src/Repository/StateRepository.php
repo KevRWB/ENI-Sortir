@@ -54,13 +54,24 @@ class StateRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?State
+//    public function findAllByYear(int $year): array
 //    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
+//
+//        $qd=$this->createQueryBuilder('s');
+//
+//        $qd->andWhere("s.firstAirDate > '2019-01-01'")
+//            ->andWhere("s.firstAirDate < '2020-01-01'");
+//
+//        return $qd->getQuery()->getResult();
 //    }
+
+    public function findByState(string $name): ?State
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.name = :val')
+            ->setParameter('val', $name)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

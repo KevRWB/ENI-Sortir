@@ -7,7 +7,9 @@ use App\Form\CreateEventType;
 use App\Form\Model\SearchData;
 use App\Form\SearchFormType;
 use App\Repository\EventRepository;
+use App\Repository\StateRepository;
 use Doctrine\ORM\EntityManagerInterface;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +19,7 @@ class EventsController extends AbstractController
 {
 
     #[Route('/new', name: 'event_new')]
-    public function new(Request $request, EntityManagerInterface $em): Response
+    public function new(Request $request, EntityManagerInterface $em, StateRepository $stateRepository): Response
     {
         $event = new Event();
         $eventForm = $this->createForm(CreateEventType::class, $event);
@@ -25,8 +27,24 @@ class EventsController extends AbstractController
         $eventForm->handleRequest($request);
 
         if($eventForm->isSubmitted() && $eventForm->isValid()){
-            $em->persist($event);
-            $em->flush();
+
+            if($eventForm->get('save')->isClicked()){
+                $event->setOrganizater($this->getUser());
+                $event->setState($stateRepository->findOneBy(['libelle' => 'created']));
+                $event->setCampus($this->getUser()->getCampus());
+                $em->persist($event);
+                $em->flush();
+            }
+            if($eventForm->get('publish')->isClicked()){
+                $event->setOrganizater($this->getUser());
+                $event->setState($stateRepository->findOneBy(['libelle' => 'opened']));
+                $event->setCampus($this->getUser()->getCampus());
+                $em->persist($event);
+                $em->flush();
+            }
+            if($eventForm->get('cancel')->isClicked()){
+                return $this->redirectToRoute('homepage');
+            }
 
             return $this->redirectToRoute('homepage');
         }
