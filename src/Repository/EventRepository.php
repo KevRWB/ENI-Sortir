@@ -8,6 +8,7 @@ use App\Form\Model\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @extends ServiceEntityRepository<Event>
@@ -19,7 +20,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class EventRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+
+    public function __construct(ManagerRegistry $registry, private Security $security)
     {
         parent::__construct($registry, Event::class);
     }
@@ -67,21 +69,32 @@ class EventRepository extends ServiceEntityRepository
 //        }
 //
 //
-        if ($search->isOrganizer = true) {
+        if ($search->isOrganizer) {
             $qb->andWhere('events.organizater = :user')
-                ->setParameter('user', $user);
+                ->setParameter('user', $this->security->getUser());
         }
-//
-//        if (!empty($search->promo)) {
-//            $qb = $qb
-//                ->andWhere('p.promo = 1');
-//        }
-//
-//        if (!empty($search->categories)) {
-//            $qb = $qb
-//                ->andWhere('c.id IN (:categories)')
-//                ->setParameter('categories', $search->categories);
-//        }
+
+        if ($search->isBooked) {
+            $qb->addselect('u')
+                ->leftJoin('events.goers', 'u')
+                ->andWhere('u =  :user')
+                ->setParameter('user', $this->security->getUser());
+        }
+
+        if ($search->isNotBooked) {
+            $qb->addselect('u')
+                ->leftJoin('events.goers', 'u')
+                ->andWhere()
+                ->setParameter('user', $this->security->getUser());
+        }
+
+
+        if ($search->passedEvents) {
+            $qb->addSelect('state')
+                ->leftJoin('events.state', 'state')
+                ->andWhere('state.libelle = passed')
+                ->setParameter('passed', 'passed');
+        }
 
         $query = $qb->getQuery();
         $query->setMaxResults(20);
