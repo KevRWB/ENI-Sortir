@@ -83,16 +83,17 @@ class EventRepository extends ServiceEntityRepository
         }
 
         if ($search->isBooked) {
-            $qb->addselect('u')
-                ->leftJoin('events.goers', 'u')
-                ->andWhere('u =  :user')
+//            $qb->addselect('u')
+//                ->leftJoin('events.goers', 'u')
+//                ->andWhere('u =  :user')
+//                ->setParameter('user', $this->security->getUser());
+
+            $qb->andWhere(':user MEMBER OF events.goers')
                 ->setParameter('user', $this->security->getUser());
         }
 
         if ($search->isNotBooked) {
-            $qb->addselect('u')
-                ->leftJoin('events.goers', 'u')
-                ->andWhere(':user NOT MEMBER OF u')
+            $qb->andWhere(':user NOT MEMBER OF events.goers')
                 ->setParameter('user', $this->security->getUser());
         }
 
