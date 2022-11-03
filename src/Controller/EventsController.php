@@ -7,16 +7,40 @@ use App\Form\CreateEventType;
 use App\Form\Model\SearchData;
 use App\Form\SearchFormType;
 use App\Repository\EventRepository;
+use App\Repository\LocationRepository;
 use App\Repository\StateRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
+
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class EventsController extends AbstractController
 {
+    #[Route('/getLocationsFromCity/{id}', name: 'locations_from_city')]
+    public function LocationsListOfACity( LocationRepository $locationRepository, int $id = 1)
+    {
+
+        $locations = $locationRepository->createQueryBuilder('l')
+            ->where('l.city = :cityId')
+            ->setParameter('cityId', $id)
+            ->getQuery()
+            ->getResult();
+
+        $responseArray = array();
+        foreach ($locations as $location){
+            $responseArray[] = array(
+                'id' => $location->getId(),
+                'name' => $location->getName()
+            );
+        }
+
+        return $this->json($responseArray);
+    }
 
     #[Route('/new', name: 'event_new')]
     public function new(Request $request, EntityManagerInterface $em, StateRepository $stateRepository): Response

@@ -20,23 +20,19 @@
 
 
     <body>
+    <script src="{{ asset('script.js') }}"></script>
     {#DIV CONTAINER#}
         <div class="container">
             <div class="row">
 
                 <header>
                     <div class="form-input">
-                        <a href="{{ path('homepage') }}">
-                            <img id="imgLogo" src="#" alt="Logo">
-                            <h2>SORTIR</h2>
-                        </a>
+
 
                     </div>
 
-
-                    {% if is_granted('ROLE_USER') %}
                         {% include 'inc/_nav.html.twig' %}
-                    {% endif %}
+
                 </header>
             </div>
             {#HEADER#}

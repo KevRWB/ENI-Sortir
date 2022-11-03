@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% form_theme eventForm 'bootstrap_5_horizontal_layout.html.twig' %}
 
 {% block content %}
     <h1>Create Event</h1>
@@ -6,7 +7,47 @@
     {{ form_start(eventForm) }}
     {{ form_widget(eventForm) }}
 
-    campus : {{ app.user.campus.name }}
-
     {{ form_end(eventForm) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.onload = init;
+        function init()
+        {
+
+            let select = document.getElementById("create_event_city")
+            console.log(select)
+            select.addEventListener('change', function handleChange(){
+                let idVille = document.getElementById("create_event_city").value;
+                useApi(idVille)
+            })
+        }
+
+        async function useApi(idVille){
+            let select = document.getElementById("create_event_location");
+
+            for(let y = select.options.length; y>=0; y--){
+                select.remove(y)
+            }
+
+            let locations = await callApi(idVille)
+
+            for(const location of locations){
+                let option = document.createElement('option')
+                option.value = location.id
+                option.text = location.name
+                select.add(option)
+            }
+        }
+
+        async function callApi(idVille){
+            const response = await fetch("{{ path('locations_from_city') }}/"+ idVille)
+
+            if(response.ok){
+                return response.json()
+            }
+        }
+
+    </script>
 {% endblock %}

@@ -1,11 +1,39 @@
+{#<span onclick="openNav()">#}
+{#    <img  id="buger-icon" class="manImg" src="images/burger.png" width="50px">#}
+{#</span>#}
+<div class="d-inline-flex ">
+        <a href="{{ path('homepage') }}" class="d-inline-flex">
+            <img id="imgLogo" src="#" alt="Logo">
+            <h2>SORTIR</h2>
+        </a>
 
-<nav class="nav">
-    <a href="{{ path('homepage') }}" class="nav-link">Accueil</a>
-    <a href={{ path('monProfil') }} class="nav-link">Mon profil</a>
-    {% if app.user %}
-        <a href="{{ path('app_logout') }}">Déconnexion</a>
-    {% else %}
-        <a href="{{ path('app_login') }}">Connexion</a>
+    {% if is_granted('ROLE_USER') %}
+        <a id="hamburger-icon" onclick="openNav()" title="Menu">
+            <span class="line line-1"></span>
+            <span class="line line-2"></span>
+            <span class="line line-3"></span>
+        </a>
     {% endif %}
+</div>
 
-</nav>
+
+
+
+<div id="myNav" class="overlay">
+
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+    <div class="overlay-content">
+        <a href="{{ path('homepage') }}" class="nav-link">Home</a>
+        <a href="{{ path('monProfil') }}" class="nav-link">Profile</a>
+        <a href="{{ path('event_new') }}" class="nav-link">Create Event</a>
+        {% if app.user %}
+            <a href="{{ path('app_logout') }}" class="nav-link">Déconnexion</a>
+        {% else %}
+            <a href="{{ path('app_login') }}" class="nav-link">Connexion</a>
+        {% endif %}
+    </div>
+
+</div>
+
+

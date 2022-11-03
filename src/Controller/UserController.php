@@ -22,11 +22,11 @@ class UserController extends AbstractController
 
         $profilForm = $this->createForm(ProfilType::class, $user );
         $profilForm->handleRequest($request);
-
+        /*
         if($profilForm->isSubmitted() && $profilForm->isValid()){
 
         }
-
+        */
         return $this->render('user/monProfil.html.twig', [
             'profilForm' => $profilForm->createView(),
         ]);
