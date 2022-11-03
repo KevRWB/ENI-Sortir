@@ -78,5 +78,4 @@ class EventsController extends AbstractController
 
     }
 
-
 }
