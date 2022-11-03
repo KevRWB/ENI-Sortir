@@ -4,39 +4,46 @@
 
 {% block content %}
 
-    <p>{{ event.name }}</p>
-    <p>{{ event.startDate|date('d/m/Y') }}</p>
-    <p>{{ event.subscriptionLimit|date('d/m/Y') }}</p>
-    <p>{{ event.maxUsers }}</p>
-    <p>{{ event.duration|date('H:i:s') }}</p>
-    <p>{{ event.infos }}</p>
-    <p>{{ event.organizater.userName }}</p>
-    <p>{{ event.location.city.name }}</p>
-    <p>{{ event.campus.name }}</p>
-    <p>{{ event.location.name }}</p>
-    <p>{{ event.location.street }}</p>
-    <p>{{ event.location.city.codePostal }}</p>
-    <p>{{ event.location.latitude }}</p>
-    <p>{{ event.location.longitude }}</p>
+    <h2>{{ event.name }}</h2>
+    <p>Date de la sortie : {{ event.startDate|date('d/m/Y') }}</p>
+    <p>Date limite d'inscription : {{ event.subscriptionLimit|date('d/m/Y') }}</p>
+    <p>Durée :{{ event.duration|date('H:i:s') }}</p>
+    <p>Infos : {{ event.infos }}</p>
+    <p>Organisateur : {{ event.organizater.pseudo }} - Campus : {{ event.campus.name }}</p>
+    <p>Lieu : {{ event.location.name }}</p>
+    <p>{{ event.location.street}} {{ event.location.city.codePostal}} {{ event.location.city.name}}</p>
+    <p>Latitude : {{ event.location.latitude }}   Longitude: {{ event.location.longitude }}</p>
 
 
-{#    <p>{{ event.goers }}</p>#}
+    <h3>Liste des participants : </h3>
 
-    <table>
+    <table class="listGoers">
         <thead>
             <tr>
-                <th colspan="2">Liste des participants inscrits :</th>
+                <td>Pseudo</td>
+                <td>Nom</td>
             </tr>
         </thead>
         <tbody>
             {% for user in event.goers %}
                 <tr>
-                    <td>{{ user.firstName }}</td>
-                    <td>{{ user.lastName }}</td>
+                    <td>{{ user.pseudo }}</td>
+                    <td>{{ user.firstName}} {{ user.lastName|upper }}</td>
+                    <td><a href="{{ path('profil', {'pseudo': user.pseudo}) }}"><button class="btn btn-sm btn-primary">voir profil</button></a></td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+
+    <p>{{ event.goers|length }}/{{ event.maxUsers }} places disponibles</p>
+
+    <a href="javascript:history.go(-1)"><button class="btn btn-lg btn-primary" >Retour</button></a>
+
+    {% if canRegister %}
+       <button class="btn btn-lg btn-primary" >S'incrire</button>
+    {% endif %}
+
+
 
 
 {% endblock %}

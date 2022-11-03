@@ -9,12 +9,11 @@
 {% block content %}
 
     <h2>{{ user.pseudo }}</h2>
-    <p>{{ user.firstName }}</p>
-    <p>{{ user.lastName }}</p>
-    <p>{{ user.phoneNumber }}</p>
-    <p>{{ user.email }}</p>
-    <p>{{ user.campus.name }}</p>
+    <p>Nom : {{ user.firstName }} {{ user.lastName|upper }}</p>
+    <p>Telephone :{{ user.phoneNumber }}</p>
+    <p>Email : {{ user.email }}</p>
+    <p>Campus :{{ user.campus.name }}</p>
 
-    <button class="btn btn-lg btn-primary" type="submit">Retour</button>
+   <a href="javascript:history.go(-1)"><button class="btn btn-lg btn-primary" >Retour</button></a>
 
 {% endblock %}

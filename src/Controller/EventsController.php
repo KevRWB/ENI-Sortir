@@ -107,12 +107,45 @@ class EventsController extends AbstractController
     {
         $event = $eventRepository->find($id);
 
+
+
+        //Show register button conditions
+        $maxGoersReach = false;
+        $userIsNotGoer = false;
+        $userIsNotOrganizer = false;
+
+        $canRegister = false;
+        $canUnRegister = false;
+
+        $goersList =  $event->getGoers()->getValues();
+
+        if(count($goersList) < $event->getMaxUsers()){
+            $maxGoersReach = true;
+        }
+
+        if(!in_array($this->getUser(), $goersList)){
+            $userIsNotGoer = true;
+        }
+
+        if($this->getUser()->getPseudo() != $event->getOrganizater()->getPseudo()){
+            $userIsNotOrganizer = true;
+        }
+
+        if($maxGoersReach && $userIsNotGoer && $userIsNotOrganizer &&$event->getState()->getLibelle() == 'opened'){
+            $canRegister = true;
+        }
+
+
+        // Error if event doesn't exist
         if ($event === null) {
             throw $this->createNotFoundException('Cette sortie n\'existe pas');
         }
 
+        //return statement to the view
         return $this->render('events/event.html.twig', [
-            'event' => $event
+            'event' => $event,
+            'canRegister' => $canRegister,
+            'canUnRegister' => $canUnRegister
         ]);
     }
 
