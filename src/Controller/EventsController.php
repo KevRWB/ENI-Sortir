@@ -61,7 +61,7 @@ class EventsController extends AbstractController
         $searchForm->handleRequest($request);
 
 
-        $events = $eventRepository->findEvents($searchData, $this->getUser());
+        $events = $eventRepository->findEvents($searchData);
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()){
 
@@ -78,5 +78,18 @@ class EventsController extends AbstractController
 
     }
 
+    #[Route('/event/{id}', name: 'event')]
+    public function eventId(EventRepository $eventRepository,string $event): Response
+    {
+        $event = $eventRepository->findOneBy(['event'=>$event]);
+
+        if ($event === null) {
+            throw $this->createNotFoundException('Cette sortie n\'existe pas');
+        }
+
+        return $this->render('event/event.html.twig', [
+            'event' => $event
+        ]);
+    }
 
 }

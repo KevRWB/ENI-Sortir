@@ -21,14 +21,18 @@
 
     <p>Liste des participants inscrits :</p>
 
-    {% for pseudo in user %}
-        <tr>
-            <td class="pseudo"{{ user.pseudo }}>
-                <td class="name">
+    {% block javascripts %}
+        Swal.fire('Any fool can use a computer')
+    {% endblock %}
 
-                </td>
-            </td>
-        </tr>
-    {% endfor %}
+    {#    {% for pseudo in user %}#}
+{#        <tr>#}
+{#            <td class="pseudo"{{ user.pseudo }}>#}
+{#                <td class="name">#}
+
+{#                </td>#}
+{#            </td>#}
+{#        </tr>#}
+{#    {% endfor %}#}
 
 {% endblock %}
