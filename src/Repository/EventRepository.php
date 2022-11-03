@@ -50,7 +50,7 @@ class EventRepository extends ServiceEntityRepository
      *
      */
 
-    public function findEvents(SearchData $search, User $user): Paginator
+    public function findEvents(SearchData $search): Paginator
     {
 
         $qb = $this ->createQueryBuilder('events');
