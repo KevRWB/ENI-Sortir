@@ -10,6 +10,7 @@
     <p>Durée :{{ event.duration|date('H:i:s') }}</p>
     <p>Infos : {{ event.infos }}</p>
     <p>Organisateur : {{ event.organizater.pseudo }} - Campus : {{ event.campus.name }}</p>
+    <p>Statut : {{ event.state.libelle }}</p>
     <p>Lieu : {{ event.location.name }}</p>
     <p>{{ event.location.street}} {{ event.location.city.codePostal}} {{ event.location.city.name}}</p>
     <p>Latitude : {{ event.location.latitude }}   Longitude: {{ event.location.longitude }}</p>
@@ -43,6 +44,14 @@
         {{ form_start(registerForm) }}
         {{ form_widget(registerForm) }}
         <button type="submit" class="btn btn-lg btn-primary">M'inscrire</button>
+        {{ form_end(registerForm) }}
+
+    {% endif %}
+
+    {% if canUnRegister %}
+        {{ form_start(registerForm) }}
+        {{ form_widget(registerForm) }}
+        <button type="submit" class="btn btn-lg btn-primary">Me désinscrire</button>
         {{ form_end(registerForm) }}
     {% endif %}
 

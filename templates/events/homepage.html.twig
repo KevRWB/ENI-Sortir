@@ -18,6 +18,7 @@
             <div class="cardEvent">
                 <p>Nom sortie: {{ event.name }}</p>
                 <p>Organisateur : {{ event.organizater.pseudo }}</p>
+                <p>Statut : {{ event.state.libelle }}</p>
                 <a href="{{ path('event', {'id': event.id}) }}"><button type="button" class="btn btn-sm btn-secondary">Voir sortie</button></a>
             </div>>
 

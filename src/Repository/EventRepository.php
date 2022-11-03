@@ -107,6 +107,20 @@ class EventRepository extends ServiceEntityRepository
 
     }
 
+    public function findGoers(Event $event,){
+        $qb = $this->createQueryBuilder('event');
+
+        $qb->addSelect('goers')
+            ->leftJoin('event.goers', 'goers')
+            ->andWhere('event.id = :id')
+            ->setParameter('id', $event->getId())
+            ;
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
+
 
 
 }

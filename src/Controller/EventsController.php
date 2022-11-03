@@ -107,6 +107,8 @@ class EventsController extends AbstractController
     public function eventId(Request $request, EventRepository $eventRepository, EntityManagerInterface $em, int $id): Response
     {
         $event = $eventRepository->find($id);
+        //$eventGoers = $eventRepository->findGoers($event);
+
 
         //Show "register" button conditions
         $maxGoersReach = false;
@@ -118,7 +120,7 @@ class EventsController extends AbstractController
 
         $goersList =  $event->getGoers()->getValues();
 
-        if(count($goersList) <= $event->getMaxUsers()){
+        if(count($goersList) < $event->getMaxUsers()){
             $maxGoersReach = true;
         }
 
@@ -130,8 +132,13 @@ class EventsController extends AbstractController
             $userIsNotOrganizer = true;
         }
 
-        if($maxGoersReach && $userIsNotGoer && $userIsNotOrganizer &&$event->getState()->getLibelle() == 'opened'){
+        if($maxGoersReach && $userIsNotGoer && $userIsNotOrganizer && $event->getState()->getLibelle() == 'opened'){
             $canRegister = true;
+        }
+
+        //Show "unregister" button conditions
+        if(!$userIsNotGoer && $event->getState()->getLibelle() == 'opened'){
+            $canUnRegister = true;
         }
 
         //register form
@@ -140,10 +147,16 @@ class EventsController extends AbstractController
 
         if($registerForm->isSubmitted() && $registerForm->isValid()){
 
-            $event->addGoer($this->getUser());
+            if($canRegister){
+                $event->addGoer($this->getUser());
+            }elseif ($canUnRegister){
+                $event->removeGoer($this->getUser());
+            }
+
             $em->persist($event);
             $em->flush();
 
+            return $this->redirectToRoute('event', ['id' => $id]);
         }
 
 
@@ -155,6 +168,7 @@ class EventsController extends AbstractController
         //return statement to the view
         return $this->render('events/event.html.twig', [
             'event' => $event,
+            //'eventGoers' => $eventGoers,
             'canRegister' => $canRegister,
             'canUnRegister' => $canUnRegister,
             'registerForm' => $registerForm->createView(),
