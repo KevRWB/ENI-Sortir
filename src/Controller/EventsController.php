@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Form\CreateEventType;
 use App\Form\Model\SearchData;
+use App\Form\RegistrationEventType;
 use App\Form\SearchFormType;
 use App\Repository\EventRepository;
 use App\Repository\LocationRepository;
@@ -103,13 +104,11 @@ class EventsController extends AbstractController
     }
 
     #[Route('/events/{id}', name: 'event')]
-    public function eventId(EventRepository $eventRepository,int $id): Response
+    public function eventId(Request $request, EventRepository $eventRepository, EntityManagerInterface $em, int $id): Response
     {
         $event = $eventRepository->find($id);
 
-
-
-        //Show register button conditions
+        //Show "register" button conditions
         $maxGoersReach = false;
         $userIsNotGoer = false;
         $userIsNotOrganizer = false;
@@ -119,7 +118,7 @@ class EventsController extends AbstractController
 
         $goersList =  $event->getGoers()->getValues();
 
-        if(count($goersList) < $event->getMaxUsers()){
+        if(count($goersList) <= $event->getMaxUsers()){
             $maxGoersReach = true;
         }
 
@@ -135,6 +134,18 @@ class EventsController extends AbstractController
             $canRegister = true;
         }
 
+        //register form
+        $registerForm = $this->createForm(RegistrationEventType::class, $event);
+        $registerForm->handleRequest($request);
+
+        if($registerForm->isSubmitted() && $registerForm->isValid()){
+
+            $event->addGoer($this->getUser());
+            $em->persist($event);
+            $em->flush();
+
+        }
+
 
         // Error if event doesn't exist
         if ($event === null) {
@@ -145,8 +156,11 @@ class EventsController extends AbstractController
         return $this->render('events/event.html.twig', [
             'event' => $event,
             'canRegister' => $canRegister,
-            'canUnRegister' => $canUnRegister
+            'canUnRegister' => $canUnRegister,
+            'registerForm' => $registerForm->createView(),
         ]);
     }
+
+
 
 }

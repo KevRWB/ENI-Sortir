@@ -40,7 +40,10 @@
     <a href="javascript:history.go(-1)"><button class="btn btn-lg btn-primary" >Retour</button></a>
 
     {% if canRegister %}
-       <button class="btn btn-lg btn-primary" >S'incrire</button>
+        {{ form_start(registerForm) }}
+        {{ form_widget(registerForm) }}
+        <button type="submit" class="btn btn-lg btn-primary">M'inscrire</button>
+        {{ form_end(registerForm) }}
     {% endif %}
 
 

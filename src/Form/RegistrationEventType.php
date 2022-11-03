@@ -13,7 +13,7 @@ class RegistrationEventType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('save', SubmitType::class, ['label' => 'M\'inscrire'])
+
         ;
     }
 
