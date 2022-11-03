@@ -6,7 +6,6 @@ use App\Entity\Event;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\Validator\Constraints\Time;
 
 class EventFixtures extends Fixture  implements DependentFixtureInterface
 {

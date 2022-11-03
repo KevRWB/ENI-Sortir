@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ProfilType;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,17 +14,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     #[Route('/monProfil', name: 'monProfil')]
-    public function monProfil(Request $request): Response
+    public function monProfil(Request $request,  EntityManagerInterface $em , UserRepository $userRepository): Response
     {
+
+        $loggedUser = $this->getUser();
 
         $this->denyAccessUnlessGranted('ROLE_USER');
 
-        $user = new User();
-
-        $profilForm = $this->createForm(ProfilType::class, $user );
+        $profilForm = $this->createForm(ProfilType::class, $loggedUser );
         $profilForm->handleRequest($request);
 
         if($profilForm->isSubmitted() && $profilForm->isValid()){
+            $user = new User();
+            $datas = $profilForm->getData();
+
 
         }
 
