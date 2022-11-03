@@ -61,15 +61,16 @@ class ProfilType extends AbstractType
                 'required' => false,
             ])
 
-//            ->add('password', RepeatedType::class, [
-//                'type' => PasswordType::class,
-//                'invalid_message' => 'Les mots de passe doivent être identiques',
-//                'options' => ['attr' => ['class' => 'password-field']],
-//                'required' => false,
-//                'first_options'  => ['label' => 'Modifier le mot de passe : '],
-//                'second_options' => ['label' => 'Confirmer mot de passe : '],
-//
-//        ])
+            ->add('password2', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'Les mots de passe doivent être identiques',
+                'options' => ['attr' => ['class' => 'password-field']],
+                'required' => false,
+                'mapped' => false,
+                'first_options'  => ['label' => 'Modifier le mot de passe : '],
+                'second_options' => ['label' => 'Confirmer mot de passe : '],
+
+        ])
 
 
         ;
