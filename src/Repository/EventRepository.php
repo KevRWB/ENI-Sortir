@@ -50,7 +50,7 @@ class EventRepository extends ServiceEntityRepository
      *
      */
 
-    public function findEvents(SearchData $search, User $user): Paginator
+    public function findEvents(SearchData $search): Paginator
     {
 
         $qb = $this ->createQueryBuilder('events');
@@ -83,10 +83,6 @@ class EventRepository extends ServiceEntityRepository
         }
 
         if ($search->isBooked) {
-//            $qb->addselect('u')
-//                ->leftJoin('events.goers', 'u')
-//                ->andWhere('u =  :user')
-//                ->setParameter('user', $this->security->getUser());
 
             $qb->andWhere(':user MEMBER OF events.goers')
                 ->setParameter('user', $this->security->getUser());

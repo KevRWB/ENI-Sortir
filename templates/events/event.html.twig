@@ -19,16 +19,24 @@
     <p>{{ event.location.latitude }}</p>
     <p>{{ event.location.longitude }}</p>
 
-    <p>Liste des participants inscrits :</p>
 
-    {% for pseudo in user %}
-        <tr>
-            <td class="pseudo"{{ user.pseudo }}>
-                <td class="name">
+{#    <p>{{ event.goers }}</p>#}
 
-                </td>
-            </td>
-        </tr>
-    {% endfor %}
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2">Liste des participants inscrits :</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in event.goers %}
+                <tr>
+                    <td>{{ user.firstName }}</td>
+                    <td>{{ user.lastName }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 
 {% endblock %}

@@ -17,6 +17,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     {
         $admin = new User();
         $admin->setPseudo('admin');
+        $admin->setFirstName('admin');
+        $admin->setLastName('Istrateur');
+        $admin->setPhoneNumber('0611111111');
         $admin->setEmail('admin@admin.com');
         $admin->setPassword($this->hasher->hashPassword( $admin, 'admin'));
         $admin->setIsActive(true);
@@ -27,6 +30,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
         $jesse = new User();
         $jesse->setPseudo('jesse');
+        $jesse->setFirstName('Jesse');
+        $jesse->setLastName('Vankerrbrouck');
+        $jesse->setPhoneNumber('0611111111');
         $jesse->setEmail('jesse@jesse.com');
         $jesse->setPassword($this->hasher->hashPassword( $admin, 'jesse'));
         $jesse->setIsActive(true);
@@ -37,6 +43,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
         $emerick = new User();
         $emerick->setPseudo('emerick');
+        $emerick->setFirstName('Emerick');
+        $emerick->setLastName('Levieil');
+        $emerick->setPhoneNumber('0611111111');
         $emerick->setEmail('emerick@emerick.com');
         $emerick->setPassword($this->hasher->hashPassword( $admin, 'emerick'));
         $emerick->setIsActive(true);
@@ -47,6 +56,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
         $kevin = new User();
         $kevin->setPseudo('kevin');
+        $kevin->setFirstName('Kevin');
+        $kevin->setLastName('Renault');
+        $kevin->setPhoneNumber('069999999');
         $kevin->setEmail('kevin@kevin.com');
         $kevin->setPassword($this->hasher->hashPassword( $admin, 'kevin'));
         $kevin->setIsActive(true);
@@ -57,6 +69,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
         $maxime = new User();
         $maxime->setPseudo('maxime');
+        $maxime->setFirstName('Maxime');
+        $maxime->setLastName('Rousseau');
+        $maxime->setPhoneNumber('069999999');
         $maxime->setEmail('maxime@maxime.com');
         $maxime->setPassword($this->hasher->hashPassword( $admin, 'maxime'));
         $maxime->setIsActive(true);
@@ -67,6 +82,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
         $alan = new User();
         $alan->setPseudo('alan');
+        $alan->setFirstName('Alan');
+        $alan->setLastName('Marzin');
+        $alan->setPhoneNumber('069999999');
         $alan->setEmail('alan@alan.com');
         $alan->setPassword($this->hasher->hashPassword( $admin, 'alan'));
         $alan->setIsActive(true);
@@ -77,6 +95,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
         $roman = new User();
         $roman->setPseudo('roman');
+        $roman->setFirstName('Roman');
+        $roman->setLastName('Sueur');
+        $roman->setPhoneNumber('069999999');
         $roman->setEmail('roman@roman.com');
         $roman->setPassword($this->hasher->hashPassword( $admin, 'roman'));
         $roman->setIsActive(true);
@@ -87,6 +108,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
         $eliot = new User();
         $eliot->setPseudo('eliot');
+        $eliot->setFirstName('Eliot');
+        $eliot->setLastName('Galle');
+        $eliot->setPhoneNumber('069999999');
         $eliot->setEmail('eliot@eliot.com');
         $eliot->setPassword($this->hasher->hashPassword( $admin, 'eliot'));
         $eliot->setIsActive(true);
@@ -97,6 +121,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
         $marcela = new User();
         $marcela->setPseudo('marcela');
+        $marcela->setFirstName('Dorel');
+        $marcela->setLastName('Galle');
+        $marcela->setPhoneNumber('069999999');
         $marcela->setEmail('marcela@marcela.com');
         $marcela->setPassword($this->hasher->hashPassword( $admin, 'marcela'));
         $marcela->setIsActive(true);
@@ -107,6 +134,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
         $axelle = new User();
         $axelle->setPseudo('axelle');
+        $axelle->setFirstName('Axelle');
+        $axelle->setLastName('Cardin');
+        $axelle->setPhoneNumber('069999999');
         $axelle->setEmail('axelle@axelle.com');
         $axelle->setPassword($this->hasher->hashPassword( $admin, 'axelle'));
         $axelle->setIsActive(true);
