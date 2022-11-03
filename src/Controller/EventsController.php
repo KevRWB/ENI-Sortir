@@ -61,7 +61,7 @@ class EventsController extends AbstractController
         $searchForm->handleRequest($request);
 
 
-        $events = $eventRepository->findEvents($searchData, $this->getUser());
+        $events = $eventRepository->findEvents($searchData);
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()){
 
