@@ -78,16 +78,16 @@ class EventsController extends AbstractController
 
     }
 
-    #[Route('/event/{id}', name: 'event')]
-    public function eventId(EventRepository $eventRepository,string $event): Response
+    #[Route('/events/{id}', name: 'event')]
+    public function eventId(EventRepository $eventRepository,int $id): Response
     {
-        $event = $eventRepository->findOneBy(['event'=>$event]);
+        $event = $eventRepository->find($id);
 
         if ($event === null) {
             throw $this->createNotFoundException('Cette sortie n\'existe pas');
         }
 
-        return $this->render('event/event.html.twig', [
+        return $this->render('events/event.html.twig', [
             'event' => $event
         ]);
     }
