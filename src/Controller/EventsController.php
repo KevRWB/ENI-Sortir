@@ -78,7 +78,7 @@ class EventsController extends AbstractController
 
     }
 
-    #[Route('/events/{id}', name: 'events')]
+    #[Route('/events/{id}', name: 'event')]
     public function eventId(EventRepository $eventRepository,int $id): Response
     {
         $event = $eventRepository->find($id);
