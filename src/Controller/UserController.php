@@ -38,7 +38,7 @@ class UserController extends AbstractController
 
         if($profilForm->isSubmitted() && $profilForm->isValid()){
 
-            if(!empty($loggedUser->getPassword())){
+            if(!empty($profilForm->get('password2')->getData())){
 
                 $loggedUser->setPassword($this->hasher->hashPassword($loggedUser, $profilForm->get('password2')->getData()));
 
