@@ -10,6 +10,7 @@ use App\Form\SearchFormType;
 use App\Repository\EventRepository;
 use App\Repository\LocationRepository;
 use App\Repository\StateRepository;
+use App\Services\GetStates;
 use App\Services\UpdateEventState;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -77,9 +78,9 @@ class EventsController extends AbstractController
     }
 
     #[Route('/accueil', name:'homepage')]
-    public function searchEvents(Request $request, EventRepository $eventRepository, UpdateEventState $updateEventState, StateRepository $stateRepository): Response{
+    public function searchEvents(Request $request, EventRepository $eventRepository, UpdateEventState $updateEventState, StateRepository $stateRepository, GetStates $getStates): Response{
 
-        $updateEventState->updateState($eventRepository, $stateRepository);
+        $updateEventState->updateState($eventRepository, $stateRepository, $getStates);
 
         $searchData = new SearchData();
         $searchForm = $this->createForm(SearchFormType::class, $searchData);
