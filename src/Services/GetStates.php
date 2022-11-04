@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Entity\State;
 use App\Repository\StateRepository;
 
-class getStates
+class GetStates
 {
 
     private $stateCreated;

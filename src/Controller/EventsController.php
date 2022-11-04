@@ -25,7 +25,7 @@ class EventsController extends AbstractController
 
 
     #[Route('/new', name: 'event_new')]
-    public function new(Request $request, EntityManagerInterface $em, StateRepository $stateRepository, GetStates $getStates): Response
+    public function new(Request $request, EntityManagerInterface $em, GetStates $getStates): Response
     {
         $event = new Event();
         $eventForm = $this->createForm(CreateEventType::class, $event);
@@ -117,8 +117,6 @@ class EventsController extends AbstractController
     public function eventId(Request $request, EventRepository $eventRepository, EntityManagerInterface $em, int $id): Response
     {
         $event = $eventRepository->find($id);
-        //$eventGoers = $eventRepository->findGoers($event);
-
 
         //Show "register" button conditions
         $maxGoersReach = false;
