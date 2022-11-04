@@ -1,19 +1,29 @@
 {#<span onclick="openNav()">#}
 {#    <img  id="buger-icon" class="manImg" src="images/burger.png" width="50px">#}
 {#</span>#}
-<div class="d-inline-flex ">
-        <a href="{{ path('homepage') }}" class="d-inline-flex">
+<div class="d-flex justify-content-between">
+    <div class="">
+        <a href="{{ path('homepage') }}">
             <img id="imgLogo" src="#" alt="Logo">
+        </a>
+    </div>
+    <div class="">
+        <a href="{{ path('homepage') }}">
             <h2>SORTIR</h2>
         </a>
+    </div>
+    <div class="">
+        {% if is_granted('ROLE_USER') %}
+            <a id="hamburger-icon" onclick="openNav()" title="Menu">
+                <span class="line line-1"></span>
+                <span class="line line-2"></span>
+                <span class="line line-3"></span>
+            </a>
+        {% endif %}
 
-    {% if is_granted('ROLE_USER') %}
-        <a id="hamburger-icon" onclick="openNav()" title="Menu">
-            <span class="line line-1"></span>
-            <span class="line line-2"></span>
-            <span class="line line-3"></span>
-        </a>
-    {% endif %}
+    </div>
+
+
 </div>
 
 
