@@ -35,15 +35,11 @@ body {
     max-width: 88%;
 }
 .top-nav{
-    display: flex;
-    flex-wrap: wrap;
-    align-content: space-between;
+
 }
 #hamburger-icon {
     width: 50px;
     height: 35px;
-
-
 }
 
 #hamburger-icon .line {

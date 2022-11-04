@@ -15,12 +15,21 @@
     {% if events is defined %}
         {% for event in events %}
 
-            <div class="cardEvent">
-                <p>Nom sortie: {{ event.name }}</p>
-                <p>Organisateur : {{ event.organizater.pseudo }}</p>
-                <p>Statut : {{ event.state.libelle }}</p>
-                <a href="{{ path('event', {'id': event.id}) }}"><button type="button" class="btn btn-sm btn-secondary">Voir sortie</button></a>
-            </div>>
+            <div class="cardEvent d-flex">
+                <div class="me-auto">
+                    <p>Nom sortie: {{ event.name }}</p>
+                </div>
+                <div class="me-2">
+                    <p>Organisateur : {{ event.organizater.pseudo }}</p>
+                </div>
+                <div class="me-5">
+                    <p>Statut : {{ event.state.libelle }}</p>
+                </div>
+                <div class="me-5">
+                    <a href="{{ path('event', {'id': event.id}) }}"><button type="button" class="btn btn-sm btn-secondary">Voir sortie</button></a>
+                </div>
+
+            </div>
 
         {% endfor %}
     {% endif %}

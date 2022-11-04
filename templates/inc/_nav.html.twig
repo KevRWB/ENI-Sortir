@@ -1,7 +1,7 @@
 {#<span onclick="openNav()">#}
 {#    <img  id="buger-icon" class="manImg" src="images/burger.png" width="50px">#}
 {#</span>#}
-<div class="d-flex justify-content-between">
+<div class="d-flex justify-content-between top-nav">
     <div class="">
         <a href="{{ path('homepage') }}">
             <img id="imgLogo" src="#" alt="Logo">
@@ -12,15 +12,14 @@
             <h2>SORTIR</h2>
         </a>
     </div>
-    <div class="">
+    <div id="hamburger-icon" onclick="openNav()">
         {% if is_granted('ROLE_USER') %}
-            <a id="hamburger-icon" onclick="openNav()" title="Menu">
+            <a   title="Menu">
                 <span class="line line-1"></span>
                 <span class="line line-2"></span>
                 <span class="line line-3"></span>
             </a>
         {% endif %}
-
     </div>
 
 

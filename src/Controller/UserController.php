@@ -31,7 +31,7 @@ class UserController extends AbstractController
 
         $this->denyAccessUnlessGranted('ROLE_USER');
 
-        $profilForm = $this->createForm(ProfilType::class, $loggedUser );
+        $profilForm = $this->createForm(ProfilType::class, $loggedUser);
         $profilForm->handleRequest($request);
 
 

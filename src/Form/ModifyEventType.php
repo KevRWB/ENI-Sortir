@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
 
-class CreateEventType extends AbstractType
+class ModifyEventType extends AbstractType
 {
     public function __construct(private Security $security)
     {
@@ -68,8 +68,8 @@ class CreateEventType extends AbstractType
 
             ->add('save', SubmitType::class, ['label' => 'Save'])
 
-            ->add('publish', SubmitType::class, ['label' => 'Publish'])
-
+            ->add('addCity', SubmitType::class, ['label' => 'Add City'])
+            ->add('addLocation', SubmitType::class, ['label' => 'Add Location'])
         ;
     }
 

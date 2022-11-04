@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sorties{% endblock %}
+
+{% block content %}
+
+    <h2>Gerer les villes</h2>
+{#    <p>Date de la sortie : {{ event.startDate|date('d/m/Y') }}</p>#}
+{#    <p>Date limite d'inscription : {{ event.subscriptionLimit|date('d/m/Y') }}</p>#}
+{#    <p>Durée :{{ event.duration|date('H:i:s') }}</p>#}
+{#    <p>Infos : {{ event.infos }}</p>#}
+{#    <p>Organisateur : {{ event.organizater.pseudo }} - Campus : {{ event.campus.name }}</p>#}
+{#    <p>Statut : {{ event.state.libelle }}</p>#}
+{#    <p>Lieu : {{ event.location.name }}</p>#}
+{#    <p>{{ event.location.street}} {{ event.location.city.codePostal}} {{ event.location.city.name}}</p>#}
+    <p>Filtrer les villes</p>
+
+
+    <table class="listCities">
+        <thead>
+            <tr>
+                <td>Citiy</td>
+                <td>CP</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for city in cities %}
+                <tr>
+                    <td>{{ city.name }}</td>
+                    <td>{{ city.codePostal}}</td>
+                    <td>
+                        <a href=""><button class="btn btn-sm btn-primary">Modifier</button></a>
+                        <a href=""><button class="btn btn-sm btn-primary">Supprimer</button></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            {{ form_start(cityForm) }}
+                <tr>
+                    <td>
+                        {{ form_widget(cityForm.name) }}
+                    </td>
+                    <td>
+                        {{ form_widget(cityForm.codePostal) }}
+                    </td>
+                    <td>
+                        {{ form_widget(cityForm.save) }}
+                    </td>
+                </tr>
+            {{ form_end(cityForm) }}
+        </tbody>
+    </table>
+
+    <a href="javascript:history.go(-1)"><button class="btn btn-lg btn-primary" >Retour</button></a>
+
+
+{% endblock %}
