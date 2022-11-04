@@ -15,10 +15,12 @@ use PharIo\Manifest\Application;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -37,14 +39,17 @@ class CreateEventType extends AbstractType
             ->add('name', TextType::class,[
                 'label' => 'Nom'
             ])
-            ->add('startDate', DateType::class,[
+            ->add('startDate', DateTimeType::class,[
                 'widget' => 'single_text'
             ])
-            ->add('subscriptionLimit', DateType::class,[
+            ->add('subscriptionLimit', DateTimeType::class,[
                 'widget' => 'single_text'
             ])
             ->add('maxUsers')
-            ->add('duration')
+            ->add('duration',  TimeType::class, [
+//               'widget' => 'single_text'
+            ])
+
             ->add('infos', TextareaType::class, [
                 'label' => 'Description'
             ])

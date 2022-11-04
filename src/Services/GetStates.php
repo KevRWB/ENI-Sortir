@@ -10,6 +10,7 @@ class getStates
 
     private $stateCreated;
     private $stateOpened;
+    private $stateClosed;
     private $stateInProgress;
     private $statePassed;
     private $stateCanceled;
@@ -30,10 +31,11 @@ class getStates
 
         $this->stateCreated = $states[0];
         $this->stateOpened = $states[1];
-        $this->stateInProgress = $states[2];
-        $this->statePassed = $states[3];
-        $this->stateCanceled = $states[4];
-//        $this->stateArchive = $stateArchive;
+        $this->stateClosed = $states[2];
+        $this->stateInProgress = $states[3];
+        $this->statePassed = $states[4];
+        $this->stateCanceled = $states[5];
+        $this->stateArchive = $states[6];
     }
 
     /**
@@ -82,6 +84,14 @@ class getStates
     public function getStateArchive()
     {
         return $this->stateArchive;
+    }
+
+    /**
+     * @return State
+     */
+    public function getStateClosed(): State
+    {
+        return $this->stateClosed;
     }
 
 

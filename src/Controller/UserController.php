@@ -46,7 +46,6 @@ class UserController extends AbstractController
 
             $em->persist($loggedUser);
             $em->flush();
-
         }
 
         return $this->render('user/monProfil.html.twig', [

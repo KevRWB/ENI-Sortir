@@ -43,7 +43,7 @@ class EventsController extends AbstractController
     }
 
     #[Route('/new', name: 'event_new')]
-    public function new(Request $request, EntityManagerInterface $em, StateRepository $stateRepository): Response
+    public function new(Request $request, EntityManagerInterface $em, StateRepository $stateRepository, GetStates $getStates): Response
     {
         $event = new Event();
         $eventForm = $this->createForm(CreateEventType::class, $event);
@@ -54,14 +54,14 @@ class EventsController extends AbstractController
 
             if($eventForm->get('save')->isClicked()){
                 $event->setOrganizater($this->getUser());
-                $event->setState($stateRepository->findOneBy(['libelle' => 'created']));
+                $event->setState($getStates->getStateOpened());
                 $event->setCampus($this->getUser()->getCampus());
                 $em->persist($event);
                 $em->flush();
             }
             if($eventForm->get('publish')->isClicked()){
                 $event->setOrganizater($this->getUser());
-                $event->setState($stateRepository->findOneBy(['libelle' => 'opened']));
+                $event->setState($getStates->getStateCreated());
                 $event->setCampus($this->getUser()->getCampus());
                 $em->persist($event);
                 $em->flush();
@@ -78,9 +78,9 @@ class EventsController extends AbstractController
     }
 
     #[Route('/accueil', name:'homepage')]
-    public function searchEvents(Request $request, EventRepository $eventRepository, UpdateEventState $updateEventState, StateRepository $stateRepository, GetStates $getStates): Response{
+    public function searchEvents(Request $request, EventRepository $eventRepository, UpdateEventState $updateEventState, GetStates $getStates, EntityManagerInterface $em): Response{
 
-        $updateEventState->updateState($eventRepository, $stateRepository, $getStates);
+        $updateEventState->updateState($eventRepository, $getStates, $em);
 
         $searchData = new SearchData();
         $searchForm = $this->createForm(SearchFormType::class, $searchData);
