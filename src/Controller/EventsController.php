@@ -10,12 +10,10 @@ use App\Form\SearchFormType;
 use App\Repository\EventRepository;
 use App\Repository\LocationRepository;
 use App\Repository\StateRepository;
+use App\Services\UpdateEventState;
 use Doctrine\ORM\EntityManagerInterface;
 
-
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -79,7 +77,9 @@ class EventsController extends AbstractController
     }
 
     #[Route('/accueil', name:'homepage')]
-    public function searchEvents(Request $request, EventRepository $eventRepository): Response{
+    public function searchEvents(Request $request, EventRepository $eventRepository, UpdateEventState $updateEventState, StateRepository $stateRepository): Response{
+
+        $updateEventState->updateState($eventRepository, $stateRepository);
 
         $searchData = new SearchData();
         $searchForm = $this->createForm(SearchFormType::class, $searchData);
