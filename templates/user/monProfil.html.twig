@@ -8,9 +8,11 @@
 {% endblock %}
 
 {% block content %}
+    <img src="{{ asset('images/profilePictures/' ~  user.profilePicture ) }}">
 
     {{ form_start(profilForm) }}
     {{ form_widget(profilForm) }}
+
     <button type="submit" class="noselect buttonAnim">Modifier Profil</button>
     {{ form_end(profilForm) }}
 
