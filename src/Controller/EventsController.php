@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Form\CreateEventType;
 use App\Form\Model\SearchData;
+use App\Form\ModifyEventType;
 use App\Form\RegistrationEventType;
 use App\Form\SearchFormType;
 use App\Repository\EventRepository;
@@ -21,26 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class EventsController extends AbstractController
 {
-    #[Route('/getLocationsFromCity/{id}', name: 'locations_from_city')]
-    public function LocationsListOfACity( LocationRepository $locationRepository, int $id = 1)
-    {
 
-        $locations = $locationRepository->createQueryBuilder('l')
-            ->where('l.city = :cityId')
-            ->setParameter('cityId', $id)
-            ->getQuery()
-            ->getResult();
-
-        $responseArray = array();
-        foreach ($locations as $location){
-            $responseArray[] = array(
-                'id' => $location->getId(),
-                'name' => $location->getName()
-            );
-        }
-
-        return $this->json($responseArray);
-    }
 
     #[Route('/new', name: 'event_new')]
     public function new(Request $request, EntityManagerInterface $em, StateRepository $stateRepository, GetStates $getStates): Response
@@ -66,13 +48,40 @@ class EventsController extends AbstractController
                 $em->persist($event);
                 $em->flush();
             }
-            if($eventForm->get('cancel')->isClicked()){
-                return $this->redirectToRoute('homepage');
-            }
 
             return $this->redirectToRoute('homepage');
         }
         return $this->render('events/new.html.twig', [
+            'eventForm'=>$eventForm->createView(),
+        ]);
+    }
+
+    #[Route('/modify/{id}', name: 'event_modify')]
+    public function modify(Request $request, EntityManagerInterface $em, EventRepository $eventRepository, int $id): Response
+    {
+        $event = $eventRepository->find($id);
+        $eventForm = $this->createForm(ModifyEventType::class, $event);
+
+        $eventForm->handleRequest($request);
+
+        if($eventForm->isSubmitted() && $eventForm->isValid()){
+
+            if($eventForm->get('save')->isClicked()){
+                $em->persist($event);
+                $em->flush();
+            }
+            if($eventForm->get('addCity')->isClicked()){
+                return $this->redirectToRoute('city');
+            }
+            if($eventForm->get('addLocation')->isClicked()){
+                return $this->redirectToRoute('event', ['id' => $id]);
+            }
+
+
+
+            return $this->redirectToRoute('event', ['id' => $id]);
+        }
+        return $this->render('events/modify.html.twig', [
             'eventForm'=>$eventForm->createView(),
         ]);
     }
@@ -172,8 +181,30 @@ class EventsController extends AbstractController
             //'eventGoers' => $eventGoers,
             'canRegister' => $canRegister,
             'canUnRegister' => $canUnRegister,
+            'isOrganizer' => $userIsNotOrganizer,
             'registerForm' => $registerForm->createView(),
         ]);
+    }
+
+    #[Route('/getLocationsFromCity/{id}', name: 'locations_from_city')]
+    public function LocationsListOfACity( LocationRepository $locationRepository, int $id = 1)
+    {
+
+        $locations = $locationRepository->createQueryBuilder('l')
+            ->where('l.city = :cityId')
+            ->setParameter('cityId', $id)
+            ->getQuery()
+            ->getResult();
+
+        $responseArray = array();
+        foreach ($locations as $location){
+            $responseArray[] = array(
+                'id' => $location->getId(),
+                'name' => $location->getName()
+            );
+        }
+
+        return $this->json($responseArray);
     }
 
 

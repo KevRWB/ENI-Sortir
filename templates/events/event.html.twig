@@ -38,24 +38,25 @@
 
     <p>{{ event.goers|length }}/{{ event.maxUsers }} places disponibles</p>
 
+
+
+
+        {{ form_start(registerForm) }}
+        {{ form_widget(registerForm) }}
+            {% if canRegister %}
+                <button type="submit" class="btn btn-lg btn-primary">M'inscrire</button>
+            {% endif %}
+            {% if canUnRegister %}
+                <button type="submit" class="btn btn-lg btn-primary">Me désinscrire</button>
+            {% endif %}
+            {% if not isOrganizer %}
+                <a href="{{ path('event_modify', {'id':event.id }) }}" class="btn btn-primary">Modify</a>
+
+            {% endif %}
+        {{ form_end(registerForm) }}
+
+
     <a href="javascript:history.go(-1)"><button class="btn btn-lg btn-primary" >Retour</button></a>
-
-    {% if canRegister %}
-        {{ form_start(registerForm) }}
-        {{ form_widget(registerForm) }}
-        <button type="submit" class="btn btn-lg btn-primary">M'inscrire</button>
-        {{ form_end(registerForm) }}
-
-    {% endif %}
-
-    {% if canUnRegister %}
-        {{ form_start(registerForm) }}
-        {{ form_widget(registerForm) }}
-        <button type="submit" class="btn btn-lg btn-primary">Me désinscrire</button>
-        {{ form_end(registerForm) }}
-    {% endif %}
-
-
 
 
 {% endblock %}
