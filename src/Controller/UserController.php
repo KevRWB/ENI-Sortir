@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ProfilType;
 use App\Repository\UserRepository;
+use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -21,7 +23,7 @@ class UserController extends AbstractController
 
 
     #[Route('/monProfil', name: 'monProfil')]
-    public function monProfil(Request $request,  EntityManagerInterface $em, UserRepository $userRepository ): Response
+    public function monProfil(Request $request,  EntityManagerInterface $em, UserRepository $userRepository,  FileUploader $fileUploader): Response
     {
 
         /**
@@ -43,6 +45,12 @@ class UserController extends AbstractController
                 $loggedUser->setPassword($this->hasher->hashPassword($loggedUser, $profilForm->get('password2')->getData()));
 
             }
+            /** @var UploadedFile $profilePicture */
+            $profilePicture = $profilForm->get('profilePicture')->getData();
+            if($profilePicture){
+                $picture = $fileUploader->upload($profilePicture);
+                $loggedUser->setProfilePicture($picture);
+            }
 
             $em->persist($loggedUser);
             $em->flush();
@@ -51,6 +59,7 @@ class UserController extends AbstractController
 
         return $this->render('user/monProfil.html.twig', [
             'profilForm' => $profilForm->createView(),
+            'user' => $loggedUser,
         ]);
     }
 

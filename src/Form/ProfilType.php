@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -70,7 +71,12 @@ class ProfilType extends AbstractType
                 'first_options'  => ['label' => 'Modifier le mot de passe : '],
                 'second_options' => ['label' => 'Confirmer mot de passe : '],
 
-        ])
+            ])
+
+            ->add('profilePicture', FileType::class, [
+                'mapped'=>false,
+                'required'=>false
+            ])
 
 
         ;

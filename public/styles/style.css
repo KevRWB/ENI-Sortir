@@ -22,10 +22,10 @@ body {
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 1600px;
     width: 100%;
     margin: auto;
-    padding: 5px;
+    padding: 5px 20px 5px;
 
 }
 
@@ -34,9 +34,7 @@ body {
     margin: 0 2.5rem 1.2rem 2rem;
     max-width: 88%;
 }
-.top-nav{
 
-}
 #hamburger-icon {
     width: 50px;
     height: 35px;
@@ -131,6 +129,8 @@ body {
 .sticky-table-column__sticky {
     /* Background color */
     background-color: #9ca3af;
+    padding: 5px;
+    padding-bottom: 0px;
 
     /* Stick to the left */
     left: 0;
@@ -139,31 +139,34 @@ body {
     /* Displayed on top of other rows when scrolling */
     z-index: 9999;
 }
+#recherche-button{
+    padding: 30px 60px 10px;
+}
 
 .fixed-at-side {
     position: fixed;
     top: 30%;
+    margin-top: 100px;
     transform: translate(0px, -50%);
 }
-    .fixed-at-side--l {
+.fixed-at-side--l {
     left: 0;
+    width: 80px;
+}
+@media screen and (max-width: 1600px) {
+    .cardEvent{
+        padding-left: 250px;
+    }
 }
 
-/*.main-flex{*/
-/*    display: flex;*/
-/*    width: 100%;*/
-/*    background-color: #B0413E;*/
-/*}*/
+@media screen and (max-width: 800px){
+    .sticky-table-column{
 
-/*.filters{*/
-/*    background-color: yellow;*/
+        display: inline-block;
 
-/*    left: -50px;!important;*/
-/*}*/
+    }
+}
 
-/*.event-list{*/
-/*    background-color: green;*/
-/*}*/
 
 /* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
 @media screen and (max-height: 450px) {
