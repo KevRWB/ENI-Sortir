@@ -4,25 +4,54 @@
 {% block title %}Accueil{% endblock %}
 
 {% block content %}
+    
     <h1>Liste des sorties</h1>
 
-    {{ form_start(searchForm) }}
-    {{ form_widget(searchForm) }}
-    <button type="submit" class="btn btn-lg btn-primary">Rechercher</button>
-    {{ form_end(searchForm) }}
+    <div class="fixed-at-side fixed-at-side--l">
+        <table class="sticky-table-column">
+            {{ form_start(searchForm) }}
+            <tbody>
+            <tr>
+                <td class="sticky-table-column__sticky">{{ form_widget(searchForm.search) }}</td>
+            </tr>
+            <tr>
+                <td class="sticky-table-column__sticky">{{ form_widget(searchForm.campus) }}</td>
+            </tr>
+            <tr>
+                <td class="sticky-table-column__sticky">{{ form_widget(searchForm.startDate) }}</td>
+            </tr>
+            <tr>
+                <td class="sticky-table-column__sticky">{{ form_widget(searchForm.endDate) }}</td>
+            </tr>
+            <tr>
+                <td class="sticky-table-column__sticky">{{ form_widget(searchForm.isOrganizer) }}</td>
+            </tr>
+            <tr>
+                <td class="sticky-table-column__sticky">{{ form_widget(searchForm.isBooked) }}</td>
+            </tr>
+            <tr>
+                <td class="sticky-table-column__sticky">{{ form_widget(searchForm.isNotBooked) }}</td>
+            </tr>
+            <tr>
+                <td class="sticky-table-column__sticky">{{ form_widget(searchForm.passedEvents) }}</td>
+            </tr>
+            <button type="submit" class="btn btn-lg btn-primary">Rechercher</button>
+            </tbody>
+            {{ form_end(searchForm) }}
+        </table>
+    </div>
 
+        {% if events is defined %}
+            {% for event in events %}
 
-    {% if events is defined %}
-        {% for event in events %}
+                <div class="cardEvent">
+                    <p>Nom sortie: {{ event.name }}</p>
+                    <p>Organisateur : {{ event.organizater.pseudo }}</p>
+                    <p>Statut : {{ event.state.libelle }}</p>
+                    <a href="{{ path('event', {'id': event.id}) }}"><button type="button" class="btn btn-sm btn-secondary">Voir sortie</button></a>
+                </div>
 
-            <div class="cardEvent">
-                <p>Nom sortie: {{ event.name }}</p>
-                <p>Organisateur : {{ event.organizater.pseudo }}</p>
-                <p>Statut : {{ event.state.libelle }}</p>
-                <a href="{{ path('event', {'id': event.id}) }}"><button type="button" class="btn btn-sm btn-secondary">Voir sortie</button></a>
-            </div>>
-
-        {% endfor %}
-    {% endif %}
+            {% endfor %}
+        {% endif %}
 
 {% endblock %}
