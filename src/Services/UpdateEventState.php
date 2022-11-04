@@ -16,7 +16,10 @@ class UpdateEventState
 
         foreach ($events as $event){
 
-            if($event->getStartDate() >= $now){
+            $startDate = $event->getStartDate();
+            $endDate = $startDate
+
+            if($event->getStartDate() >= $now && $event->getStartDate()->add()){
                 $event->setState($getStates->getStateInProgress());
             }
 
