@@ -128,7 +128,42 @@ body {
     border-bottom: solid 2px black;
 }
 
+.sticky-table-column__sticky {
+    /* Background color */
+    background-color: #9ca3af;
 
+    /* Stick to the left */
+    left: 0;
+    position: sticky;
+
+    /* Displayed on top of other rows when scrolling */
+    z-index: 9999;
+}
+
+.fixed-at-side {
+    position: fixed;
+    top: 30%;
+    transform: translate(0px, -50%);
+}
+    .fixed-at-side--l {
+    left: 0;
+}
+
+/*.main-flex{*/
+/*    display: flex;*/
+/*    width: 100%;*/
+/*    background-color: #B0413E;*/
+/*}*/
+
+/*.filters{*/
+/*    background-color: yellow;*/
+
+/*    left: -50px;!important;*/
+/*}*/
+
+/*.event-list{*/
+/*    background-color: green;*/
+/*}*/
 
 /* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
 @media screen and (max-height: 450px) {
