@@ -176,7 +176,6 @@ class EventsController extends AbstractController
         //return statement to the view
         return $this->render('events/event.html.twig', [
             'event' => $event,
-            //'eventGoers' => $eventGoers,
             'canRegister' => $canRegister,
             'canUnRegister' => $canUnRegister,
             'isOrganizer' => $userIsNotOrganizer,

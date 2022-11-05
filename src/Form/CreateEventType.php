@@ -14,6 +14,7 @@ use http\Client\Curl\User;
 use PharIo\Manifest\Application;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -46,6 +47,7 @@ class CreateEventType extends AbstractType
                 'widget' => 'single_text'
             ])
             ->add('maxUsers')
+
             ->add('duration',  TimeType::class, [
 //               'widget' => 'single_text'
             ])
@@ -71,9 +73,26 @@ class CreateEventType extends AbstractType
                 'choice_label' => 'name',
             ])
 
-            ->add('save', SubmitType::class, ['label' => 'Save'])
+            ->add('return', ButtonType::class, [
+                'label' => 'Retour',
+                'attr'=> [
+                    'class' => 'btn-lg-perso'
+                ]
+            ])
 
-            ->add('publish', SubmitType::class, ['label' => 'Publish'])
+            ->add('save', SubmitType::class, [
+                'label' => 'Enregistrer',
+                'attr'=> [
+                    'class' => 'btn-lg-perso'
+                ]
+            ])
+
+            ->add('publish', SubmitType::class, [
+                'label' => 'Publish',
+                'attr'=> [
+                    'class' => 'btn-lg-perso'
+                ]
+            ])
 
         ;
     }

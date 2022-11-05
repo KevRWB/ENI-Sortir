@@ -4,13 +4,20 @@
 {% block title %}Accueil{% endblock %}
 
 {% block content %}
-    
+
     <h1>Liste des sorties</h1>
 
     <div class="fixed-at-side fixed-at-side--l">
-        <table class="sticky-table-column">
+
+        <table class="filters-table">
+            <thead>
+            <tr>
+                <th class="sticky-table-column__sticky" colspan="2"><h3>Filtrer les sorties</h3></th>
+            </tr>
+            </thead>
             {{ form_start(searchForm) }}
             <tbody>
+
             <div>
                 <tr>
                     <td class="sticky-table-column__sticky">{{ form_widget(searchForm.search) }}</td>
@@ -41,7 +48,7 @@
             </div>
 
             <tr>
-                <td class="sticky-table-column__sticky" id="recherche-button"><button type="submit" class="btn btn-lg btn-primary">Rechercher</button></td>
+                <td class="sticky-table-column__sticky" id="recherche-button"><button type="submit" class="btn-lg-perso">Rechercher</button></td>
             </tr>
 
             </tbody>
@@ -53,10 +60,17 @@
             {% for event in events %}
 
                 <div class="cardEvent">
-                    <p>Nom sortie: {{ event.name }}</p>
-                    <p>Organisateur : {{ event.organizater.pseudo }}</p>
-                    <p>Statut : {{ event.state.libelle }}</p>
-                    <a href="{{ path('event', {'id': event.id}) }}"><button type="button" class="btn btn-sm btn-secondary">Voir sortie</button></a>
+                    <div class="card-name">
+                        <p><strong>Nom sortie:</strong><br> {{ event.name }}</p>
+                        <p><strong>Organisateur :</strong>    {{ event.organizater.pseudo }}</p>
+                    </div>
+                    <div class="card-status">
+                        <p><strong>Statut :</strong><br> {{ event.state.libelle }}</p>
+                    </div>
+                    <div class="card-button">
+                        <a href="{{ path('event', {'id': event.id}) }}"><button type="button" class="btn-sm-perso">Voir sortie</button></a>
+                    </div>
+
                 </div>
 
             {% endfor %}

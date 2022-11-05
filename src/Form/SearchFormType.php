@@ -48,22 +48,34 @@ class SearchFormType extends AbstractType
             ])
             ->add('isOrganizer',  CheckboxType::class, [
                 'label' => 'Je suis organisateur',
-                'data' => true,
+//                'data' => true,
                 'required' => false,
+                'attr'=>[
+                    'class' => 'checkbox'
+                ]
             ])
             ->add('isBooked',  CheckboxType::class, [
                 'label' => 'Je participe',
-                'data' => true,
+//                'data' => true,
                 'required' => false,
+                'attr'=>[
+                    'class' => 'checkbox'
+                ]
             ])
             ->add('isNotBooked', CheckboxType::class, [
                 'label' => 'Je ne participe pas',
-                'data' => true,
+//                'data' => true,
                 'required' => false,
+                'attr'=>[
+                    'class' => 'checkbox'
+                ]
             ] )
             ->add('passedEvents', CheckboxType::class, [
                 'label' => 'Sorties passées',
                 'required' => false,
+                'attr'=>[
+                    'class' => 'checkbox'
+                ]
             ])
         ;
     }

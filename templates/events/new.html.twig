@@ -5,10 +5,24 @@
     <h1>Create Event</h1>
 
     {{ form_start(eventForm) }}
-    {{ form_widget(eventForm) }}
+{#    {{ form_widget(eventForm) }}#}
+    {{ form_row(eventForm.name) }}
+    {{ form_row(eventForm.startDate)}}
+    {{ form_row(eventForm.subscriptionLimit) }}
+    {{ form_row(eventForm.maxUsers) }}
+    {{ form_row(eventForm.duration) }}
+    {{ form_row(eventForm.infos) }}
+    {{ form_row(eventForm.city) }}
+    {{ form_row(eventForm.location) }}
+    <div class="btn-flex">
+        <a href="javascript:history.go(-1)">{{ form_row(eventForm.return) }}</a>
+        {{ form_row(eventForm.save) }}
+        {{ form_row(eventForm.publish) }}
+    </div>
+
     {{ form_end(eventForm) }}
 
-    <a href="javascript:history.go(-1)"><button class="btn btn-lg btn-primary" >Retour</button></a>
+
 {% endblock %}
 
 {% block javascripts %}
