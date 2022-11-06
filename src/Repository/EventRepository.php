@@ -6,6 +6,7 @@ use App\Entity\Event;
 use App\Entity\User;
 use App\Form\Model\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Security;
@@ -110,7 +111,7 @@ class EventRepository extends ServiceEntityRepository
 
     }
 
-    public function findAllEvents(): Paginator{
+    public function findAllEventsWithLocation(): Paginator{
         $qb = $this ->createQueryBuilder('events');
 
         $qb->addSelect('location')
@@ -119,6 +120,19 @@ class EventRepository extends ServiceEntityRepository
         $query = $qb->getQuery()->setMaxResults(10);
 
         return new Paginator($query);
+    }
+
+    public function findAllEventsWithGoersAndState(){
+        $qb = $this ->createQueryBuilder('events');
+
+        $qb->addSelect('goers')
+            ->leftJoin('events.goers', 'goers')
+            ->addSelect('state')
+            ->leftJoin('events.state', 'state');
+
+
+        return $qb->getQuery()->getResult();
+
     }
 
 }

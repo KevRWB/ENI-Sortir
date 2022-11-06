@@ -16,43 +16,52 @@ class UpdateEventState
         $now =  new \DateTime();
         $now = $now->add(new \DateInterval('PT1H'));
 
-//        $event = $eventRepository->find(12);
-//
+        $events = $eventRepository->findAllEventsWithGoersAndState();
+
+        /*Débug zone*/
+
+//        $event = $eventRepository->find(10);
 //        $startDate = $event->getStartDate();
+//        $endDate = clone $startDate;
 //        $duration =$event->getDuration();
-//
 //        $hours = $duration->format('H');
 //        $minutes = $duration->format('i');
 //        $interval = new \DateInterval('PT'.$hours.'H' . $minutes . 'M');
-//        $endDate = $startDate->add($interval);
-//        dd($endDate);
+//        $endDate->add($interval);
 //
 //        $dateArchive = $endDate->add(new \DateInterval('P1M'));
 //        $goersList = $event->getGoers()->getValues();
 //        $limitDate = $event->getSubscriptionLimit();
+//
+//        $isCanceled = $event->getState()->getLibelle() == $getStates->getStateCanceled()->getLibelle();
+//        $isInProgress = $startDate < $now && $endDate > $now;
+//
+//        dd($isInProgress);
 
 
 
-        $events = $eventRepository->findAll();
+        /*End debug zone*/
+
+
         foreach ($events as $event){
+
             $startDate = $event->getStartDate();
+            $endDate = clone $startDate;
             $duration =$event->getDuration();
             $hours = $duration->format('H');
             $minutes = $duration->format('i');
             $interval = new \DateInterval('PT'.$hours.'H' . $minutes . 'M');
-            $endDate = $startDate->add($interval);
+            $endDate->add($interval);
 
             $dateArchive = $endDate->add(new \DateInterval('P1M'));
             $goersList = $event->getGoers()->getValues();
             $limitDate = $event->getSubscriptionLimit();
 
-
             if($event->getState()->getLibelle() == $getStates->getStateCanceled()->getLibelle()){
                 $event->setState($getStates->getStateCanceled());
-            }elseif($startDate <= $now && $endDate >= $now){
+            }elseif($startDate < $now && $endDate > $now){
                 $event->setState($getStates->getStateInProgress());
-            }
-            elseif ($now > $dateArchive){
+            }elseif ($now > $dateArchive){
                 $event->setState(($getStates->getStateArchive()));
             }elseif ($now > $startDate){
                 $event->setState(($getStates->getStatePassed()));
