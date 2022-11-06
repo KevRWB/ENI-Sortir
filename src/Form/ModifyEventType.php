@@ -14,7 +14,9 @@ use http\Client\Curl\User;
 use PharIo\Manifest\Application;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -39,20 +41,23 @@ class ModifyEventType extends AbstractType
             ->add('name', TextType::class,[
                 'label' => 'Nom'
             ])
-            ->add('startDate', DateType::class,[
-                'widget' => 'single_text'
+            ->add('startDate', DateTimeType::class,[
+                'widget' => 'single_text',
+                'label' => 'Date et heure de la sortie',
             ])
-            ->add('subscriptionLimit', DateType::class,[
-                'widget' => 'single_text'
+            ->add('subscriptionLimit', DateTimeType::class,[
+                'widget' => 'single_text',
+                'label' => 'Date et heure limite d\'inscription',
             ])
             ->add('maxUsers', NumberType::class, [
-
+                'label' => 'Nombre max de participants',
             ])
             ->add('duration', TimeType::class, [
                 'widget' => 'choice',
+                'label' => 'Durée',
             ])
             ->add('infos', TextareaType::class, [
-                'label' => 'Description'
+                'label' => 'Description',
             ])
 
             ->add('city', EntityType::class, [
@@ -61,6 +66,7 @@ class ModifyEventType extends AbstractType
                     return $er->createQueryBuilder('c')->orderBy('c.name', 'ASC');
                 },
                 'choice_label' => 'name',
+                'label' => 'Ville',
                 'mapped' => false,
             ])
 
@@ -70,12 +76,35 @@ class ModifyEventType extends AbstractType
                     return $er->createQueryBuilder('c')->orderBy('c.city', 'ASC');
                 },
                 'choice_label' => 'name',
+                'label' => 'Lieu',
             ])
 
-            ->add('save', SubmitType::class, ['label' => 'Save'])
+            ->add('return', ButtonType::class, [
+                'label' => 'Retour',
+                'attr'=> [
+                    'class' => 'btn-lg-perso'
+                ]
+            ])
 
-            ->add('addCity', SubmitType::class, ['label' => 'Add City'])
-            ->add('addLocation', SubmitType::class, ['label' => 'Add Location'])
+            ->add('save', SubmitType::class, [
+                'label' => 'Sauvegarder',
+                'attr'=> [
+                    'class' => 'btn-lg-perso'
+                ]
+            ])
+
+            ->add('addCity', SubmitType::class, [
+                'label' => 'Ajouter ville',
+                'attr'=> [
+                    'class' => 'btn-sm-perso'
+                ]
+            ])
+            ->add('addLocation', SubmitType::class, [
+                'label' => 'Ajouter lieu',
+                'attr'=> [
+                    'class' => 'btn-sm-perso'
+                ]
+            ])
         ;
     }
 

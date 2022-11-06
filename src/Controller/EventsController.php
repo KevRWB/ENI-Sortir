@@ -95,13 +95,15 @@ class EventsController extends AbstractController
         $searchForm = $this->createForm(SearchFormType::class, $searchData);
         $searchForm->handleRequest($request);
 
+        $allEvents =$eventRepository->findAllEvents();
 
-        $events = $eventRepository->findEvents($searchData);
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()){
 
+            $allEvents = $eventRepository->findEvents($searchData);
+
             return $this->render('events/homepage.html.twig', [
-                'events' => $events,
+                'allEvents' => $allEvents,
                 'searchForm' => $searchForm->createView(),
             ]);
 
@@ -109,6 +111,7 @@ class EventsController extends AbstractController
 
         return $this->render('events/homepage.html.twig', [
             'searchForm' => $searchForm->createView(),
+            'allEvents' => $allEvents,
         ]);
 
     }

@@ -3,11 +3,15 @@
 
 {% block title %}Accueil{% endblock %}
 
-{% block content %}
-
-    <h1>Liste des sorties</h1>
-
+{% block filters %}
     <div class="fixed-at-side fixed-at-side--l">
+{#        <div class="filters-table">#}
+{#            {{ form_start(searchForm) }}#}
+{#            {{ form_widget(searchForm)}}#}
+{#            {{ form_end(searchForm) }}#}
+{#        </div>#}
+
+
 
         <table class="filters-table">
             <thead>
@@ -20,13 +24,25 @@
 
             <div>
                 <tr>
+                    <td class="sticky-table-column__sticky">Recherche dans le titre :</td>
+                </tr>
+                <tr>
                     <td class="sticky-table-column__sticky">{{ form_widget(searchForm.search) }}</td>
+                </tr>
+                <tr>
+                    <td class="sticky-table-column__sticky">Campus :</td>
                 </tr>
                 <tr>
                     <td class="sticky-table-column__sticky">{{ form_widget(searchForm.campus) }}</td>
                 </tr>
                 <tr>
+                    <td class="sticky-table-column__sticky">Entre le :</td>
+                </tr>
+                <tr>
                     <td class="sticky-table-column__sticky">{{ form_widget(searchForm.startDate) }}</td>
+                </tr>
+                <tr>
+                    <td class="sticky-table-column__sticky">Et le :</td>
                 </tr>
                 <tr>
                     <td class="sticky-table-column__sticky">{{ form_widget(searchForm.endDate) }}</td>
@@ -55,25 +71,39 @@
             {{ form_end(searchForm) }}
         </table>
     </div>
+{% endblock %}
 
-        {% if events is defined %}
-            {% for event in events %}
+{% block content %}
+    <div class="main-home">
+        <h1>Liste des sorties</h1>
 
-                <div class="cardEvent">
-                    <div class="card-name">
-                        <p><strong>Nom sortie:</strong><br> {{ event.name }}</p>
-                        <p><strong>Organisateur :</strong>    {{ event.organizater.pseudo }}</p>
-                    </div>
-                    <div class="card-status">
-                        <p><strong>Statut :</strong><br> {{ event.state.libelle }}</p>
-                    </div>
-                    <div class="card-button">
-                        <a href="{{ path('event', {'id': event.id}) }}"><button type="button" class="btn-sm-perso">Voir sortie</button></a>
-                    </div>
+            {% if allEvents is defined %}
+                {% for event in allEvents %}
+                    <a href="{{ path('event', {'id': event.id}) }}">
+                        <article class="cardEvent">
+                            <div class="card-img-div"><img class="card-img"
+                                        {% if event.location.locationPicture %}
+                                            src="{{ asset('images/locationPicture/' ~ event.location.locationPicture) }}" alt="Image : {{ event.location.locationPicture }}">
 
-                </div>
+                                        {% else %}
+                                            src="{{ asset('images/locationPicture/default.jpg') }}"  alt="Image : {{ event.location.locationPicture }}">
+                                        {% endif %}
+                            </div>
+                            <div class="card-name">
+                                <p><strong>{{ event.name }}</strong></p>
+    {#                            <p><strong>Organisateur :</strong>    {{ event.organizater.pseudo }}</p>#}
+                            </div>
+                            <div class="card-status">
+                                <p><strong>Statut</strong><br> {{ event.state.libelle }}</p>
+                            </div>
+{#                            <div class="card-button">#}
+{#                                <a href="{{ path('event', {'id': event.id}) }}"><button type="button" class="btn-sm-perso">Voir sortie</button>#}
+{#                            </div>#}
 
-            {% endfor %}
-        {% endif %}
+                        </article>
+                    </a>
+                {% endfor %}
+            {% endif %}
+    </div>
 
 {% endblock %}

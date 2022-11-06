@@ -7,12 +7,14 @@
 /*GLOBAL STYLE*/
 *{
     font-family: 'Roboto', sans-serif;
+    color: white;
     padding: 0px;
     margin:0px;
 }
 
 body {
-    background-color: #a0aecd;
+    /*background-color: #a0aecd;*/
+    background-image: url("../images/background/back_city_night.jpg");
     background-attachment: fixed;
     background-position: center center;
     background-size: cover;
@@ -20,17 +22,18 @@ body {
 }
 
 .container {
-    max-width: 1600px;
+    max-width: 2500px;
     width: 100%;
     margin: auto;
     padding: 5px 20px 5px;
-    min-height: 80vh;
+    min-height: 100vh;
+    backdrop-filter: blur(7px);
 }
 
 
 h1{
     font-size: 3rem;
-    color: #2f0e86;
+    color: #cfa8fa;
     font-weight: bold;
     padding-bottom: 30px;
 }
@@ -38,36 +41,32 @@ h1{
 /* NAV STYLE*/
 
 header{
-    padding-top: 20px;
-    padding-bottom: 35px;
-}
-
-.form-input{
-    margin: 0 2.5rem 1.2rem 2rem;
-    max-width: 88%;
+    padding-top: 30px;
+    padding-bottom: 5px;
 }
 
 #nav-title{
     font-family: 'Satisfy', cursive;
     font-size: 4.5rem;
     font-weight: 900;
-    background: linear-gradient(90deg, rgba(65,3,98,1) 0%, rgb(47, 14, 134) 51%, rgba(158,0,255,1) 100%);
+    background: linear-gradient(90deg, rgb(210, 169, 227) 0%, rgb(141, 1, 231) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    margin-left: 100px;
     
 }
-
 
 /*Nav menu style*/
 
 #hamburger-icon {
     width: 50px;
     height: 35px;
+    margin-right: 100px;
 }
 
 #hamburger-icon .line {
     width: 50px;
-    background: linear-gradient(90deg, rgba(65,3,98,1) 0%, rgb(47, 14, 134) 51%, rgba(158,0,255,1) 100%);
+    background: linear-gradient(90deg, rgb(210, 169, 227) 0%, rgb(141, 1, 231) 100%);
     margin: 6px 0 0 0;
     height: 5px;
     display: block;
@@ -79,17 +78,17 @@ header{
 
 #hamburger-icon:hover .line-1 {
     width: 30px;
-    background: #24288d;
+    background: #af63e3;
 }
 
 #hamburger-icon:hover .line-2 {
     width: 40px;
-    background: #531194;
+    background: #8332cc;
 }
 
 #hamburger-icon:hover .line-3 {
     width: 20px;
-    background: #2f0e86;
+    background: #af63e3;
 }
 
 .overlay {
@@ -120,7 +119,7 @@ header{
     padding: 8px;
     text-decoration: none;
     font-size: 36px;
-    color: #bf95fd;
+    color: #dcc8ff;
     display: block; /* Display block instead of inline */
     transition: 0.3s; /* Transition effects on hover (color) */
 }
@@ -139,9 +138,22 @@ header{
 }
 
 /*MAIN STYLE*/
-main h1{
-    text-align: center;
-    flex: 1;
+
+.main-home h1{
+    padding-left: 100px;
+}
+
+.main-home{
+    margin-left: 300px;
+    width: 80%;
+    min-height: 80vh;
+    /*background-color: #B0413E;*/
+}
+
+.main-others{
+    width: 60%;
+    min-height: 70vh;
+    margin: auto;
 }
 
 /*HOMEPAGE STYLE*/
@@ -149,8 +161,9 @@ main h1{
 /*Filters div*/
 .sticky-table-column__sticky {
     /* Background color */
+
     /*background-color: #9ca3af;*/
-    padding: 10px 20px;
+    padding: 5px 20px;
     /* Stick to the left */
     left: 0;
     position: sticky;
@@ -159,13 +172,12 @@ main h1{
     z-index: 9999;
 }
 #recherche-button{
-    padding: 30px 60px 10px;
+    padding: 20px 60px 10px;
 }
 
 .fixed-at-side {
     position: fixed;
-    top: 30%;
-    margin-top: 150px;
+    margin-top: 350px;
     transform: translate(0px, -50%);
 }
 .fixed-at-side--l {
@@ -174,47 +186,62 @@ main h1{
 }
 
 .filters-table{
-    background-color: #9ca3af;
-    height: 500px;
+    border-radius: 0px 20px 20px 0px;
+    background-color: rgba(152, 150, 150, 0.7);
 }
 
 
 /*Cards event style*/
 .cardEvent{
-    min-height: 100px;
-    padding: 0px 30px;
+    height: 130px;
     display: flex;
-    justify-content: space-around;
-    background-color: #B0413E;
-    width: 70%;
-    margin-left: 250px;
+    justify-content: space-between;
+    width: 80%;
     margin-bottom: 20px;
-    border-radius: 30px;
+    border-radius: 20px;
     color: white;
-    background: linear-gradient(90deg, rgba(65,3,98,1) 0%, rgba(9,9,121,1) 51%, rgba(158,0,255,1) 100%);
+    background: linear-gradient(90deg, rgb(193, 180, 203) 0%, rgb(145, 110, 168) 100%);
+    transition: all .1s ease-in-out;
+}
+
+.cardEvent:hover{
+    background: linear-gradient(90deg, rgb(127, 92, 134) 0%, rgb(118, 18, 185) 100%);
+    transform: scale(1.05);
+}
+
+.card-img-div{
+    width: 33%;
+}
+
+.card-img{
+    height: 100%;
+    border-radius: 20px 0px 0px 20px;
 }
 
 .card-name{
-    padding: 10px;
-    width: 30%;
+    font-size: 1.5rem;
+    padding-top: 25px;
+    width: 40%;
+    text-align: center;
 }
 
 .card-status{
-    height: 100%;
-    width: 20%;
+    min-height: 100px;
+    width: 15%;
     text-align: center;
-    padding-top: 35px;
+    padding-top: 20px;
+    background-color: #2f0e86;
+    border-radius: 0px 20px 20px 0px;
 
 }
 
 .card-button{
-    width: 20%;
+    width: 10%;
     text-align: center;
-    padding-top: 40px;
+    padding-top: 20px;
+    padding-right: 50px;
 
 }
-
-
 
 /*PROFIL PAGE STYLE*/
 .sub-header{
@@ -246,15 +273,15 @@ main h1{
     border-bottom: solid 2px black;
 }
 
-
 /*FOOTER STYLE*/
 footer{
     height: 10vh;
-    margin-top: 100px;
+    margin-top: 50px;
     text-align: center;
     font-size: 1.2rem;
     font-weight: lighter;
-    background-color: #5eb5e0;
+    color: white;
+    /*background-color: #5eb5e0;*/
 }
 
 /*Buttons Style*/

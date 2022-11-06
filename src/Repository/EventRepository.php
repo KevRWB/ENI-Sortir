@@ -55,6 +55,11 @@ class EventRepository extends ServiceEntityRepository
 
         $qb = $this ->createQueryBuilder('events');
 
+        $qb->addSelect('location')
+            ->leftJoin('events.location', 'location')
+            ->addSelect('state')
+            ->leftJoin('events.state', 'state');
+
         if (!empty($search->search)) {
             $qb ->andWhere('events.name LIKE :q')
                 ->setParameter('q',"%{$search->search}%");
@@ -94,9 +99,7 @@ class EventRepository extends ServiceEntityRepository
         }
 
         if ($search->passedEvents) {
-            $qb->addSelect('state')
-                ->leftJoin('events.state', 'state')
-                ->andWhere('state.libelle = :passed')
+            $qb->andWhere('state.libelle = :passed')
                 ->setParameter('passed', 'passed');
         }
 
@@ -107,18 +110,15 @@ class EventRepository extends ServiceEntityRepository
 
     }
 
-    public function findGoers(Event $event,){
-        $qb = $this->createQueryBuilder('event');
+    public function findAllEvents(): Paginator{
+        $qb = $this ->createQueryBuilder('events');
 
-        $qb->addSelect('goers')
-            ->leftJoin('event.goers', 'goers')
-            ->andWhere('event.id = :id')
-            ->setParameter('id', $event->getId())
-            ;
+        $qb->addSelect('location')
+            ->leftJoin('events.location', 'location');
 
-        $query = $qb->getQuery();
+        $query = $qb->getQuery()->setMaxResults(10);
 
-        return $query->getResult();
+        return new Paginator($query);
     }
 
 }

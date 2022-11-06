@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -41,15 +42,20 @@ class CreateEventType extends AbstractType
                 'label' => 'Nom'
             ])
             ->add('startDate', DateTimeType::class,[
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                'label' => 'Date et heure de la sortie',
             ])
             ->add('subscriptionLimit', DateTimeType::class,[
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                'label' => 'Date et heure limite d\'inscription',
             ])
-            ->add('maxUsers')
+            ->add('maxUsers', NumberType::class, [
+                'label' => 'Nombre max de participants',
+            ])
 
-            ->add('duration',  TimeType::class, [
-//               'widget' => 'single_text'
+            ->add('duration', TimeType::class, [
+                'widget' => 'choice',
+                'label' => 'Durée',
             ])
 
             ->add('infos', TextareaType::class, [
@@ -62,6 +68,7 @@ class CreateEventType extends AbstractType
                     return $er->createQueryBuilder('c')->orderBy('c.name', 'ASC');
                 },
                 'choice_label' => 'name',
+                'label' => 'Ville',
                 'mapped' => false,
             ])
 
@@ -71,6 +78,7 @@ class CreateEventType extends AbstractType
                     return $er->createQueryBuilder('c')->orderBy('c.city', 'ASC');
                 },
                 'choice_label' => 'name',
+                'label' => 'Lieu',
             ])
 
             ->add('return', ButtonType::class, [
@@ -88,7 +96,7 @@ class CreateEventType extends AbstractType
             ])
 
             ->add('publish', SubmitType::class, [
-                'label' => 'Publish',
+                'label' => 'Publier',
                 'attr'=> [
                     'class' => 'btn-lg-perso'
                 ]
