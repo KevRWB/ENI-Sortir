@@ -25,9 +25,6 @@
 
 </div>
 
-
-
-
 <div id="myNav" class="overlay">
 
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -40,7 +37,7 @@
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path('campus') }}" class="nav-link"> Gérer les campus</a>
             <a href="{{ path('city') }}" class="nav-link" >Gérer les villes</a>
-            <a href="{{ path('location_add') }}" class="nav-link">Gérer les lieux</a>
+{#            <a href="{{ path('location_add') }}" class="nav-link">Gérer les lieux</a>#}
         {% endif %}
 
         {% if app.user %}

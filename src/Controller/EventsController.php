@@ -85,7 +85,7 @@ class EventsController extends AbstractController
         $searchForm = $this->createForm(SearchFormType::class, $searchData);
         $searchForm->handleRequest($request);
 
-        $allEvents =$eventRepository->findAllEventsWithLocation();
+        $allEvents =$eventRepository->findEvents($searchData);
 
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()){
@@ -103,7 +103,6 @@ class EventsController extends AbstractController
             'searchForm' => $searchForm->createView(),
             'allEvents' => $allEvents,
         ]);
-
     }
 
     #[Route('/events/{id}', name: 'event')]

@@ -86,7 +86,6 @@ class ModifyEventType extends AbstractType
                     'class' => 'btn-lg-perso'
                 ]
             ])
-
         ;
     }
 
