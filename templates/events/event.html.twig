@@ -55,6 +55,20 @@
                 {% endif %}
                 <button onclick="history.go(-1)" class="btn-lg-perso" type="button">Retour</button>
             {{ form_end(registerForm) }}
+        {% if event.state.libelle == "opened" and event.organizater != app.user and app.user not in event.goers%}
+            <a href="{{ path('register_event', {'id':event.id }) }}" class="btn-lg-perso">S'inscrire</a>
+        {% endif %}
+
+        {% if app.user in event.goers%}
+            <a href="{{ path('unRegister_event', {'id':event.id }) }}" class="btn-lg-perso">Se désinscrire</a>
+        {% endif %}
+
+        {% if  event.organizater == app.user or is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('event_modify', {'id':event.id }) }}" class="btn-lg-perso">Modifier sortie</a>
+        {% endif %}
+
+        <button type="button" onclick="history.go(-1)" class="btn-lg-perso" >Retour</button>
+
 
     </div>
 

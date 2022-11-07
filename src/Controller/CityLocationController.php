@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\City;
+use App\Entity\Location;
 use App\Form\CityType;
+use App\Form\CreateLocationType;
 use App\Form\ModifyEventType;
 use App\Repository\CityRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -39,19 +41,47 @@ class CityLocationController extends AbstractController
         ]);
     }
 
-    #[Route('/modify', name: 'city_modify')]
-    public function modify(Request $request, CityRepository $cityRepository, int $id): Response
+    #[Route('/city/add', name: 'city_add')]
+    public function addCity(Request $request, EntityManagerInterface $em): Response
     {
-        $city = $cityRepository->find($id);
-        $cityForm = $this->createForm(ModifyEventType::class, $city);
+        $city=new City();
+
+        $cityForm = $this->createForm(CityType::class, $city);
 
         $cityForm->handleRequest($request);
 
         if($cityForm->isSubmitted() && $cityForm->isValid()){
 
-            if($cityForm->get('modify')->isClicked()){
-                return $this->redirectToRoute('city');
-            }
+            $em->persist($city);
+            $em->flush();
+
+            return $this->redirectToRoute('homepage');
         }
+
+        return $this->render('city_location/addCity.html.twig', [
+            'cityForm'=>$cityForm->createView(),
+        ]);
+    }
+
+    #[Route('/locations/add', name: 'location_add')]
+    public function locations(Request $request, EntityManagerInterface $em): Response
+    {
+        $location = new Location();
+        $locationForm = $this->createForm(CreateLocationType::class, $location);
+
+        $locationForm->handleRequest($request);
+
+        if($locationForm->isSubmitted() && $locationForm->isValid()){
+
+            $em->persist($location);
+            $em->flush();
+
+            return $this->redirectToRoute('homepage');
+
+        }
+
+        return $this->render('city_location/addLocation.html.twig', [
+            'locationForm'=>$locationForm->createView(),
+        ]);
     }
 }
