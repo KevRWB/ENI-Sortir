@@ -20,7 +20,7 @@
 
         <h3>Liste des participants : </h3>
 
-        <table class="listGoers">
+         <table class="listGoers">
             <thead>
                 <tr>
                     <td>Pseudo</td>
@@ -43,7 +43,6 @@
             {{ form_start(registerForm) }}
             {{ form_widget(registerForm) }}
 
-                <button onclick="history.go(-1)" class="btn-lg-perso" >Retour</button>
                 {% if canRegister %}
                     <button type="submit" class="btn-lg-perso">M'inscrire</button>
                 {% endif %}
@@ -54,6 +53,7 @@
                     <a href="{{ path('event_modify', {'id':event.id }) }}" class="btn-lg-perso">Modifier sortie</a>
 
                 {% endif %}
+                <button onclick="history.go(-1)" class="btn-lg-perso" >Retour</button>
             {{ form_end(registerForm) }}
 
     </div>

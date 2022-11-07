@@ -151,7 +151,7 @@ class EventsController extends AbstractController
         }
 
         //Show "unregister" button conditions
-        if(!$userIsNotGoer && $event->getState()->getLibelle() == 'opened'){
+        if(!$userIsNotGoer){
             $canUnRegister = true;
         }
 
