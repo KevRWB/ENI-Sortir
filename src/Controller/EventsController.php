@@ -10,6 +10,7 @@ use App\Form\RegistrationEventType;
 use App\Form\SearchFormType;
 use App\Repository\EventRepository;
 use App\Repository\LocationRepository;
+use App\Repository\StateRepository;
 use App\Services\GetStates;
 use App\Services\UpdateEventState;
 use Doctrine\ORM\EntityManagerInterface;
@@ -123,6 +124,7 @@ class EventsController extends AbstractController
         $event = $eventRepository->find($id);
 
         $updateEventState->updateEventState($getStates, $em, $event);
+
 
         //Show "register" button conditions
         $maxGoersReach = false;
