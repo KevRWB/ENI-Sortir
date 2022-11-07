@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -49,8 +50,7 @@ class CreateEventType extends AbstractType
                 'widget' => 'single_text',
                 'label' => 'Date et heure limite d\'inscription',
             ])
-            ->add('maxUsers', NumberType::class, [
-                'widget' => 'single_text',
+            ->add('maxUsers', IntegerType::class, [
                 'label' => 'Nombre max de participants',
             ])
 

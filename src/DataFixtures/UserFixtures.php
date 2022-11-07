@@ -24,6 +24,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $admin->setPassword($this->hasher->hashPassword( $admin, 'admin'));
         $admin->setIsActive(true);
         $admin->setIsAdmin(true);
+        $roles[] = 'ROLE_ADMIN';
+        $admin->setRoles($roles);
         $admin->setCampus($this->getReference('campus-rennes'));
         $manager->persist($admin);
         $this->addReference('admin', $admin);
