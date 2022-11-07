@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\City;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,6 +24,25 @@ class CityType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => City::class,
+        ]);
+    }
+
+    public function index(?City $city, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        if(!$city){
+            $city = new City();
+        }
+        $form = $this->createForm(ModifyEventType::class, $city);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            if(!$city->getId()){
+                $entityManager->persist($city);
+            }
+            $entityManager->flush();
+            return $this->redirect($this->generateUrl('city', ['id' => $city->getId()]));
+        }
+        return $this->render('city_location/city.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }

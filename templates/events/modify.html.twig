@@ -14,9 +14,17 @@
         {{ form_row(eventForm.duration) }}
         {{ form_row(eventForm.infos) }}
         {{ form_row(eventForm.city) }}
-        {{ form_row(eventForm.addCity) }}
+
+        {% if is_granted('ROLE_ADMIN') %}
+            {{ form_row(eventForm.addCity) }}
+        {% endif %}
+
         {{ form_row(eventForm.location) }}
-        {{ form_row(eventForm.addLocation) }}
+
+        {% if is_granted('ROLE_ADMIN') %}
+            {{ form_row(eventForm.addLocation) }}
+        {% endif %}
+
         <div class="btn-flex">
             <a href="javascript:history.go(-1)">{{ form_row(eventForm.return) }}</a>
             {{ form_row(eventForm.save) }}
