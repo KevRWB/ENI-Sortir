@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CityLocationController extends AbstractController
 {
-    #[Route('/city/', name: 'city')]
+    #[Route('/city', name: 'city')]
     public function cities(Request $request, EntityManagerInterface $em, CityRepository $cityRepository): Response
     {
         $cities = $cityRepository->findAll();
