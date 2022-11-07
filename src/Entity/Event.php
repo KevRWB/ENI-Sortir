@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -18,12 +19,13 @@ class Event
     private ?int $id = null;
 
     #[Assert\NotBlank(message: 'Le nom ne peut pas être vide')]
-    #[Assert\Length(min: 3, max:50, minMessage: 'Le nom doit comporter entre 3 et 50 caractères')]
+    #[Assert\Length(min: 3, max:50, minMessage: 'Le nom doit comporter entre {{ min }} et {{ max }} caractères')]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
 
     #[Assert\NotBlank(message: 'La date ne peut pas être vide')]
+    #[Assert\Length(minMessage: 'La date doit comporter entre 3 et 50 caractères')]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $startDate = null;
 
@@ -221,5 +223,22 @@ class Event
         $this->campus = $campus;
 
         return $this;
+    }
+
+    /**
+     * @param DateTime $dateTime
+     */
+    public function transform(DateTime $dateTime): int
+    {
+        if(!$dateTime === null)
+        {
+            return (new DateTime('now'))->getTimestamp();
+        }
+        return $dateTime->getTimestamp();
+    }
+
+    public function reverseTransform($timestamp): DateTime
+    {
+        return (new DateTime())->setTimestamp($timestamp);
     }
 }

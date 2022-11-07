@@ -3,11 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -18,6 +20,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank(message: 'Le pseudo ne peut pas être vide')]
+    #[Assert\Length(min: 1, max:50, minMessage: 'Le nom doit comporter entre {{ min }} et {{ max }} caractères')]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $pseudo = null;
 
@@ -27,18 +31,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      */
+    #[Assert\NotBlank(message: 'Vous devez mettre un mot de passe')]
+    #[Assert\Length(min: 6, max:50, minMessage: 'Votre mot de passe doit faire entre {{ min }} et {{ max }} caractères')]
     #[ORM\Column]
     private ?string $password = null;
 
+    #[Assert\NotBlank(message: 'Le nom ne peut pas être vide')]
+    #[Assert\Length(min: 1, max:50, minMessage: 'Le nom doit comporter entre {{ min }} et {{ max }} caractères')]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $lastName = null;
 
+    #[Assert\NotBlank(message: 'Le prénom ne peut pas être vide')]
+    #[Assert\Length(min: 1, max:50, minMessage: 'Le prénom doit comporter entre {{ min }} et {{ max }} caractères')]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $firstName = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $phoneNumber = null;
 
+    #[Assert\NotBlank(message: 'L\'email ne peut pas être vide')]
+    #[Assert\Length(min: 1, max:100, minMessage: 'L\'email doit comporter entre {{ min }} et {{ max }} caractères')]
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
@@ -307,4 +319,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
 }
