@@ -42,7 +42,7 @@ class CreateEventType extends AbstractType
             ->add('name', TextType::class,[
                 'label' => 'Nom',
                 'attr'=> [
-                    'maxlength'=> '3',
+                    'maxlength'=> '50',
                 ]
             ])
             ->add('startDate', DateTimeType::class,[

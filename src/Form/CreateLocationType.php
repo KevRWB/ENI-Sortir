@@ -27,7 +27,6 @@ class CreateLocationType extends AbstractType
                 },
                 'choice_label' => 'name',
                 'label' => 'Ville',
-//                'mapped' => false,
             ])
         ;
     }

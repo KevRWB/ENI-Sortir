@@ -2,17 +2,21 @@
 
 namespace App\Entity;
 
+use App\Repository\CityRepository;
 use App\Repository\EventRepository;
+use App\Repository\LocationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\This;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -25,7 +29,7 @@ class Event
 
 
     #[Assert\NotBlank(message: 'La date ne peut pas être vide')]
-    #[Assert\Length(minMessage: 'La date doit comporter entre 3 et 50 caractères')]
+    #[Assert\GreaterThan('today', message: 'La date de sortie doit être supérieur à aujourd\'hui')]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $startDate = null;
 
@@ -33,6 +37,8 @@ class Event
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $duration = null;
 
+
+    #[Assert\LessThanOrEqual(propertyPath: 'startDate', message: 'Cette date doit être inférieur à la date de sortie')]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $subscriptionLimit = null;
 
@@ -46,6 +52,7 @@ class Event
     #[ORM\Column]
     private ?int $maxUsers = null;
 
+    #[Assert\Length(max:250, maxMessage: 'Le nom doit comporter entre {{ min }} et {{ max }} caractères')]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $infos = null;
 
@@ -241,4 +248,5 @@ class Event
     {
         return (new DateTime())->setTimestamp($timestamp);
     }
+
 }

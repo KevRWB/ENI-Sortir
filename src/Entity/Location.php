@@ -17,7 +17,7 @@ class Location
     private ?int $id = null;
 
     #[Assert\NotBlank(message: 'Le nom ne peut pas être vide')]
-    #[Assert\Length(min: 1, max:10, minMessage: 'Le nom doit comporter entre {{ min }} et {{ max }} caractères')]
+    #[Assert\Length(min: 5, max:10, minMessage: 'Le nom doit comporter entre {{ min }} et {{ max }} caractères')]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 

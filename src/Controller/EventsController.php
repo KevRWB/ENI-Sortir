@@ -68,17 +68,6 @@ class EventsController extends AbstractController
 
         if($eventForm->isSubmitted() && $eventForm->isValid()){
 
-            if($eventForm->get('save')->isClicked()){
-                $em->persist($event);
-                $em->flush();
-            }
-            if($eventForm->get('addCity')->isClicked()){
-                return $this->redirectToRoute('city');
-            }
-            if($eventForm->get('addLocation')->isClicked()){
-                return $this->redirectToRoute('event', ['id' => $id]);
-            }
-
             return $this->redirectToRoute('event', ['id' => $id]);
         }
         return $this->render('events/modify.html.twig', [

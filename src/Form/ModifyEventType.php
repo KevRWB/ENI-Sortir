@@ -79,12 +79,6 @@ class ModifyEventType extends AbstractType
                 'label' => 'Lieu',
             ])
 
-//            ->add('return', ButtonType::class, [
-//                'label' => 'Retour',
-//                'attr'=> [
-//                    'class' => 'btn-lg-perso'
-//                ]
-//            ])
 
             ->add('save', SubmitType::class, [
                 'label' => 'Sauvegarder',
@@ -93,18 +87,6 @@ class ModifyEventType extends AbstractType
                 ]
             ])
 
-//            ->add('addCity', SubmitType::class, [
-//                'label' => 'Ajouter ville',
-//                'attr'=> [
-//                    'class' => 'btn-sm-perso'
-//                ]
-//            ])
-//            ->add('addLocation', SubmitType::class, [
-//                'label' => 'Ajouter lieu',
-//                'attr'=> [
-//                    'class' => 'btn-sm-perso'
-//                ]
-//            ])
         ;
     }
 
