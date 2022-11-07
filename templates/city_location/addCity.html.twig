@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% form_theme cityForm 'bootstrap_5_horizontal_layout.html.twig' %}
+
+{% block content %}
+
+    <div class="main-others">
+
+        <h1>Ajouter Ville</h1>
+
+        {{ form_start(cityForm) }}
+
+        {{ form_row(cityForm.name) }}
+        {{ form_row(cityForm.codePostal)}}
+
+        <div class="btn-flex">
+            <button type="submit" class="btn-lg-perso">Ajouter ville</button>
+            <a href="javascript:history.go(-1)"><button type="button" class="btn-lg-perso">Retour</button></a>
+        </div>
+
+        {{ form_end(cityForm) }}
+
+    </div>
+
+{% endblock %}

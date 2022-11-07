@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% form_theme locationForm 'bootstrap_5_horizontal_layout.html.twig' %}
+
+{% block content %}
+
+    <div class="main-others">
+
+        <h1>Ajouter lieu</h1>
+
+        {{ form_start(locationForm) }}
+
+        {{ form_row(locationForm.name) }}
+        {{ form_row(locationForm.street)}}
+        {{ form_row(locationForm.latitude) }}
+        {{ form_row(locationForm.longitude) }}
+{#        {{ form_row(locationForm.picture) }}#}
+        {{ form_row(locationForm.city) }}
+
+        <div class="btn-flex">
+            <button type="submit" class="btn-lg-perso">Ajouter lieu</button>
+            <a href="javascript:history.go(-1)"><button type="button" class="btn-lg-perso">Retour</button></a>
+        </div>
+
+        {{ form_end(locationForm) }}
+
+    </div>
+
+{% endblock %}
