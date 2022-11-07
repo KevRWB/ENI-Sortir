@@ -12,9 +12,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/campus', name: 'campus')]
 class CampusLocationController extends AbstractController
 {
-    #[Route('/campus/', name: 'campus')]
+    #[Route('/', name: 'campus')]
     public function campus(Request $request, EntityManagerInterface $em, CampusRepository $campusRepository): Response
     {
         $campus = $campusRepository->findAll();

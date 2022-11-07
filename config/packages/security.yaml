@@ -48,6 +48,9 @@ security:
          - { path: ^/events, roles: ROLE_USER }
          - { path: ^/getLocationsFromCity, roles: ROLE_USER }
          - { path: ^/new, roles: ROLE_USER }
+         - { path: ^/city, roles: ROLE_ADMIN }
+         - { path: ^/campus, roles: ROLE_ADMIN }
+         - { path: ^/campus/modify, roles: ROLE_ADMIN }
 
 when@test:
     security:

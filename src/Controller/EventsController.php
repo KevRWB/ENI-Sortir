@@ -10,7 +10,6 @@ use App\Form\RegistrationEventType;
 use App\Form\SearchFormType;
 use App\Repository\EventRepository;
 use App\Repository\LocationRepository;
-use App\Repository\StateRepository;
 use App\Services\GetStates;
 use App\Services\UpdateEventState;
 use Doctrine\ORM\EntityManagerInterface;

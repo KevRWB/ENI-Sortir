@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
@@ -16,11 +17,16 @@ class Event
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank(message: 'Le nom ne peut pas être vide')]
+    #[Assert\Length(min: 3, max:50, minMessage: 'Le nom doit comporter entre 3 et 50 caractères')]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+
+    #[Assert\NotBlank(message: 'La date ne peut pas être vide')]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $startDate = null;
+
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $duration = null;
@@ -28,6 +34,13 @@ class Event
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $subscriptionLimit = null;
 
+
+    #[Assert\NotBlank(message: 'Veillez renseigner ce champ')]
+    #[Assert\Range(
+        notInRangeMessage: 'Le nombre de participants doit être entre {{ min }} et {{ max }}',
+        min: 1,
+        max: 50,
+    )]
     #[ORM\Column]
     private ?int $maxUsers = null;
 

@@ -50,7 +50,7 @@
                 {% if canUnRegister %}
                     <button type="submit" class="btn-lg-perso">Me désinscrire</button>
                 {% endif %}
-                {% if not isOrganizer %}
+                {% if not isOrganizer or is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('event_modify', {'id':event.id }) }}" class="btn-lg-perso">Modifier sortie</a>
 
                 {% endif %}
