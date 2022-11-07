@@ -7,42 +7,66 @@
 /*GLOBAL STYLE*/
 *{
     font-family: 'Roboto', sans-serif;
+    color: white;
     padding: 0px;
     margin:0px;
 }
 
-
 body {
-    background-color: #a0aecd;
+    /*background-color: #a0aecd;*/
+    background-image: url("../images/background/back_city_night.jpg");
     background-attachment: fixed;
     background-position: center center;
     background-size: cover;
     color: #000;
-    font-family: 'Roboto', serif;
 }
 
 .container {
-    max-width: 1600px;
+    max-width: 2500px;
     width: 100%;
     margin: auto;
     padding: 5px 20px 5px;
-
+    min-height: 100vh;
+    backdrop-filter: blur(7px);
 }
 
 
-.form-input{
-    margin: 0 2.5rem 1.2rem 2rem;
-    max-width: 88%;
+h1{
+    font-size: 3rem;
+    color: #cfa8fa;
+    font-weight: bold;
+    padding-bottom: 30px;
 }
+
+/* NAV STYLE*/
+
+header{
+    padding-top: 30px;
+    padding-bottom: 5px;
+}
+
+#nav-title{
+    font-family: 'Satisfy', cursive;
+    font-size: 4.5rem;
+    font-weight: 900;
+    background: linear-gradient(90deg, rgb(210, 169, 227) 0%, rgb(141, 1, 231) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-left: 100px;
+    
+}
+
+/*Nav menu style*/
 
 #hamburger-icon {
     width: 50px;
     height: 35px;
+    margin-right: 100px;
 }
 
 #hamburger-icon .line {
     width: 50px;
-    background: black;
+    background: linear-gradient(90deg, rgb(210, 169, 227) 0%, rgb(141, 1, 231) 100%);
     margin: 6px 0 0 0;
     height: 5px;
     display: block;
@@ -54,17 +78,17 @@ body {
 
 #hamburger-icon:hover .line-1 {
     width: 30px;
-    background: #FDBD01;
+    background: #af63e3;
 }
 
 #hamburger-icon:hover .line-2 {
     width: 40px;
-    background: #FDBD01;
+    background: #8332cc;
 }
 
 #hamburger-icon:hover .line-3 {
     width: 20px;
-    background: #FDBD01;
+    background: #af63e3;
 }
 
 .overlay {
@@ -75,8 +99,8 @@ body {
     z-index: 1; /* Sit on top */
     left: 0;
     top: 0;
-    background-color: rgb(0,0,0); /* Black fallback color */
-    background-color: rgba(0,0,0, 0.9); /* Black w/opacity */
+    background-color: rgb(0, 0, 0); /* Black fallback color */
+    background-color: rgba(0, 0, 0, 0.9); /* Black w/opacity */
     overflow-x: hidden; /* Disable horizontal scroll */
     transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
 }
@@ -84,7 +108,7 @@ body {
 /* Position the content inside the overlay */
 .overlay-content {
     position: relative;
-    top: 25%; /* 25% from the top */
+    top: 25vh; /* 25% from the top */
     width: 100%; /* 100% width */
     text-align: center; /* Centered text/links */
     margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
@@ -95,7 +119,7 @@ body {
     padding: 8px;
     text-decoration: none;
     font-size: 36px;
-    color: #818181;
+    color: #dcc8ff;
     display: block; /* Display block instead of inline */
     transition: 0.3s; /* Transition effects on hover (color) */
 }
@@ -113,6 +137,131 @@ body {
     font-size: 60px;
 }
 
+/*MAIN STYLE*/
+
+.main-home h1{
+    padding-left: 100px;
+}
+
+.main-home{
+    margin-left: 300px;
+    width: 80%;
+    min-height: 80vh;
+    /*background-color: #B0413E;*/
+}
+
+.main-others{
+    width: 60%;
+    min-height: 70vh;
+    margin: auto;
+}
+
+/*HOMEPAGE STYLE*/
+
+/*Filters div*/
+.sticky-table-column__sticky {
+    /* Background color */
+
+    /*background-color: #9ca3af;*/
+    padding: 5px 20px;
+    /* Stick to the left */
+    left: 0;
+    position: sticky;
+
+    /* Displayed on top of other rows when scrolling */
+    z-index: 9999;
+}
+#recherche-button{
+    padding: 20px 60px 10px;
+}
+
+.fixed-at-side {
+    position: fixed;
+    margin-top: 350px;
+    transform: translate(0px, -50%);
+}
+.fixed-at-side--l {
+    left: 0;
+    width: 80px;
+}
+
+.filters-table{
+    border-radius: 0px 20px 20px 0px;
+    background-color: rgba(152, 150, 150, 0.7);
+}
+
+
+/*Cards event style*/
+.cardEvent{
+    height: 160px;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    color: white;
+    background: linear-gradient(90deg, rgb(193, 180, 203) 0%, rgb(145, 110, 168) 100%);
+    transition: all .1s ease-in-out;
+}
+
+.cardEvent:hover{
+    background: linear-gradient(90deg, rgb(127, 92, 134) 0%, rgb(118, 18, 185) 100%);
+    transform: scale(1.05);
+}
+
+.card-img-div{
+    width: 33%;
+    height: 160px;
+}
+
+.card-img{
+    object-fit: cover;
+    height: 100%;
+    border-radius: 20px 0px 0px 20px;
+}
+
+.card-name{
+    font-size: 1.5rem;
+    padding-top: 25px;
+    width: 40%;
+    text-align: center;
+}
+
+.card-status{
+    min-height: 100px;
+    width: 15%;
+    text-align: center;
+    padding-top: 20px;
+    background-color: #2f0e86;
+    border-radius: 0px 20px 20px 0px;
+
+}
+
+.card-button{
+    width: 10%;
+    text-align: center;
+    padding-top: 20px;
+    padding-right: 50px;
+
+}
+
+/*PROFIL PAGE STYLE*/
+.sub-header{
+    display: flex;
+    /*flex-direction: column;*/
+    justify-content: space-between;
+    margin-bottom: 30px;
+    height: 200px;
+}
+.profilImgDiv{
+    width: 40%;
+    text-align: right;
+}
+
+.profilImgDiv img{
+    height: 200px;
+    width: auto;
+}
 
 /*TABLES STYLE*/
 .listGoers{
@@ -126,55 +275,111 @@ body {
     border-bottom: solid 2px black;
 }
 
-.sticky-table-column__sticky {
-    /* Background color */
-    background-color: #9ca3af;
-    padding: 5px;
-    padding-bottom: 0px;
-
-    /* Stick to the left */
-    left: 0;
-    position: sticky;
-
-    /* Displayed on top of other rows when scrolling */
-    z-index: 9999;
-}
-#recherche-button{
-    padding: 30px 60px 10px;
+/*FOOTER STYLE*/
+footer{
+    height: 10vh;
+    margin-top: 50px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: lighter;
+    color: white;
+    /*background-color: #5eb5e0;*/
 }
 
-.fixed-at-side {
-    position: fixed;
-    top: 30%;
-    margin-top: 100px;
-    transform: translate(0px, -50%);
+/*Buttons Style*/
+.btn-sm-perso{
+    margin: 5px;
+    padding: 10px;
+    background-color: #2b1a81;
+    color: #c7c7c7;
+    border: 0px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 100;
 }
-.fixed-at-side--l {
-    left: 0;
-    width: 80px;
-}
-@media screen and (max-width: 1600px) {
-    .cardEvent{
-        padding-left: 250px;
-    }
+.btn-lg-perso{
+    margin: 5px;
+    padding: 15px;
+    background-color: #2b1a81;
+    color: #c7c7c7;
+    border: 0px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 200;
 }
 
-@media screen and (max-width: 800px){
+.btn-lg-perso:hover{
+    background-color: #40328f;
+    color: white;
+}
+
+.btn-sm-perso:hover{
+    background-color: #40328f;
+    color: white;
+}
+
+.btn-flex{
+    display: flex;
+    width: 50%;
+    margin: auto;
+    justify-content: center;
+}
+
+/*Checkbox  Style*/
+.checkbox {
+    -border-radius: 50%;
+    height: 17px;
+    width: 17px;
+    background: #fff;
+}
+.checkbox:checked {
+    background: #2f0e86;
+    color: #dedede;
+
+}
+
+/*CardEvents Div*/
+
+/*.cardEvent{*/
+/*    !*margin-left: ;*!*/
+/*}*/
+
+/*@media screen and (max-width: 2000px) {*/
+/*    .cardEvent{*/
+/*        padding-left: 250px;*/
+/*    }*/
+/*}*/
+
+@media screen and (max-width: 900px){
     .sticky-table-column{
-
         display: inline-block;
+    }
 
+    .btn-flex{
+        flex-direction: column;
+    }
+
+    .profilImgDiv img{
+        height: 200px;
+        width: auto;
+        min-width: 100px;
     }
 }
-
 
 /* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
-@media screen and (max-height: 450px) {
+@media screen and (max-width: 450px) {
     .overlay a {font-size: 20px}
     .overlay .closebtn {
         font-size: 40px;
         top: 15px;
         right: 35px;
     }
-}
 
+    .btn-flex{
+        flex-direction: column;
+    }
+    .profilImgDiv{
+        display: none;
+    }
+
+}

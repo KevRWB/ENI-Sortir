@@ -1,21 +1,30 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme profilForm 'bootstrap_5_horizontal_layout.html.twig' %}
+
 {% block title %}Profil{% endblock %}
 
-{% block h1 %}
-    <h1></h1>
-    <h1>Mon profil</h1>
-{% endblock %}
 
 {% block content %}
-    <img src="{{ asset('images/profilePictures/' ~  user.profilePicture ) }}">
+    <div class="main-others">
 
-    {{ form_start(profilForm) }}
-    {{ form_widget(profilForm) }}
+        <div class="sub-header">
+            <div class="sub-header-left">
+                <h1>Mon Profil</h1>
+                <h2>{{ user.firstName }}</h2>
+            </div>
+            <div class="profilImgDiv">
+                <img src="{{ asset('images/profilePictures/' ~  user.profilePicture ) }}">
+            </div>
+        </div>
 
-    <button type="submit" class="noselect buttonAnim">Modifier Profil</button>
-    {{ form_end(profilForm) }}
-
-    <a href="javascript:history.go(-1)"><button class="btn btn-lg btn-primary" >Retour</button></a>
+        {{ form_start(profilForm) }}
+        {{ form_widget(profilForm) }}
+        <div class="btn-flex">
+            <a href="javascript:history.go(-1)"><button class="btn-lg-perso" >Retour</button></a>
+            <button type="submit" class="btn-lg-perso">Modifier Profil</button>
+        </div>
+        {{ form_end(profilForm) }}
+    </div>
 
 {% endblock %}

@@ -20,6 +20,11 @@ class StateFixtures extends Fixture
         $manager->persist($opened);
         $this->addReference('opened', $opened);
 
+        $closed = new State();
+        $closed->setLibelle('closed');
+        $manager->persist($closed);
+        $this->addReference('closed', $closed);
+
         $inProgress = new State();
         $inProgress->setLibelle('inProgress');
         $manager->persist($inProgress);
@@ -34,6 +39,11 @@ class StateFixtures extends Fixture
         $canceled->setLibelle('canceled');
         $manager->persist($canceled);
         $this->addReference('canceled', $canceled);
+
+        $archive = new State();
+        $archive->setLibelle('archive');
+        $manager->persist($archive);
+        $this->addReference('archive', $archive);
 
         $manager->flush();
     }

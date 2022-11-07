@@ -3,23 +3,46 @@
 
 {% block title %}Accueil{% endblock %}
 
-{% block content %}
-    
-    <h1>Liste des sorties</h1>
-
+{% block filters %}
     <div class="fixed-at-side fixed-at-side--l">
-        <table class="sticky-table-column">
+{#        <div class="filters-table">#}
+{#            {{ form_start(searchForm) }}#}
+{#            {{ form_widget(searchForm)}}#}
+{#            {{ form_end(searchForm) }}#}
+{#        </div>#}
+
+
+
+        <table class="filters-table">
+            <thead>
+            <tr>
+                <th class="sticky-table-column__sticky" colspan="2"><h3>Filtrer les sorties</h3></th>
+            </tr>
+            </thead>
             {{ form_start(searchForm) }}
             <tbody>
+
             <div>
                 <tr>
+                    <td class="sticky-table-column__sticky">Recherche dans le titre :</td>
+                </tr>
+                <tr>
                     <td class="sticky-table-column__sticky">{{ form_widget(searchForm.search) }}</td>
+                </tr>
+                <tr>
+                    <td class="sticky-table-column__sticky">Campus :</td>
                 </tr>
                 <tr>
                     <td class="sticky-table-column__sticky">{{ form_widget(searchForm.campus) }}</td>
                 </tr>
                 <tr>
+                    <td class="sticky-table-column__sticky">Entre le :</td>
+                </tr>
+                <tr>
                     <td class="sticky-table-column__sticky">{{ form_widget(searchForm.startDate) }}</td>
+                </tr>
+                <tr>
+                    <td class="sticky-table-column__sticky">Et le :</td>
                 </tr>
                 <tr>
                     <td class="sticky-table-column__sticky">{{ form_widget(searchForm.endDate) }}</td>
@@ -41,25 +64,45 @@
             </div>
 
             <tr>
-                <td class="sticky-table-column__sticky" id="recherche-button"><button type="submit" class="btn btn-lg btn-primary">Rechercher</button></td>
+                <td class="sticky-table-column__sticky" id="recherche-button"><button type="submit" class="btn-lg-perso">Rechercher</button></td>
             </tr>
 
             </tbody>
             {{ form_end(searchForm) }}
         </table>
     </div>
+{% endblock %}
 
-        {% if events is defined %}
-            {% for event in events %}
+{% block content %}
+    <div class="main-home">
+        <h1>Liste des sorties</h1>
 
-                <div class="cardEvent">
-                    <p>Nom sortie: {{ event.name }}</p>
-                    <p>Organisateur : {{ event.organizater.pseudo }}</p>
-                    <p>Statut : {{ event.state.libelle }}</p>
-                    <a href="{{ path('event', {'id': event.id}) }}"><button type="button" class="btn btn-sm btn-secondary">Voir sortie</button></a>
-                </div>
+            {% if allEvents is defined %}
+                {% for event in allEvents %}
+                    <a href="{{ path('event', {'id': event.id}) }}">
+                        <article class="cardEvent">
+                            <div class="card-img-div"><img class="card-img"
+                                        {% if event.location.locationPicture %}
+                                            src="{{ asset('images/locationPicture/' ~ event.location.locationPicture) }}" alt="Image : {{ event.location.locationPicture }}">
 
-            {% endfor %}
-        {% endif %}
+                                        {% else %}
+                                            src="{{ asset('images/locationPicture/default.jpg') }}"  alt="Image : {{ event.location.locationPicture }}">
+                                        {% endif %}
+                            </div>
+                            <div class="card-name">
+                                <p><strong>{{ event.name }}</strong></p>
+                            </div>
+                            <div class="card-status">
+                                <p><strong>Statut</strong><br> {{ event.state.libelle }}</p>
+                            </div>
+{#                            <div class="card-button">#}
+{#                                <a href="{{ path('event', {'id': event.id}) }}"><button type="button" class="btn-sm-perso">Voir sortie</button>#}
+{#                            </div>#}
+
+                        </article>
+                    </a>
+                {% endfor %}
+            {% endif %}
+    </div>
 
 {% endblock %}

@@ -11,12 +11,11 @@ use App\Form\SearchFormType;
 use App\Repository\EventRepository;
 use App\Repository\LocationRepository;
 use App\Repository\StateRepository;
+use App\Services\GetStates;
+use App\Services\UpdateEventState;
 use Doctrine\ORM\EntityManagerInterface;
 
-
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,7 +25,7 @@ class EventsController extends AbstractController
 
 
     #[Route('/new', name: 'event_new')]
-    public function new(Request $request, EntityManagerInterface $em, StateRepository $stateRepository): Response
+    public function new(Request $request, EntityManagerInterface $em, GetStates $getStates,  UpdateEventState $updateEventState): Response
     {
         $event = new Event();
         $eventForm = $this->createForm(CreateEventType::class, $event);
@@ -37,14 +36,15 @@ class EventsController extends AbstractController
 
             if($eventForm->get('save')->isClicked()){
                 $event->setOrganizater($this->getUser());
-                $event->setState($stateRepository->findOneBy(['libelle' => 'created']));
+                $event->setState($getStates->getStateOpened());
                 $event->setCampus($this->getUser()->getCampus());
+                $updateEventState->updateEventState($getStates, $em, $event);
                 $em->persist($event);
                 $em->flush();
             }
             if($eventForm->get('publish')->isClicked()){
                 $event->setOrganizater($this->getUser());
-                $event->setState($stateRepository->findOneBy(['libelle' => 'opened']));
+                $event->setState($getStates->getStateCreated());
                 $event->setCampus($this->getUser()->getCampus());
                 $em->persist($event);
                 $em->flush();
@@ -58,9 +58,10 @@ class EventsController extends AbstractController
     }
 
     #[Route('/modify/{id}', name: 'event_modify')]
-    public function modify(Request $request, EntityManagerInterface $em, EventRepository $eventRepository, int $id): Response
+    public function modify(Request $request, EntityManagerInterface $em, EventRepository $eventRepository, int $id,  UpdateEventState $updateEventState, GetStates $getStates): Response
     {
         $event = $eventRepository->find($id);
+
         $eventForm = $this->createForm(ModifyEventType::class, $event);
 
         $eventForm->handleRequest($request);
@@ -88,19 +89,23 @@ class EventsController extends AbstractController
     }
 
     #[Route('/accueil', name:'homepage')]
-    public function searchEvents(Request $request, EventRepository $eventRepository): Response{
+    public function searchEvents(Request $request, EventRepository $eventRepository, UpdateEventState $updateEventState, GetStates $getStates, EntityManagerInterface $em): Response{
+
+        $updateEventState->updateAllState($eventRepository, $getStates, $em);
 
         $searchData = new SearchData();
         $searchForm = $this->createForm(SearchFormType::class, $searchData);
         $searchForm->handleRequest($request);
 
+        $allEvents =$eventRepository->findAllEventsWithLocation();
 
-        $events = $eventRepository->findEvents($searchData);
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()){
 
+            $allEvents = $eventRepository->findEvents($searchData);
+
             return $this->render('events/homepage.html.twig', [
-                'events' => $events,
+                'allEvents' => $allEvents,
                 'searchForm' => $searchForm->createView(),
             ]);
 
@@ -108,16 +113,17 @@ class EventsController extends AbstractController
 
         return $this->render('events/homepage.html.twig', [
             'searchForm' => $searchForm->createView(),
+            'allEvents' => $allEvents,
         ]);
 
     }
 
     #[Route('/events/{id}', name: 'event')]
-    public function eventId(Request $request, EventRepository $eventRepository, EntityManagerInterface $em, int $id): Response
+    public function eventId(Request $request, EventRepository $eventRepository, EntityManagerInterface $em, int $id, UpdateEventState $updateEventState, GetStates $getStates): Response
     {
         $event = $eventRepository->find($id);
-        //$eventGoers = $eventRepository->findGoers($event);
 
+        $updateEventState->updateEventState($getStates, $em, $event);
 
         //Show "register" button conditions
         $maxGoersReach = false;
@@ -177,7 +183,6 @@ class EventsController extends AbstractController
         //return statement to the view
         return $this->render('events/event.html.twig', [
             'event' => $event,
-            //'eventGoers' => $eventGoers,
             'canRegister' => $canRegister,
             'canUnRegister' => $canUnRegister,
             'isOrganizer' => $userIsNotOrganizer,

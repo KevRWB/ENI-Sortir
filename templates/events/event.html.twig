@@ -4,59 +4,58 @@
 
 {% block content %}
 
-    <h2>{{ event.name }}</h2>
-    <p>Date de la sortie : {{ event.startDate|date('d/m/Y') }}</p>
-    <p>Date limite d'inscription : {{ event.subscriptionLimit|date('d/m/Y') }}</p>
-    <p>Durée :{{ event.duration|date('H:i:s') }}</p>
-    <p>Infos : {{ event.infos }}</p>
-    <p>Organisateur : {{ event.organizater.pseudo }} - Campus : {{ event.campus.name }}</p>
-    <p>Statut : {{ event.state.libelle }}</p>
-    <p>Lieu : {{ event.location.name }}</p>
-    <p>{{ event.location.street}} {{ event.location.city.codePostal}} {{ event.location.city.name}}</p>
-    <p>Latitude : {{ event.location.latitude }}   Longitude: {{ event.location.longitude }}</p>
+    <div class="main-others">
+
+        <h2>{{ event.name }}</h2>
+        <p>Date de la sortie : {{ event.startDate|format_datetime(locale='fr') }}</p>
+        <p>Date limite d'inscription : {{ event.subscriptionLimit|format_datetime(locale='fr') }}</p>
+        <p>Durée :{{ event.duration|date('H:i') }}</p>
+        <p>Infos : {{ event.infos }}</p>
+        <p>Organisateur : {{ event.organizater.pseudo }} - Campus : {{ event.campus.name }}</p>
+        <p>Statut : {{ event.state.libelle }}</p>
+        <p>Lieu : {{ event.location.name }}</p>
+        <p>{{ event.location.street}} {{ event.location.city.codePostal}} {{ event.location.city.name}}</p>
+        <p>Latitude : {{ event.location.latitude }}   Longitude: {{ event.location.longitude }}</p>
 
 
-    <h3>Liste des participants : </h3>
+        <h3>Liste des participants : </h3>
 
-    <table class="listGoers">
-        <thead>
-            <tr>
-                <td>Pseudo</td>
-                <td>Nom</td>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in event.goers %}
+        <table class="listGoers">
+            <thead>
                 <tr>
-                    <td>{{ user.pseudo }}</td>
-                    <td>{{ user.firstName}} {{ user.lastName|upper }}</td>
-                    <td><a href="{{ path('profil', {'pseudo': user.pseudo}) }}"><button class="btn btn-sm btn-primary">voir profil</button></a></td>
+                    <td>Pseudo</td>
+                    <td>Nom</td>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for user in event.goers %}
+                    <tr>
+                        <td>{{ user.pseudo }}</td>
+                        <td>{{ user.firstName}} {{ user.lastName|upper }}</td>
+                        <td><a href="{{ path('profil', {'pseudo': user.pseudo}) }}"><button class="btn-sm-perso">voir profil</button></a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-    <p>{{ event.goers|length }}/{{ event.maxUsers }} places disponibles</p>
+        <p>{{ event.goers|length }}/{{ event.maxUsers }} places disponibles</p>
 
+            {{ form_start(registerForm) }}
+            {{ form_widget(registerForm) }}
 
+                <button onclick="history.go(-1)" class="btn-lg-perso" >Retour</button>
+                {% if canRegister %}
+                    <button type="submit" class="btn-lg-perso">M'inscrire</button>
+                {% endif %}
+                {% if canUnRegister %}
+                    <button type="submit" class="btn-lg-perso">Me désinscrire</button>
+                {% endif %}
+                {% if not isOrganizer %}
+                    <a href="{{ path('event_modify', {'id':event.id }) }}" class="btn-lg-perso">Modifier sortie</a>
 
+                {% endif %}
+            {{ form_end(registerForm) }}
 
-        {{ form_start(registerForm) }}
-        {{ form_widget(registerForm) }}
-            {% if canRegister %}
-                <button type="submit" class="btn btn-lg btn-primary">M'inscrire</button>
-            {% endif %}
-            {% if canUnRegister %}
-                <button type="submit" class="btn btn-lg btn-primary">Me désinscrire</button>
-            {% endif %}
-            {% if not isOrganizer %}
-                <a href="{{ path('event_modify', {'id':event.id }) }}" class="btn btn-primary">Modify</a>
-
-            {% endif %}
-        {{ form_end(registerForm) }}
-
-
-    <a href="javascript:history.go(-1)"><button class="btn btn-lg btn-primary" >Retour</button></a>
-
+    </div>
 
 {% endblock %}

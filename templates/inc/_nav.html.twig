@@ -2,14 +2,14 @@
 {#    <img  id="buger-icon" class="manImg" src="images/burger.png" width="50px">#}
 {#</span>#}
 <div class="d-flex justify-content-between top-nav">
+{#    <div class="">#}
+{#        <a href="{{ path('homepage') }}">#}
+{#            <img id="imgLogo" src="#" alt="Logo">#}
+{#        </a>#}
+{#    </div>#}
     <div class="">
         <a href="{{ path('homepage') }}">
-            <img id="imgLogo" src="#" alt="Logo">
-        </a>
-    </div>
-    <div class="">
-        <a href="{{ path('homepage') }}">
-            <h2>SORTIR</h2>
+            <h2 id="nav-title">SORTIR</h2>
         </a>
     </div>
     <div id="hamburger-icon" onclick="openNav()">
@@ -33,9 +33,9 @@
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
     <div class="overlay-content">
-        <a href="{{ path('homepage') }}" class="nav-link">Home</a>
-        <a href="{{ path('monProfil') }}" class="nav-link">Profile</a>
-        <a href="{{ path('event_new') }}" class="nav-link">Create Event</a>
+        <a href="{{ path('homepage') }}" class="nav-link">Accueil</a>
+        <a href="{{ path('monProfil') }}" class="nav-link">Mon profil</a>
+        <a href="{{ path('event_new') }}" class="nav-link">Créer sortie</a>
         {% if app.user %}
             <a href="{{ path('app_logout') }}" class="nav-link">Déconnexion</a>
         {% else %}

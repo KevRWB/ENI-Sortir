@@ -19,7 +19,7 @@ class SearchFormType extends AbstractType
     {
         $builder
             ->add('search',  TextType::class, [
-                'label' => 'Titre contient: ',
+                'label' => 'Recherche dans le titre : ',
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'Rechercher'
@@ -27,7 +27,7 @@ class SearchFormType extends AbstractType
             ])
 
             ->add('campus', EntityType::class, [
-                'label' => 'Campus',
+                'label' => 'Campus : ',
                 'class' => Campus::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')->orderBy('c.name', 'ASC');
@@ -38,32 +38,44 @@ class SearchFormType extends AbstractType
 
             ->add('startDate', DateType::class, [
                 'widget' => 'single_text',
-                'label' => 'Entre',
+                'label' => 'Entre le :',
                 'required' => false,
             ])
             ->add('endDate', DateType::class, [
                 'widget' => 'single_text',
-                'label' => 'et',
+                'label' => 'et :',
                 'required' => false,
             ])
             ->add('isOrganizer',  CheckboxType::class, [
                 'label' => 'Je suis organisateur',
-                'data' => true,
+//                'data' => true,
                 'required' => false,
+                'attr'=>[
+                    'class' => 'checkbox'
+                ]
             ])
             ->add('isBooked',  CheckboxType::class, [
                 'label' => 'Je participe',
-                'data' => true,
+//                'data' => true,
                 'required' => false,
+                'attr'=>[
+                    'class' => 'checkbox'
+                ]
             ])
             ->add('isNotBooked', CheckboxType::class, [
                 'label' => 'Je ne participe pas',
-                'data' => true,
+//                'data' => true,
                 'required' => false,
+                'attr'=>[
+                    'class' => 'checkbox'
+                ]
             ] )
             ->add('passedEvents', CheckboxType::class, [
                 'label' => 'Sorties passées',
                 'required' => false,
+                'attr'=>[
+                    'class' => 'checkbox'
+                ]
             ])
         ;
     }

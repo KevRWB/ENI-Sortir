@@ -17,6 +17,7 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
         $crapa->setLatitude('47.219746742250756');
         $crapa->setLongitude('-1.5040284117821785');
         $crapa->setCity($this->getReference('city-nantes'));
+        $crapa->setLocationPicture('crapa_nantes.jpg');
         $manager->persist($crapa);
         $this->addReference('parc-crapa-nantes', $crapa);
 
@@ -26,6 +27,7 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
         $machines->setLatitude('47.211700432066976');
         $machines->setLongitude('-1.5481968353916553');
         $machines->setCity($this->getReference('city-nantes'));
+        $machines->setLocationPicture('machines_nantes.jpg');
         $manager->persist($machines);
         $this->addReference('machines-nantes', $machines);
 
@@ -35,6 +37,7 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
         $blizz->setLatitude('48.132798156271036');
         $blizz->setLongitude('-1.647422656360182');
         $blizz->setCity($this->getReference('city-rennes'));
+        $blizz->setLocationPicture('blizz_rennes.jpg');
         $manager->persist($blizz);
         $this->addReference('patinoire-rennes', $blizz);
 
@@ -44,6 +47,7 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
         $laser->setLatitude('48.105961907077216');
         $laser->setLongitude('-1.705084034749394');
         $laser->setCity($this->getReference('city-rennes'));
+        $laser->setLocationPicture('laser_game_rennes.jpg');
         $manager->persist($laser);
         $this->addReference('laser-rennes', $laser);
 
@@ -53,6 +57,7 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
         $stangala->setLatitude('48.030283271727754');
         $stangala->setLongitude('-4.047447994250477');
         $stangala->setCity($this->getReference('city-quimper'));
+        $stangala->setLocationPicture('stangala_quimper.jpg');
         $manager->persist($stangala);
         $this->addReference('stangala-quimper', $stangala);
 
@@ -62,6 +67,7 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
         $golf->setLatitude('47.892486869088074');
         $golf->setLongitude('-4.052501946817509');
         $golf->setCity($this->getReference('city-quimper'));
+        $golf->setLocationPicture('golf_quimper.jpg');
         $manager->persist($golf);
         $this->addReference('golf-quimper', $golf);
 
@@ -71,6 +77,7 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
         $donjon->setLatitude('46.32571641683182');
         $donjon->setLongitude('-0.46383040903641315');
         $donjon->setCity($this->getReference('city-niort'));
+        $donjon->setLocationPicture('donjon_niort.jpg');
         $manager->persist($donjon);
         $this->addReference('donjon-niort', $donjon);
 
@@ -80,6 +87,7 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
         $agesci->setLatitude('46.32182783076171');
         $agesci->setLongitude('-0.4510767343789234');
         $agesci->setCity($this->getReference('city-niort'));
+        $agesci->setLocationPicture('agesci_niort.jpg');
         $manager->persist($agesci);
         $this->addReference('agesci-niort', $agesci);
 
