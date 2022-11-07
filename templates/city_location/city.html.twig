@@ -3,48 +3,48 @@
 {% block title %}Sorties{% endblock %}
 
 {% block content %}
+    <div class="main-others">
+        <h2>Gerer les villes</h2>
 
-    <h2>Gerer les villes</h2>
-
-    <p>Filtrer les villes</p>
+        <p>Filtrer les villes</p>
 
 
-    <table class="listCities">
-        <thead>
-            <tr>
-                <td>Citiy</td>
-                <td>CP</td>
-                <td>Actions</td>
-            </tr>
-        </thead>
-        <tbody>
-            {% for city in cities %}
+        <table class="listCities">
+            <thead>
                 <tr>
-                    <td>{{ city.name }}</td>
-                    <td>{{ city.codePostal}}</td>
-                    <td>
-                        <a href=""><button class="btn btn-sm btn-primary">Modifier</button></a>
-                        <a href=""><button class="btn btn-sm btn-primary">Supprimer</button></a>
-                    </td>
+                    <td>Citiy</td>
+                    <td>CP</td>
+                    <td>Actions</td>
                 </tr>
-            {% endfor %}
-            {{ form_start(cityForm) }}
-                <tr>
-                    <td>
-                        {{ form_widget(cityForm.name) }}
-                    </td>
-                    <td>
-                        {{ form_widget(cityForm.codePostal) }}
-                    </td>
-                    <td>
-                        {{ form_widget(cityForm.save) }}
-                    </td>
-                </tr>
-            {{ form_end(cityForm) }}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for city in cities %}
+                    <tr>
+                        <td>{{ city.name }}</td>
+                        <td>{{ city.codePostal}}</td>
+                        <td>
+                            <a href=""><button class="btn btn-sm btn-primary">Modifier</button></a>
+                            <a href=""><button class="btn btn-sm btn-primary">Supprimer</button></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                {{ form_start(cityForm) }}
+                    <tr>
+                        <td>
+                            {{ form_widget(cityForm.name) }}
+                        </td>
+                        <td>
+                            {{ form_widget(cityForm.codePostal) }}
+                        </td>
+                        <td>
+                            {{ form_widget(cityForm.save) }}
+                        </td>
+                    </tr>
+                {{ form_end(cityForm) }}
+            </tbody>
+        </table>
 
-    <a href="javascript:history.go(-1)"><button class="btn btn-lg btn-primary" >Retour</button></a>
-
+        <a href="javascript:history.go(-1)"><button class="btn btn-lg btn-primary" >Retour</button></a>
+    </div>
 
 {% endblock %}

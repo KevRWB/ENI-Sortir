@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Entity\Event;
 use App\Repository\EventRepository;
 use App\Repository\StateRepository;
 use Container4Oy4avx\getConsole_ErrorListenerService;
@@ -11,7 +12,7 @@ use Symfony\Component\Validator\Constraints\Date;
 class UpdateEventState
 {
 
-    public function updateState(EventRepository $eventRepository, GetStates $getStates, EntityManagerInterface $em){
+    public function updateAllState(EventRepository $eventRepository, GetStates $getStates, EntityManagerInterface $em){
 
         $now =  new \DateTime();
         $now = $now->add(new \DateInterval('PT1H'));
@@ -45,6 +46,8 @@ class UpdateEventState
 
         foreach ($events as $event){
 
+            /*Variables for each event checked*/
+
             $startDate = $event->getStartDate();
             $endDate = clone $startDate;
             $duration =$event->getDuration();
@@ -57,17 +60,28 @@ class UpdateEventState
             $goersList = $event->getGoers()->getValues();
             $limitDate = $event->getSubscriptionLimit();
 
-            if($event->getState()->getLibelle() == $getStates->getStateCanceled()->getLibelle()){
+            /*Conditions*/
+            $isCanceled = $event->getState()->getLibelle() == $getStates->getStateCanceled()->getLibelle();
+            $isCreated = $event->getState()->getLibelle() == $getStates->getStateCreated()->getLibelle();
+            $isInProgress = $startDate < $now && $endDate > $now;
+            $isArchive = $now > $dateArchive;
+            $isClosed = $now >  $limitDate || count($goersList) >= $event->getMaxUsers();
+            $isPassed = $now > $startDate;
+
+
+            if($isCanceled){
                 $event->setState($getStates->getStateCanceled());
-            }elseif($startDate < $now && $endDate > $now){
+            }elseif($isCreated){
+                $event->setState($getStates->getStateCreated());
+            }elseif($isInProgress){
                 $event->setState($getStates->getStateInProgress());
-            }elseif ($now > $dateArchive){
+            }elseif ($isArchive){
                 $event->setState(($getStates->getStateArchive()));
-            }elseif ($now > $startDate){
-                $event->setState(($getStates->getStatePassed()));
-            }elseif ($now >  $limitDate || count($goersList) >= $event->getMaxUsers()){
+            }elseif ($isClosed){
                 $event->setState(($getStates->getStateClosed()));
-            }else{
+            }elseif ($isPassed){
+                $event->setState(($getStates->getStatePassed()));
+            }else {
                 $event->setState(($getStates->getStateOpened()));
             }
 
@@ -78,6 +92,53 @@ class UpdateEventState
 
     }
 
+    public function updateEventState(GetStates $getStates, EntityManagerInterface $em, Event $event){
 
+        $now =  new \DateTime();
+        $now = $now->add(new \DateInterval('PT1H'));
+
+        /*Variables for each event checked*/
+
+        $startDate = $event->getStartDate();
+        $endDate = clone $startDate;
+        $duration =$event->getDuration();
+        $hours = $duration->format('H');
+        $minutes = $duration->format('i');
+        $interval = new \DateInterval('PT'.$hours.'H' . $minutes . 'M');
+        $endDate->add($interval);
+
+        $dateArchive = $endDate->add(new \DateInterval('P1M'));
+        $goersList = $event->getGoers()->getValues();
+        $limitDate = $event->getSubscriptionLimit();
+
+        /*Conditions*/
+        $isCanceled = $event->getState()->getLibelle() == $getStates->getStateCanceled()->getLibelle();
+        $isCreated = $event->getState()->getLibelle() == $getStates->getStateCreated()->getLibelle();
+        $isInProgress = $startDate < $now && $endDate > $now;
+        $isArchive = $now > $dateArchive;
+        $isClosed = $now >  $limitDate || count($goersList) >= $event->getMaxUsers();
+        $isPassed = $now > $startDate;
+
+
+        if($isCanceled){
+            $event->setState($getStates->getStateCanceled());
+        }elseif($isCreated){
+            $event->setState($getStates->getStateCreated());
+        }elseif($isInProgress){
+            $event->setState($getStates->getStateInProgress());
+        }elseif ($isArchive){
+            $event->setState(($getStates->getStateArchive()));
+        }elseif ($isClosed){
+            $event->setState(($getStates->getStateClosed()));
+        }elseif ($isPassed){
+            $event->setState(($getStates->getStatePassed()));
+        }else {
+                $event->setState(($getStates->getStateOpened()));
+        }
+
+        $em->persist($event);
+
+        $em->flush();
+    }
 
 }

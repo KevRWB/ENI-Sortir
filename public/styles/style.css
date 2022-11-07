@@ -108,7 +108,7 @@ header{
 /* Position the content inside the overlay */
 .overlay-content {
     position: relative;
-    top: 25%; /* 25% from the top */
+    top: 25vh; /* 25% from the top */
     width: 100%; /* 100% width */
     text-align: center; /* Centered text/links */
     margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
@@ -193,7 +193,7 @@ header{
 
 /*Cards event style*/
 .cardEvent{
-    height: 130px;
+    height: 160px;
     display: flex;
     justify-content: space-between;
     width: 80%;
@@ -211,9 +211,11 @@ header{
 
 .card-img-div{
     width: 33%;
+    height: 160px;
 }
 
 .card-img{
+    object-fit: cover;
     height: 100%;
     border-radius: 20px 0px 0px 20px;
 }

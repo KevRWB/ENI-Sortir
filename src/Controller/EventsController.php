@@ -25,7 +25,7 @@ class EventsController extends AbstractController
 
 
     #[Route('/new', name: 'event_new')]
-    public function new(Request $request, EntityManagerInterface $em, GetStates $getStates): Response
+    public function new(Request $request, EntityManagerInterface $em, GetStates $getStates,  UpdateEventState $updateEventState): Response
     {
         $event = new Event();
         $eventForm = $this->createForm(CreateEventType::class, $event);
@@ -38,6 +38,7 @@ class EventsController extends AbstractController
                 $event->setOrganizater($this->getUser());
                 $event->setState($getStates->getStateOpened());
                 $event->setCampus($this->getUser()->getCampus());
+                $updateEventState->updateEventState($getStates, $em, $event);
                 $em->persist($event);
                 $em->flush();
             }
@@ -57,9 +58,10 @@ class EventsController extends AbstractController
     }
 
     #[Route('/modify/{id}', name: 'event_modify')]
-    public function modify(Request $request, EntityManagerInterface $em, EventRepository $eventRepository, int $id): Response
+    public function modify(Request $request, EntityManagerInterface $em, EventRepository $eventRepository, int $id,  UpdateEventState $updateEventState, GetStates $getStates): Response
     {
         $event = $eventRepository->find($id);
+
         $eventForm = $this->createForm(ModifyEventType::class, $event);
 
         $eventForm->handleRequest($request);
@@ -89,7 +91,7 @@ class EventsController extends AbstractController
     #[Route('/accueil', name:'homepage')]
     public function searchEvents(Request $request, EventRepository $eventRepository, UpdateEventState $updateEventState, GetStates $getStates, EntityManagerInterface $em): Response{
 
-        $updateEventState->updateState($eventRepository, $getStates, $em);
+        $updateEventState->updateAllState($eventRepository, $getStates, $em);
 
         $searchData = new SearchData();
         $searchForm = $this->createForm(SearchFormType::class, $searchData);
@@ -117,9 +119,11 @@ class EventsController extends AbstractController
     }
 
     #[Route('/events/{id}', name: 'event')]
-    public function eventId(Request $request, EventRepository $eventRepository, EntityManagerInterface $em, int $id): Response
+    public function eventId(Request $request, EventRepository $eventRepository, EntityManagerInterface $em, int $id, UpdateEventState $updateEventState, GetStates $getStates): Response
     {
         $event = $eventRepository->find($id);
+
+        $updateEventState->updateEventState($getStates, $em, $event);
 
         //Show "register" button conditions
         $maxGoersReach = false;
