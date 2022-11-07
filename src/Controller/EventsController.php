@@ -78,8 +78,6 @@ class EventsController extends AbstractController
                 return $this->redirectToRoute('event', ['id' => $id]);
             }
 
-
-
             return $this->redirectToRoute('event', ['id' => $id]);
         }
         return $this->render('events/modify.html.twig', [
@@ -121,8 +119,6 @@ class EventsController extends AbstractController
     public function eventId(Request $request, EventRepository $eventRepository, EntityManagerInterface $em, int $id, UpdateEventState $updateEventState, GetStates $getStates): Response
     {
         $event = $eventRepository->find($id);
-
-        dd($this->getUser()->getRoles());
 
         $updateEventState->updateEventState($getStates, $em, $event);
 
