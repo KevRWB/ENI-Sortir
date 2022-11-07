@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\City;
 use App\Form\CityType;
+use App\Form\ModifyEventType;
 use App\Repository\CityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,5 +37,21 @@ class CityLocationController extends AbstractController
             'cities' => $cities,
             'cityForm'=>$cityForm->createView(),
         ]);
+    }
+
+    #[Route('/modify', name: 'city_modify')]
+    public function modify(Request $request, CityRepository $cityRepository, int $id): Response
+    {
+        $city = $cityRepository->find($id);
+        $cityForm = $this->createForm(ModifyEventType::class, $city);
+
+        $cityForm->handleRequest($request);
+
+        if($cityForm->isSubmitted() && $cityForm->isValid()){
+
+            if($cityForm->get('modify')->isClicked()){
+                return $this->redirectToRoute('city');
+            }
+        }
     }
 }
