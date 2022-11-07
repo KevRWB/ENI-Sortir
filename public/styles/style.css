@@ -338,6 +338,10 @@ footer{
 
 }
 
+.profile-image{
+    border-radius: 50%;
+}
+
 /*CardEvents Div*/
 
 /*.cardEvent{*/
