@@ -40,21 +40,20 @@
 
         <p>{{ event.goers|length }}/{{ event.maxUsers }} places disponibles</p>
 
-            {{ form_start(registerForm) }}
-            {{ form_widget(registerForm) }}
+        {% if event.state.libelle == "opened" and event.organizater != app.user and app.user not in event.goers%}
+            <a href="{{ path('register_event', {'id':event.id }) }}" class="btn-lg-perso">S'inscrire</a>
+        {% endif %}
 
-                {% if canRegister %}
-                    <button type="submit" class="btn-lg-perso">M'inscrire</button>
-                {% endif %}
-                {% if canUnRegister %}
-                    <button type="submit" class="btn-lg-perso">Me désinscrire</button>
-                {% endif %}
-                {% if not isOrganizer or is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('event_modify', {'id':event.id }) }}" class="btn-lg-perso">Modifier sortie</a>
+        {% if app.user in event.goers%}
+            <a href="{{ path('unRegister_event', {'id':event.id }) }}" class="btn-lg-perso">Se désinscrire</a>
+        {% endif %}
 
-                {% endif %}
-                <button onclick="history.go(-1)" class="btn-lg-perso" >Retour</button>
-            {{ form_end(registerForm) }}
+        {% if  event.organizater == app.user or is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('event_modify', {'id':event.id }) }}" class="btn-lg-perso">Modifier sortie</a>
+        {% endif %}
+
+        <button type="button" onclick="history.go(-1)" class="btn-lg-perso" >Retour</button>
+
 
     </div>
 

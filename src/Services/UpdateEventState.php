@@ -50,23 +50,25 @@ class UpdateEventState
 
             $startDate = $event->getStartDate();
             $endDate = clone $startDate;
+
             $duration =$event->getDuration();
             $hours = $duration->format('H');
             $minutes = $duration->format('i');
             $interval = new \DateInterval('PT'.$hours.'H' . $minutes . 'M');
             $endDate->add($interval);
 
-            $dateArchive = $endDate->add(new \DateInterval('P1M'));
+            $dateArchive =  clone $endDate;
+            $dateArchive->add(new \DateInterval('P1M'));
             $goersList = $event->getGoers()->getValues();
             $limitDate = $event->getSubscriptionLimit();
 
             /*Conditions*/
             $isCanceled = $event->getState()->getLibelle() == $getStates->getStateCanceled()->getLibelle();
             $isCreated = $event->getState()->getLibelle() == $getStates->getStateCreated()->getLibelle();
-            $isInProgress = $startDate < $now && $endDate > $now;
+            $isInProgress = $startDate > $now && $endDate < $now;
             $isArchive = $now > $dateArchive;
-            $isClosed = $now >  $limitDate || count($goersList) >= $event->getMaxUsers();
-            $isPassed = $now > $startDate;
+            $isClosed = ($now >  $limitDate && $now < $endDate) || count($goersList) >= $event->getMaxUsers();
+            $isPassed = $now > $endDate;
 
 
             if($isCanceled){
@@ -107,17 +109,18 @@ class UpdateEventState
         $interval = new \DateInterval('PT'.$hours.'H' . $minutes . 'M');
         $endDate->add($interval);
 
-        $dateArchive = $endDate->add(new \DateInterval('P1M'));
+        $dateArchive =  clone $endDate;
+        $dateArchive->add(new \DateInterval('P1M'));
         $goersList = $event->getGoers()->getValues();
         $limitDate = $event->getSubscriptionLimit();
 
         /*Conditions*/
         $isCanceled = $event->getState()->getLibelle() == $getStates->getStateCanceled()->getLibelle();
         $isCreated = $event->getState()->getLibelle() == $getStates->getStateCreated()->getLibelle();
-        $isInProgress = $startDate < $now && $endDate > $now;
+        $isInProgress = $startDate > $now && $endDate < $now;
         $isArchive = $now > $dateArchive;
-        $isClosed = $now >  $limitDate || count($goersList) >= $event->getMaxUsers();
-        $isPassed = $now > $startDate;
+        $isClosed = ($now >  $limitDate && $now < $endDate) || count($goersList) >= $event->getMaxUsers();
+        $isPassed = $now > $endDate;
 
 
         if($isCanceled){
@@ -133,7 +136,7 @@ class UpdateEventState
         }elseif ($isPassed){
             $event->setState(($getStates->getStatePassed()));
         }else {
-                $event->setState(($getStates->getStateOpened()));
+            $event->setState(($getStates->getStateOpened()));
         }
 
         $em->persist($event);

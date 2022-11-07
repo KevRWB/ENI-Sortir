@@ -12,8 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/campus', name: 'campus')]
-class CampusLocationController extends AbstractController
+#[Route('/campus')]
+class CampusController extends AbstractController
 {
     #[Route('/', name: 'campus')]
     public function campus(Request $request, EntityManagerInterface $em, CampusRepository $campusRepository): Response
@@ -54,5 +54,27 @@ class CampusLocationController extends AbstractController
                 return $this->redirectToRoute('campus');
             }
         }
+    }
+
+    #[Route('/campus/add', name: 'campus_add')]
+    public function addCampus(Request $request, EntityManagerInterface $em): Response
+    {
+        $campus = new Campus();
+
+        $campusForm = $this->createForm(CampusType::class, $campus);
+
+        $campusForm->handleRequest($request);
+
+        if($campusForm->isSubmitted() && $campusForm->isValid()){
+
+            $em->persist($campus);
+            $em->flush();
+
+            return $this->redirectToRoute('campus');
+        }
+
+        return $this->render('city_location/addCampus.html.twig', [
+            'campusForm'=>$campusForm->createView(),
+        ]);
     }
 }
