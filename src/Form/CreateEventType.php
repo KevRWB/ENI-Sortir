@@ -54,9 +54,10 @@ class CreateEventType extends AbstractType
                 'label' => 'Nombre max de participants',
             ])
 
-            ->add('duration', TimeType::class, [
-                'widget' => 'choice',
-                'label' => 'Durée',
+            ->add('duration', TimeType::class , [
+                'label' => 'Durée (heures : min)',
+                'widget' => 'single_text',
+
             ])
 
             ->add('infos', TextareaType::class, [

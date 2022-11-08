@@ -96,23 +96,21 @@ class EventsController extends AbstractController
         $updateEventState->updateAllState($eventRepository, $getStates, $em);
 
         $searchData = new SearchData();
-        $searchData->setCampus($this->getUser()->getCampus());
 
-        $allEvents =$eventRepository->findEvents($searchData);
 
         $searchForm = $this->createForm(SearchFormType::class, $searchData);
-        $searchForm->handleRequest($request);
+
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()){
 
+            $searchForm->handleRequest($request);
             $allEvents = $eventRepository->findEvents($searchData);
 
-            return $this->render('events/homepage.html.twig', [
-                'allEvents' => $allEvents,
-                'searchForm' => $searchForm->createView(),
-            ]);
-
+        }else{
+            $searchData->setCampus($this->getUser()->getCampus());
+            $allEvents =$eventRepository->findEvents($searchData);
         }
+
 
         return $this->render('events/homepage.html.twig', [
             'searchForm' => $searchForm->createView(),

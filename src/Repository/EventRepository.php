@@ -48,7 +48,7 @@ class EventRepository extends ServiceEntityRepository
      *
      */
 
-    public function findEvents(SearchData $search): Paginator
+    public function findEvents(SearchData $search)
     {
 
         $user = $this->security->getUser();
@@ -113,11 +113,12 @@ class EventRepository extends ServiceEntityRepository
         }
 
         $qb->setFirstResult(0);
-        $qb->setMaxResults(10);
+//        $qb->setMaxResults(10);
 
         $query = $qb->getQuery();
 
-        return new Paginator($query, true);
+        return $query->getResult();
+//        return new Paginator($query, true);
 
     }
 
