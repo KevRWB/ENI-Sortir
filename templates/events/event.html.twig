@@ -6,39 +6,43 @@
 
     <div class="main-others">
 
-        <h2>{{ event.name }}</h2>
-        <p>Date de la sortie : {{ event.startDate|format_datetime(locale='fr') }}</p>
-        <p>Date limite d'inscription : {{ event.subscriptionLimit|format_datetime(locale='fr') }}</p>
-        <p>Durée :{{ event.duration|date('H:i') }}</p>
-        <p>Infos : {{ event.infos }}</p>
-        <p>Organisateur : {{ event.organizater.pseudo }} - Campus : {{ event.campus.name }}</p>
-        <p>Statut : {{ event.state.libelle }}</p>
-        <p>Lieu : {{ event.location.name }}</p>
-        <p>{{ event.location.street}} {{ event.location.city.codePostal}} {{ event.location.city.name}}</p>
-        <p>Latitude : {{ event.location.latitude }}   Longitude: {{ event.location.longitude }}</p>
+        <div class="block-color">
+            <div class="block-title"><h2>{{ event.name }}</h2></div>
+            <div class="block-text"><p>Date de la sortie : {{ event.startDate|format_datetime(locale='fr') }}</p></div>
+            <div class="block-text"><p>Date limite d'inscription : {{ event.subscriptionLimit|format_datetime(locale='fr') }}</p></div>
+            <div class="block-text"><p>Durée :{{ event.duration|date('H:i') }}</p></div>
+            <div class="block-text"><p>Infos : {{ event.infos }}</p></div>
+            <div class="block-text"> <p>Organisateur : {{ event.organizater.pseudo }} - Campus : {{ event.campus.name }}</p></div>
+            <div class="block-text"><p>Statut : {{ event.state.libelle }}</p></div>
+            <div class="block-text"><p>Lieu : {{ event.location.name }}</p></div>
+            <div class="block-text"><p>{{ event.location.street}} {{ event.location.city.codePostal}} {{ event.location.city.name}}</p></div>
+            <div class="block-text"><p>Latitude : {{ event.location.latitude }}   Longitude: {{ event.location.longitude }}</p></div>
 
-
-        <h3>Liste des participants : </h3>
-
-         <table class="listGoers">
-            <thead>
-                <tr>
-                    <td>Pseudo</td>
-                    <td>Nom</td>
-                </tr>
-            </thead>
-            <tbody>
-                {% for user in event.goers %}
+            <div class="block-title"><h3>Liste des participants : </h3></div>
+            <div class="listGoers">
+                <table >
+                    <thead>
                     <tr>
-                        <td>{{ user.pseudo }}</td>
-                        <td>{{ user.firstName}} {{ user.lastName|upper }}</td>
-                        <td><a href="{{ path('profil', {'pseudo': user.pseudo}) }}"><button class="btn-sm-perso">voir profil</button></a></td>
+                        <td>Pseudo</td>
+                        <td>Nom</td>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                    </thead>
+                    <tbody>
+                    {% for user in event.goers %}
+                        <tr>
+                            <td>{{ user.pseudo }}</td>
+                            <td>{{ user.firstName}} {{ user.lastName|upper }}</td>
+                            <td><a href="{{ path('profil', {'pseudo': user.pseudo}) }}"><button class="btn-sm-perso">voir profil</button></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
 
-        <p>{{ event.goers|length }}/{{ event.maxUsers }} places disponibles</p>
+            </div>
+
+
+            <div class="block-title"><p>{{ event.goers|length }}/{{ event.maxUsers }} places disponibles</p></div>
+        </div>
 
         {% if event.state.libelle == "opened" and event.organizater != app.user and app.user not in event.goers %}
             <a href="{{ path('register_event', {'id':event.id }) }}" class="btn-lg-perso" onclick="SignupEvent()">S'inscrire</a>

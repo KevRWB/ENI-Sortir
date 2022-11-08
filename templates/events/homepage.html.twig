@@ -78,7 +78,7 @@
     <div class="main-home">
         <h1>Liste des sorties</h1>
 
-        <p>{{ allEvents.count }} sorties trouvées</p>
+        <p>{{ allEvents|length }} sorties trouvées</p>
 
 {#            {% if allEvents is defined %}#}
                 {% for event in allEvents %}
