@@ -34,7 +34,7 @@ class ProfilType extends AbstractType
 
             ] )
             ->add('firstName',TextType::class, [
-                    'label' => 'Prénom : ',
+                'label' => 'Prénom : ',
 
             ])
             ->add('lastName',TextType::class, [
@@ -77,7 +77,6 @@ class ProfilType extends AbstractType
                 'mapped'=>false,
                 'required'=>false
             ])
-
 
         ;
     }

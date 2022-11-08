@@ -57,10 +57,7 @@ class EventRepository extends ServiceEntityRepository
 
         $qb = $this ->createQueryBuilder('events');
 
-        $qb
-//            ->addSelect('goers')
-//            ->leftJoin('events.goers', 'goers')
-            ->addSelect('state')
+        $qb->addSelect('state')
             ->leftJoin('events.state', 'state');
 
         if (!empty($search->search)) {

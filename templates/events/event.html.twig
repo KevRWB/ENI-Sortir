@@ -48,7 +48,7 @@
             <a href="{{ path('unRegister_event', {'id':event.id }) }}" class="btn-lg-perso">Se désinscrire</a>
         {% endif %}
 
-        {% if  event.organizater == app.user or is_granted('ROLE_ADMIN') %}
+        {% if  event.state.libelle == 'created' and  (event.organizater == app.user or is_granted('ROLE_ADMIN')) %}
             <a href="{{ path('event_modify', {'id':event.id }) }}" class="btn-lg-perso">Modifier sortie</a>
             <a href="{{ path('event_cancel', {'id':event.id }) }}" class="btn-lg-perso">Annuler sortie</a>
 

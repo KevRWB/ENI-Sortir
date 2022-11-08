@@ -16,6 +16,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateIntervalType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -52,9 +53,10 @@ class ModifyEventType extends AbstractType
             ->add('maxUsers', NumberType::class, [
                 'label' => 'Nombre max de participants',
             ])
-            ->add('duration', TimeType::class, [
-                'widget' => 'choice',
-                'label' => 'Durée',
+            ->add('duration', TimeType::class , [
+                'label' => 'Durée (heures : min)',
+                'widget' => 'single_text',
+
             ])
             ->add('infos', TextareaType::class, [
                 'label' => 'Description',
