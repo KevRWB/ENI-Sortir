@@ -123,8 +123,6 @@ class EventsController extends AbstractController
     {
         $event = $eventRepository->find($id);
 
-        dd($this->getUser()->getRoles());
-
         $updateEventState->updateEventState($getStates, $em, $event);
 
 

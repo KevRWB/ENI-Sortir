@@ -26,9 +26,10 @@
         {% endif %}
 
         <div class="btn-flex">
-            <a href="javascript:history.go(-1)">{{ form_row(eventForm.return) }}</a>
             {{ form_row(eventForm.save) }}
+            <a href="javascript:history.go(-1)">{{ form_row(eventForm.return) }}</a>
         </div>
+
         {{ form_end(eventForm) }}
     </div>
 

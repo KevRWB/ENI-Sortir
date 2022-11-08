@@ -92,19 +92,24 @@ class ModifyEventType extends AbstractType
                     'class' => 'btn-lg-perso'
                 ]
             ])
+        ;
+            if($this->security->getUser()->isIsAdmin()){
+                $builder
+                ->add('addCity', SubmitType::class, [
+                    'label' => 'Ajouter ville',
+                    'attr'=> [
+                        'class' => 'btn-sm-perso'
+                    ]
+                ])
+                    ->add('addLocation', SubmitType::class, [
+                        'label' => 'Ajouter lieu',
+                        'attr'=> [
+                            'class' => 'btn-sm-perso'
+                        ]
+                    ])
+                ;
+            }
 
-            ->add('addCity', SubmitType::class, [
-                'label' => 'Ajouter ville',
-                'attr'=> [
-                    'class' => 'btn-sm-perso'
-                ]
-            ])
-            ->add('addLocation', SubmitType::class, [
-                'label' => 'Ajouter lieu',
-                'attr'=> [
-                    'class' => 'btn-sm-perso'
-                ]
-            ])
         ;
     }
 

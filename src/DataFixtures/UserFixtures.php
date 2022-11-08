@@ -7,6 +7,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Faker;
 
 class UserFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -147,6 +148,22 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($axelle);
         $this->addReference('axelle', $axelle);
 
+        $faker = Faker\Factory::create('fr_FR');
+        $users = Array();
+        for($i=0; $i<20; $i++){
+            $users[$i] = new User();
+            $users[$i]->setPseudo($faker->firstName.$i);
+            $users[$i]->setFirstName($faker->firstName);
+            $users[$i]->setLastName($faker->lastName);
+            $users[$i]->setPhoneNumber(666666);
+            $users[$i]->setEmail($faker->email);
+            $users[$i]->setPassword($this->hasher->hashPassword( $admin, 'user'));
+            $users[$i]->setIsActive(true);
+            $users[$i]->setIsAdmin(false);
+            $users[$i]->setCampus($this->getReference('campus-nantes'));
+            $manager->persist($users[$i]);
+            $this->addReference('users'.$i, $users[$i]);
+        }
         $manager->flush();
     }
 
