@@ -60,7 +60,7 @@ class EventsController extends AbstractController
     }
 
     #[Route('/modify/{id}', name: 'event_modify')]
-    public function modify(Request $request, EntityManagerInterface $em, EventRepository $eventRepository, int $id,  UpdateEventState $updateEventState, GetStates $getStates): Response
+    public function modify(Request $request, EntityManagerInterface $em, EventRepository $eventRepository, int $id): Response
     {
         $event = $eventRepository->find($id);
 
@@ -69,7 +69,9 @@ class EventsController extends AbstractController
         $eventForm->handleRequest($request);
 
         if($eventForm->isSubmitted() && $eventForm->isValid()){
-
+            $em->persist($event);
+            $em->flush();
+            sleep(1.7);
             return $this->redirectToRoute('event', ['id' => $id]);
         }
         return $this->render('events/modify.html.twig', [
@@ -104,6 +106,21 @@ class EventsController extends AbstractController
 
         $em->persist($event);
         $em->flush();
+        sleep(1.7);
+        return $this->redirectToRoute('event', ['id' => $id]);
+
+    }
+
+    #[Route('/publish/{id}', name: 'event_publish')]
+    public function publish(EntityManagerInterface $em, EventRepository $eventRepository, int $id, GetStates $getStates): Response
+    {
+
+        $event = $eventRepository->find($id);
+        $stateOpened = $getStates->getStateOpened();
+        $event->setState($stateOpened);
+        $em->persist($event);
+        $em->flush();
+        sleep(1.7);
         return $this->redirectToRoute('event', ['id' => $id]);
 
     }
@@ -183,8 +200,8 @@ class EventsController extends AbstractController
         $event->addGoer($this->getUser());
         $em->persist($event);
         $em->flush();
-
-        return $this->redirectToRoute('event', ['id'=>$id]);
+        sleep(1.7);
+        return $this->redirectToRoute('homepage');
 
     }
 
@@ -196,8 +213,8 @@ class EventsController extends AbstractController
         $event->removeGoer($this->getUser());
         $em->persist($event);
         $em->flush();
-
-        return $this->redirectToRoute('event', ['id'=>$id]);
+        sleep(1.7);
+        return $this->redirectToRoute('homepage');
 
     }
 
@@ -207,7 +224,7 @@ class EventsController extends AbstractController
         $event = $eventRepository->find($id);
 
         $eventRepository->remove($event, true);
-
+        sleep(1.7);
         return $this->redirectToRoute('homepage');
 
     }
@@ -218,8 +235,9 @@ class EventsController extends AbstractController
 //        $event = $eventRepository->find($id);
 
         //return statement to the view
+
         return $this->render('security/confirm.html.twig', [
-//            'event' => $event,
+
             'id'=>$id
         ]);
 

@@ -40,6 +40,16 @@
 {% block javascripts %}
     <script>
         window.onload = init;
+
+        function AlertSaved(){
+            Swal.fire({
+                icon: 'success',
+                title: 'Event saved',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        }
+
         function init()
         {
 

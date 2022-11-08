@@ -50,7 +50,7 @@ class UserController extends AbstractController
                 $picture = $fileUploader->upload($profilePicture);
                 $loggedUser->setProfilePicture($picture);
             }
-
+            sleep(1.7);
             $em->persist($loggedUser);
             $em->flush();
         }

@@ -20,7 +20,10 @@
             <a href="{{ path('city') }}"> <button type="button" class="btn-lg-perso" >Ajouter ville</button></a>
         {% endif %}
         {{ form_row(eventForm.location) }}
-        <a href={{ path('location_add') }}><button class="btn-lg-perso"  type="button">Ajouter lieu</button></a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href={{ path('location_add') }}><button class="btn-lg-perso"  type="button">Ajouter lieu</button></a>
+        {% endif %}
+
         <div class="btn-flex">
 
             {{ form_row(eventForm.save) }}

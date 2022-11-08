@@ -17,7 +17,7 @@ h1, h2, h3, h4, p, label, td {
 
 h1{
     font-size: 3rem;
-    color: #cfa8fa;
+    color: #f4e9ff;
     font-weight: bold;
     padding-bottom: 30px;
 }
@@ -61,7 +61,8 @@ header{
     font-family: 'Satisfy', cursive;
     font-size: 4.5rem;
     font-weight: 900;
-    background: linear-gradient(90deg, rgb(210, 169, 227) 0%, rgb(141, 1, 231) 100%);
+    background: rgb(255,255,255);
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(229,203,255,1) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-left: 100px;
@@ -78,7 +79,8 @@ header{
 
 #hamburger-icon .line {
     width: 50px;
-    background: linear-gradient(90deg, rgb(210, 169, 227) 0%, rgb(141, 1, 231) 100%);
+    background: rgb(221,188,255);
+    background: linear-gradient(90deg, rgba(221,188,255,1) 0%, rgba(255,255,255,1) 100%);
     margin: 6px 0 0 0;
     height: 5px;
     display: block;
@@ -90,17 +92,17 @@ header{
 
 #hamburger-icon:hover .line-1 {
     width: 30px;
-    background: #af63e3;
+    background: #ddbcff;
 }
 
 #hamburger-icon:hover .line-2 {
     width: 40px;
-    background: #8332cc;
+    background: #ca9afc;
 }
 
 #hamburger-icon:hover .line-3 {
     width: 20px;
-    background: #af63e3;
+    background: #ddbcff;
 }
 
 .overlay {
@@ -157,14 +159,23 @@ header{
 
 .main-home{
     margin-left: 300px;
-    width: 80%;
+    padding-left: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 70%;
     min-height: 80vh;
+    background-color: rgba(0,0,0, 0.8);
+    border-radius: 50px;
 }
 
 .main-others{
     width: 60%;
+    padding: 60px;
     min-height: 70vh;
     margin: auto;
+    background-color: rgba(0,0,0, 0.8);
+    border-radius: 50px;
+
 }
 
 /*HOMEPAGE STYLE*/
@@ -206,7 +217,7 @@ header{
     min-height: 160px;
     display: flex;
     justify-content: space-between;
-    width: 90%;
+    width: 96%;
     margin-bottom: 20px;
     border-radius: 20px;
     color: white;
@@ -216,25 +227,30 @@ header{
 
 .cardEvent:hover{
     background: linear-gradient(90deg, rgb(93, 32, 110) 0%, rgb(46, 22, 91) 100%);
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
 
 .card-infos{
     display: flex;
     width: 80%;
-    background-color: #2f0e86;
+    background-color: #323E74;
     border-radius: 20px 0 0 20px;
 }
 
 .card-status{
     margin: 0;
     height: 160px;
-    width: 10%;
+    width: 22%;
     font-size: 0.8rem;
     text-align: center;
-    padding-top: 20px;
-    background-color: #424242;
+
+    padding-top: 25px;
+    background-color: #323E74;
     border-radius: 20px 0 0 20px;
+}
+.card-status p{
+    padding-top: 15px;
+font-size: 1.7rem;
 }
 
 .card-img-div{
@@ -260,10 +276,10 @@ header{
     width: 20%;
     height: 160px;
     text-align: center;
-    padding-top: 20px;
-    padding-right: 50px;
+    padding-top: 65px;
+    padding-right: 20px;
     border-radius: 0 20px 20px 0;
-    background-color: #424242;
+    background-color: #7F6B8D;
 }
 
 
@@ -286,14 +302,21 @@ header{
 
 /*TABLES STYLE*/
 .listGoers{
-    width: 40%;
-    border: solid 3px black;
+    width: 80%;
+    background-color: #6495ED;
+    margin-left: auto;
+    margin-right: auto;
+    padding : 30px;
+    border-radius: 50px;
 }
-.listGoers tr td{
-    border: solid 1px dimgrey;
+
+.listGoers table{
+    width: 70%;
+    margin: auto;
 }
-.listGoers thead{
-    border-bottom: solid 2px black;
+
+.listGoers td{
+    padding: 3px 15px;
 }
 
 /*FOOTER STYLE*/
@@ -311,7 +334,8 @@ footer{
 .btn-sm-perso{
     margin: 5px;
     padding: 10px;
-    background-color: #2b1a81;
+    margin-left: 20px;
+    background-color:  #323E74;
     color: #c7c7c7;
     border: 0px;
     border-radius: 10px;
@@ -321,7 +345,7 @@ footer{
 .btn-lg-perso{
     margin: 5px;
     padding: 15px;
-    background-color: #2b1a81;
+    background-color: #2c22fa;
     color: #c7c7c7;
     border: 0px;
     border-radius: 10px;
