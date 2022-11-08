@@ -41,9 +41,6 @@ class CreateEventType extends AbstractType
         $builder
             ->add('name', TextType::class,[
                 'label' => 'Nom',
-                'attr'=> [
-                    'maxlength'=> '50',
-                ]
             ])
             ->add('startDate', DateTimeType::class,[
                 'widget' => 'single_text',
@@ -95,7 +92,8 @@ class CreateEventType extends AbstractType
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer',
                 'attr'=> [
-                    'class' => 'btn-lg-perso'
+                    'class' => 'btn-lg-perso',
+
                 ]
             ])
 

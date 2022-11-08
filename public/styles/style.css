@@ -50,9 +50,6 @@ body {
     backdrop-filter: blur(7px);
 }
 
-
-
-
 /* NAV STYLE*/
 
 header{
@@ -176,7 +173,6 @@ header{
 .sticky-table-column__sticky {
     /* Background color */
 
-    /*background-color: #9ca3af;*/
     padding: 5px 20px;
     /* Stick to the left */
     left: 0;
@@ -223,11 +219,27 @@ header{
     transform: scale(1.05);
 }
 
+.card-infos{
+    display: flex;
+    width: 80%;
+    background-color: #2f0e86;
+}
+
+.card-status{
+    margin: 0;
+    height: 160px;
+    width: 10%;
+    font-size: 0.8rem;
+    text-align: center;
+    padding-top: 20px;
+    background-color: #424242;
+    border-radius: 20px 0 0 20px;
+}
+
 .card-img-div{
     height: 160px;
-    margin: 0px;
+    margin: 0;
     width: 30%;
-    height: 160px;
 }
 
 .card-img{
@@ -238,21 +250,9 @@ header{
 .card-txt1{
     height: 160px;
     font-size: 1rem;
-    padding-top: 10px;
-    width: 20%;
+    padding-top: 30px;
+    width: 40%;
     text-align: center;
-}
-
-.card-status{
-    margin: 0px;
-    height: 160px;
-    width: 10%;
-    font-size: 0.8rem;
-    text-align: center;
-    padding-top: 20px;
-    background-color: #424242;
-    border-radius: 20px 0px 0px 20px;
-
 }
 
 .card-button{
@@ -261,8 +261,7 @@ header{
     text-align: center;
     padding-top: 20px;
     padding-right: 50px;
-    border-radius: 0px 20px 20px 0px;
-    text-align: center;
+    border-radius: 0 20px 20px 0;
     background-color: #424242;
 }
 

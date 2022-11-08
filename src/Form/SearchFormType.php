@@ -12,9 +12,15 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class SearchFormType extends AbstractType
 {
+
+    public function __construct(private Security $security)
+    {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -32,6 +38,7 @@ class SearchFormType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')->orderBy('c.name', 'ASC');
                 },
+                'data' => $this->security->getUser()->getCampus(),
                 'choice_label' => 'name',
                 'required' => false,
             ])
@@ -48,7 +55,7 @@ class SearchFormType extends AbstractType
             ])
             ->add('isOrganizer',  CheckboxType::class, [
                 'label' => 'Je suis organisateur',
-                'data' => true,
+//                'data' => true,
                 'required' => false,
                 'attr'=>[
                     'class' => 'checkbox'
@@ -56,7 +63,7 @@ class SearchFormType extends AbstractType
             ])
             ->add('isBooked',  CheckboxType::class, [
                 'label' => 'Je participe',
-                'data' => true,
+//                'data' => true,
                 'required' => false,
                 'attr'=>[
                     'class' => 'checkbox'
@@ -64,7 +71,7 @@ class SearchFormType extends AbstractType
             ])
             ->add('isNotBooked', CheckboxType::class, [
                 'label' => 'Je ne participe pas',
-                'data' => true,
+//                'data' => true,
                 'required' => false,
                 'attr'=>[
                     'class' => 'checkbox'

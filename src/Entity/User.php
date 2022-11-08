@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,7 +20,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[Assert\NotBlank(message: 'Le pseudo ne peut pas être vide')]
-    #[Assert\Length(min: 1, max:50, minMessage: 'Le nom doit comporter entre {{ min }} et {{ max }} caractères')]
+    #[Assert\Length(min: 1, max:50, minMessage: 'Le pseudo doit comporter entre {{ min }} et {{ max }} caractères')]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $pseudo = null;
 
@@ -32,7 +31,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[Assert\NotBlank(message: 'Vous devez mettre un mot de passe')]
-    #[Assert\Length(min: 6, max:50, minMessage: 'Votre mot de passe doit faire entre {{ min }} et {{ max }} caractères')]
+    #[Assert\Length(min: 6, max:20, minMessage: 'Votre mot de passe doit faire entre {{ min }} et {{ max }} caractères')]
     #[ORM\Column]
     private ?string $password = null;
 
@@ -146,6 +145,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+
 
     /**
      * Returning a salt is only needed, if you are not using a modern

@@ -81,67 +81,61 @@
 
 {#            {% if allEvents is defined %}#}
                 {% for event in allEvents %}
-                    <a href="{{ path('event', {'id': event.id}) }}">
-                        <article >
 
-                            <div class="cardEvent">
-                                <div class="card-status">
-                                    <h4>Statut</h4>
-                                    <p>{{ event.state.libelle }}</p>
-                                </div>
+                        <article class="cardEvent">
+                            <a class="card-infos" href="{{ path('event', {'id': event.id}) }}">
+{#                                <div class="card-infos">#}
+                                    <div class="card-status">
+                                        <h4>Statut</h4>
+                                        <p>{{ event.state.libelle }}</p>
+                                    </div>
 
-                                <div class="card-img-div"><img class="card-img"
-                                            {% if event.location.locationPicture %}
-                                                               src="{{ asset('images/locationPicture/' ~ event.location.locationPicture) }}" alt="Image : {{ event.location.locationPicture }}">
-                                    {% else %}
-                                        src="{{ asset('images/locationPicture/default.jpg') }}"  alt="Image : {{ event.location.locationPicture }}">
-                                    {% endif %}
-                                </div>
+                                    <div class="card-img-div">
+                                        <img class="card-img"
+                                             {% if event.location.locationPicture %}
+                                                src="{{ asset('images/locationPicture/' ~ event.location.locationPicture) }}" alt="Image : {{ event.location.locationPicture }}">
+                                        {% else %}
+                                            src="{{ asset('images/locationPicture/default.jpg') }}"  alt="Image : {{ event.location.locationPicture }}">
+                                        {% endif %}
+                                    </div>
 
-                                <div class="card-txt1">
-                                    <h3>{{ event.name }}</h3>
-                                    <h4>{{  event.startDate|format_date(locale='fr') }} </h4>
-                                    <p>{{  event.startDate|date('H:i') }}</p>
-                                </div>
+                                    <div class="card-txt1">
+                                        <h3>{{ event.name }}</h3>
+                                        <h4>{{  event.startDate|format_date(locale='fr') }} </h4>
+                                        <p>{{  event.startDate|date('H:i') }}</p>
+                                    </div>
 
-                                <div class="card-txt1">
-                                    <p>Organisé par {{ event.organizater.pseudo }}</p>
-                                    <h4>Inscription jusqu'au : </h4>
-                                    <p>{{ event.subscriptionLimit|format_date(locale='fr') }}</p>
+                                    <div class="card-txt1">
+                                        <p>Organisé par {{ event.organizater.pseudo }}</p>
+                                        <h4>Inscription jusqu'au : </h4>
+                                        <p>{{ event.subscriptionLimit|format_date(locale='fr') }}</p>
 
-                                </div>
+                                    </div>
+{#                                </div>#}
+                            </a>
 
-
-
-
-                            </div>
                             <div class="card-button">
 
-
                                 {% if event.state.libelle == "opened" and event.organizater != app.user and app.user not in event.goers%}
-                                    <input type="button" href="{{ path('unRegister_event', {'id':event.id }) }}" value="button">
+                                    <input type="button" href="{{ path('unRegister_event', {'id':event.id }) }}" value="S'inscrire">
                                 {% endif %}
 
                                 {% if app.user in event.goers%}
-                                    {#                                    <a href="{{ path('unRegister_event', {'id':event.id }) }}" >#}
-                                    <input type="button" href="{{ path('unRegister_event', {'id':event.id }) }}">
-
-                                    {#                                    </a>#}
+                                    <input type="button" href="{{ path('unRegister_event', {'id':event.id }) }}" value="Se désinscrire">
                                 {% endif %}
 
-                                {% if  event.organizater == app.user or is_granted('ROLE_ADMIN') %}
-                                    {#                                    <a href="{{ path('event_modify', {'id':event.id }) }}">#}
-                                    <button type="button" class="btn-xsm-perso">Modifier sortie</button>
-                                    {#                                    </a>#}
+                                {% if   event.state.libelle == 'created' and  (event.organizater == app.user or is_granted('ROLE_ADMIN')) %}
+                                    <input type="button" href="{{ path('event_modify', {'id':event.id }) }}" class="btn-xsm-perso" value="Modifier">
                                 {% endif %}
                             </div>
 
-
                         </article>
-                    </a>
                 {% endfor %}
 
 {#            {% endif %}#}
     </div>
+
+    <input id="popup" type="hidden"
+
 
 {% endblock %}
