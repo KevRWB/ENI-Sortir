@@ -10,12 +10,10 @@ use App\Form\RegistrationEventType;
 use App\Form\SearchFormType;
 use App\Repository\EventRepository;
 use App\Repository\LocationRepository;
-use App\Repository\StateRepository;
 use App\Services\GetStates;
 use App\Services\UpdateEventState;
 use Doctrine\ORM\EntityManagerInterface;
 
-use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -80,8 +78,6 @@ class EventsController extends AbstractController
     #[Route('/accueil', name:'homepage')]
     public function searchEvents(Request $request, EventRepository $eventRepository, UpdateEventState $updateEventState, GetStates $getStates, EntityManagerInterface $em): Response{
 
-
-
         $updateEventState->updateAllState($eventRepository, $getStates, $em);
 
         $searchData = new SearchData();
@@ -91,8 +87,6 @@ class EventsController extends AbstractController
 
         $searchForm = $this->createForm(SearchFormType::class, $searchData);
         $searchForm->handleRequest($request);
-
-
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()){
 
@@ -116,7 +110,7 @@ class EventsController extends AbstractController
     {
         $event = $eventRepository->find($id);
 
-        $updateEventState->updateEventState($getStates, $em, $event);
+        $updateEventState->updateAllState($eventRepository, $getStates, $em);
 
         // Error if event doesn't exist
         if ($event === null) {

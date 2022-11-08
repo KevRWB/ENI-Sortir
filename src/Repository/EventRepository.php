@@ -3,13 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Event;
-use App\Entity\User;
 use App\Form\Model\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 
 /**
@@ -46,7 +43,6 @@ class EventRepository extends ServiceEntityRepository
         }
     }
 
-
     /**
      * Récupère les events en lien avec une recherche
      *
@@ -55,10 +51,18 @@ class EventRepository extends ServiceEntityRepository
     public function findEvents(SearchData $search): Paginator
     {
 
+        $user = $this->security->getUser();
+
         $qb = $this ->createQueryBuilder('events');
 
-        $qb->addSelect('state')
-            ->leftJoin('events.state', 'state');
+        $qb->addSelect('goers')
+            ->leftJoin('events.goers', 'goers')
+            ->addSelect('state')
+            ->leftJoin('events.state', 'state')
+            ->addSelect('campus')
+            ->leftJoin('events.campus', 'campus')
+            ->addSelect('organizater')
+            ->leftJoin('events.organizater', 'organizater');
 
         if (!empty($search->search)) {
             $qb ->andWhere('events.name LIKE :q')
@@ -66,8 +70,7 @@ class EventRepository extends ServiceEntityRepository
         }
 
         if (!empty($search->campus)) {
-            $qb->addSelect('campus')
-                ->leftJoin('events.campus', 'campus')
+            $qb
                 ->andWhere('campus = :c')
                 ->setParameter('c', $search->campus);
         }
@@ -85,20 +88,23 @@ class EventRepository extends ServiceEntityRepository
         }
 
         if ($search->isOrganizer) {
-            $qb->addSelect('organizater')
-                ->leftJoin('events.organizater', 'organizater')
+            $qb
                 ->andWhere('organizater = :user')
-                ->setParameter('user', $this->security->getUser());
+                ->setParameter('user', $user);
         }
 
         if ($search->isBooked) {
-            $qb->andWhere(':user MEMBER OF events.goers')
-                ->setParameter('user', $this->security->getUser());
+            $qb
+                ->andWhere(':user MEMBER OF goers')
+                ->setParameter('user', $user);
         }
 
         if ($search->isNotBooked) {
-            $qb->andWhere(':user NOT MEMBER OF events.goers')
-                ->setParameter('user', $this->security->getUser());
+
+            $qb
+                ->andWhere(':user MEMBER OF goers')
+                ->andWhere(':user NOT MEMBER OF goers')
+                ->setParameter('user', $user);
         }
 
         if ($search->passedEvents) {
@@ -107,7 +113,7 @@ class EventRepository extends ServiceEntityRepository
         }
 
         $qb->setFirstResult(0);
-        $qb->setMaxResults(15);
+        $qb->setMaxResults(10);
 
         $query = $qb->getQuery();
 
@@ -115,17 +121,16 @@ class EventRepository extends ServiceEntityRepository
 
     }
 
-
-    public function findAllEventsWithLocation(): Paginator{
-        $qb = $this ->createQueryBuilder('events');
-
-        $qb->addSelect('location')
-            ->leftJoin('events.location', 'location');
-
-        $query = $qb->getQuery()->setMaxResults(10);
-
-        return new Paginator($query);
-    }
+//    public function findAllEventsWithLocation(): Paginator{
+//        $qb = $this ->createQueryBuilder('events');
+//
+//        $qb->addSelect('location')
+//            ->leftJoin('events.location', 'location');
+//
+//        $query = $qb->getQuery()->setMaxResults(10);
+//
+//        return new Paginator($query);
+//    }
 
     public function findAllEventsWithGoersAndState(){
         $qb = $this ->createQueryBuilder('events');
