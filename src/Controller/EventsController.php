@@ -24,7 +24,7 @@ class EventsController extends AbstractController
 
 
     #[Route('/new', name: 'event_new')]
-    public function new(Request $request, EntityManagerInterface $em, GetStates $getStates,  UpdateEventState $updateEventState): Response
+    public function new(Request $request, EntityManagerInterface $em, GetStates $getStates,  UpdateEventState $updateEventState, EventRepository $eventRepository): Response
     {
         $event = new Event();
         $eventForm = $this->createForm(CreateEventType::class, $event);
@@ -37,7 +37,7 @@ class EventsController extends AbstractController
                 $event->setOrganizater($this->getUser());
                 $event->setState($getStates->getStateCreated());
                 $event->setCampus($this->getUser()->getCampus());
-                $updateEventState->updateEventState($getStates, $em, $event);
+                $updateEventState->updateAllState($eventRepository, $getStates, $em);
                 $em->persist($event);
                 $em->flush();
             }
@@ -46,6 +46,7 @@ class EventsController extends AbstractController
                 $event->setOrganizater($this->getUser());
                 $event->setState($getStates->getStateOpened());
                 $event->setCampus($this->getUser()->getCampus());
+                $updateEventState->updateAllState($eventRepository, $getStates, $em);
                 $em->persist($event);
                 $em->flush();
             }
@@ -79,13 +80,30 @@ class EventsController extends AbstractController
         ]);
     }
 
+
+    #[Route('/cancel_page/{id}', name: 'event_cancel_page')]
+    public function cancelPage(int $id): Response
+    {
+        return $this->render('security/cancel_event.html.twig', [
+            'id' => $id,
+        ]);
+
+    }
+
     #[Route('/cancel/{id}', name: 'event_cancel')]
-    public function cancel(EntityManagerInterface $em, EventRepository $eventRepository, int $id, GetStates $getStates): Response
+    public function cancel(EntityManagerInterface $em, EventRepository $eventRepository, int $id, GetStates $getStates, Request $request): Response
     {
 
         $event = $eventRepository->find($id);
         $stateCancel = $getStates->getStateCanceled();
         $event->setState($stateCancel);
+
+        $cancelText =   "Cause d'annulation : " . $request->request->get('cancelText');
+
+        if($cancelText){
+            $event->setInfos($cancelText);
+        }
+
         $em->persist($event);
         $em->flush();
         sleep(1.7);
@@ -224,7 +242,6 @@ class EventsController extends AbstractController
         ]);
 
     }
-
 
 
 }

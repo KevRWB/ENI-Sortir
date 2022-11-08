@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annuler sortie{% endblock %}
+
+
+{% block content %}
+    <div class="main-others">
+
+        <h1>Annuler sortie</h1>
+
+        <form method="post"  action="{{ path('event_cancel', {'id': id}) }}"  name="cancel-event" class="cancel-form">
+            <label for="cancelText" class="cancel-label">Motif d'annulation</label>
+            <input type="text" name="cancelText" id="cancelText" required size="100" minlength="5" class="cancel_input">
+            <button type="submit" class="btn-lg-perso">Valider l'annulation</button>
+            <a href="{{ path('event', {'id': id}) }}" class="btn-lg-perso">Retour</a>
+        </form>
+    </div>
+
+{% endblock %}

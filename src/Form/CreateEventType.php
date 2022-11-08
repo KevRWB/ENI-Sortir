@@ -50,7 +50,7 @@ class CreateEventType extends AbstractType
                 'widget' => 'single_text',
                 'label' => 'Date et heure limite d\'inscription',
             ])
-            ->add('maxUsers', IntegerType::class, [
+            ->add('maxUsers', NumberType::class, [
                 'label' => 'Nombre max de participants',
             ])
 

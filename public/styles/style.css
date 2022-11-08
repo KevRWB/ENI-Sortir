@@ -403,6 +403,24 @@ footer{
     border-radius: 50%;
 }
 
+
+/*CANCEL FORM STYLE*/
+
+.cancel-form{
+    border: 1px grey solid;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.cancel_input{
+    padding: 20px;
+    margin: 20px;
+}
+
+.cancel-label{
+    font-size: 1.2rem;
+
+}
 /*CardEvents Div*/
 
 /*.cardEvent{*/

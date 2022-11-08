@@ -54,9 +54,13 @@ class CampusController extends AbstractController
                 return $this->redirectToRoute('campus');
             }
         }
+
+        return $this->render('city_location/addCampus.html.twig', [
+            'campusForm'=>$campusForm->createView(),
+        ]);
     }
 
-    #[Route('/campus/add', name: 'campus_add')]
+    #[Route('/add', name: 'campus_add')]
     public function addCampus(Request $request, EntityManagerInterface $em): Response
     {
         $campus = new Campus();
