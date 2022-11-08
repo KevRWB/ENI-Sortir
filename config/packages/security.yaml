@@ -42,15 +42,24 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/monProfil, roles: ROLE_USER }
+         - { path: ^/profil, roles: ROLE_USER }
          - { path: ^/accueil, roles: ROLE_USER }
          - { path: ^/events, roles: ROLE_USER }
+         - { path: ^/modify, roles: ROLE_USER }
+         - { path: ^/cancel_page/, roles: ROLE_USER }
+         - { path: ^/cancel/, roles: ROLE_USER }
+         - { path: ^/registerEvent/, roles: ROLE_USER }
+         - { path: ^/registerEvent/, roles: ROLE_USER }
+         - { path: ^/deleteEvent/, roles: ROLE_ADMIN }
+         - { path: ^/confirmDelete/, roles: ROLE_ADMIN }
          - { path: ^/getLocationsFromCity, roles: ROLE_USER }
          - { path: ^/new, roles: ROLE_USER }
          - { path: ^/city, roles: ROLE_ADMIN }
          - { path: ^/campus, roles: ROLE_ADMIN }
-         - { path: ^/campus/modify, roles: ROLE_ADMIN }
+
 
 when@test:
     security:

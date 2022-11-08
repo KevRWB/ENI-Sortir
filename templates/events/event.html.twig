@@ -50,7 +50,7 @@
 
         {% if  event.state.libelle == 'created' and  (event.organizater == app.user or is_granted('ROLE_ADMIN')) %}
             <a href="{{ path('event_modify', {'id':event.id }) }}" class="btn-lg-perso">Modifier sortie</a>
-            <a href="{{ path('event_cancel', {'id':event.id }) }}" class="btn-lg-perso">Annuler sortie</a>
+            <a href="{{ path('event_cancel_page', {'id':event.id }) }}" class="btn-lg-perso">Annuler sortie</a>
 
         {% endif %}
 
