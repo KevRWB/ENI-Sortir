@@ -22,9 +22,10 @@
         {{ form_row(eventForm.location) }}
         <a href={{ path('location_add') }}><button class="btn-lg-perso"  type="button">Ajouter lieu</button></a>
         <div class="btn-flex">
-            <a href="javascript:history.go(-1)">{{ form_row(eventForm.return) }}</a>
+
             {{ form_row(eventForm.save) }}
             {{ form_row(eventForm.publish) }}
+            <a href="{{ path('homepage') }}"><button type="button" class="btn-lg-perso" >Retour</button></a>
         </div>
 
         {{ form_end(eventForm) }}
@@ -36,11 +37,28 @@
 {% block javascripts %}
     <script>
         window.onload = init;
+
+        function AlertSaved(){
+            Swal.fire({
+                icon: 'success',
+                title: 'Event saved',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        }
+        function AlertPublished(){
+            Swal.fire({
+                icon: 'success',
+                title: 'Event published',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        }
+
         function init()
         {
 
             let select = document.getElementById("create_event_city")
-            console.log(select)
             select.addEventListener('change', function handleChange(){
                 let idVille = document.getElementById("create_event_city").value;
                 useApi(idVille)

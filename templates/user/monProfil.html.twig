@@ -21,8 +21,8 @@
         {{ form_start(profilForm) }}
         {{ form_widget(profilForm) }}
         <div class="btn-flex">
-            <button onclick="history.go(-1)" class="btn-lg-perso" type="button" >Retour</button>
             <button type="submit" class="btn-lg-perso">Modifier Profil</button>
+            <a href="{{ path('homepage') }}"><button type="button" class="btn-lg-perso" >Retour</button></a>
         </div>
         {{ form_end(profilForm) }}
     </div>

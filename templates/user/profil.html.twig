@@ -16,7 +16,7 @@
         <p>Email : {{ user.email }}</p>
         <p>Campus :{{ user.campus.name }}</p>
 
-       <button onclick="history.go(-1)" class="btn-lg-perso" >Retour</button>
+        <a href="{{ path('homepage') }}"><button type="button" class="btn-lg-perso" >Retour</button></a>
 
     </div>
 

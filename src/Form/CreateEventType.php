@@ -102,7 +102,8 @@ class CreateEventType extends AbstractType
             ->add('publish', SubmitType::class, [
                 'label' => 'Publier',
                 'attr'=> [
-                    'class' => 'btn-lg-perso'
+                    'class' => 'btn-lg-perso',
+                    'onclick' => 'AlertPublished()'
                 ]
             ])
 

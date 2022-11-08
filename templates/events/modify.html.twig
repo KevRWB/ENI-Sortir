@@ -30,8 +30,7 @@
             <a href="{{ path('confirm_delete', {'id':event.id }) }}"><button type="button" class="btn-lg-perso" >Supprimer sortie</button></a>
 
             {{ form_row(eventForm.save) }}
-
-            <button type="button" onclick="history.go(-1)" class="btn-lg-perso" >Retour</button>
+            <a href="{{ path('event', {'id':event.id }) }}"><button type="button" class="btn-lg-perso" >Retour</button></a>
         </div>
         {{ form_end(eventForm) }}
     </div>
