@@ -6,7 +6,7 @@ use App\Entity\Event;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-
+use Faker;
 class EventFixtures extends Fixture  implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
@@ -133,6 +133,42 @@ class EventFixtures extends Fixture  implements DependentFixtureInterface
         $agesciNiort->setLocation($this->getReference('agesci-niort'));
         $manager->persist($agesciNiort);
 
+
+        $faker = Faker\Factory::create('fr_FR');
+
+        $events = Array();
+
+        for($i=0; $i<20; $i++){
+            $events[$i] = new Event();
+            $events[$i]->setName($faker->randomLetter);
+            $events[$i]->setStartDate(new \DateTime( '2022-11-9 09:00:00'));
+            $events[$i]->setDuration(new \DateTime('00:30:00'));
+            $events[$i]->setSubscriptionLimit(new \DateTime( '2022-11-8 09:00:00'));
+            $events[$i]->setMaxUsers($faker->numberBetween(2, 100));
+            $events[$i]->setInfos($faker->randomLetter);
+            $events[$i]->setOrganizater($this->getReference('axelle'));
+            $events[$i]->setState($this->getReference('opened'));
+            $events[$i]->setCampus($this->getReference('campus-quimper'));
+            $events[$i]->setLocation($this->getReference('golf-quimper'));
+            $manager->persist($events[$i]);
+            $this->addReference('event'.$i, $events[$i]);
+        }
+
+        for($i=20; $i<40; $i++){
+            $events[$i] = new Event();
+            $events[$i]->setName($faker->randomLetter);
+            $events[$i]->setStartDate(new \DateTime( '2022-11-10 09:00:00'));
+            $events[$i]->setDuration(new \DateTime('00:50:00'));
+            $events[$i]->setSubscriptionLimit(new \DateTime( '2022-11-9 09:00:00'));
+            $events[$i]->setMaxUsers($faker->numberBetween(2, 100));
+            $events[$i]->setInfos($faker->randomLetter);
+            $events[$i]->setOrganizater($this->getReference('jesse'));
+            $events[$i]->setState($this->getReference('opened'));
+            $events[$i]->setCampus($this->getReference('campus-rennes'));
+            $events[$i]->setLocation($this->getReference('patinoire-rennes'));
+            $manager->persist($events[$i]);
+            $this->addReference('event'.$i, $events[$i]);
+        }
         $manager->flush();
     }
 

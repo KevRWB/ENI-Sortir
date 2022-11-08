@@ -149,6 +149,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference('axelle', $axelle);
 
         $faker = Faker\Factory::create('fr_FR');
+
         $users = Array();
         for($i=0; $i<20; $i++){
             $users[$i] = new User();
@@ -164,6 +165,53 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $manager->persist($users[$i]);
             $this->addReference('users'.$i, $users[$i]);
         }
+
+        for($i=20; $i<40; $i++){
+            $users[$i] = new User();
+            $users[$i]->setPseudo($faker->firstName.$i);
+            $users[$i]->setFirstName($faker->firstName);
+            $users[$i]->setLastName($faker->lastName);
+            $users[$i]->setPhoneNumber(666666);
+            $users[$i]->setEmail($faker->email);
+            $users[$i]->setPassword($this->hasher->hashPassword( $admin, 'user'));
+            $users[$i]->setIsActive(true);
+            $users[$i]->setIsAdmin(true);
+            $users[$i]->setCampus($this->getReference('campus-rennes'));
+            $manager->persist($users[$i]);
+            $this->addReference('users'.$i, $users[$i]);
+        }
+
+        for($i=40; $i<60; $i++){
+            $users[$i] = new User();
+            $users[$i]->setPseudo($faker->firstName.$i);
+            $users[$i]->setFirstName($faker->firstName);
+            $users[$i]->setLastName($faker->lastName);
+            $users[$i]->setPhoneNumber(666666);
+            $users[$i]->setEmail($faker->email);
+            $users[$i]->setPassword($this->hasher->hashPassword( $admin, 'user'));
+            $users[$i]->setIsActive(true);
+            $users[$i]->setIsAdmin(false);
+            $users[$i]->setCampus($this->getReference('campus-niort'));
+            $manager->persist($users[$i]);
+            $this->addReference('users'.$i, $users[$i]);
+        }
+
+        for($i=60; $i<80; $i++){
+            $users[$i] = new User();
+            $users[$i]->setPseudo($faker->firstName.$i);
+            $users[$i]->setFirstName($faker->firstName);
+            $users[$i]->setLastName($faker->lastName);
+            $users[$i]->setPhoneNumber(666666);
+            $users[$i]->setEmail($faker->email);
+            $users[$i]->setPassword($this->hasher->hashPassword( $admin, 'user'));
+            $users[$i]->setIsActive(true);
+            $users[$i]->setIsAdmin(false);
+            $users[$i]->setCampus($this->getReference('campus-quimper'));
+            $manager->persist($users[$i]);
+            $this->addReference('users'.$i, $users[$i]);
+        }
+
+
         $manager->flush();
     }
 
