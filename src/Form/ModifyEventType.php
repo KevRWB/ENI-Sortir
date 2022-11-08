@@ -85,7 +85,8 @@ class ModifyEventType extends AbstractType
             ->add('save', SubmitType::class, [
                 'label' => 'Sauvegarder',
                 'attr'=> [
-                    'class' => 'btn-lg-perso'
+                    'class' => 'btn-lg-perso',
+                    'onclick' => 'AlertSaved()',
                 ]
             ])
         ;

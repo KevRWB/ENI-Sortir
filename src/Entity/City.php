@@ -21,11 +21,6 @@ class City
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[Assert\Range(
-        notInRangeMessage: 'Le code postal doit être de {{ min }} à {{ max }} chiffres',
-        min: 1,
-        max: 5,
-    )]
     #[ORM\Column]
     private ?int $codePostal = null;
 

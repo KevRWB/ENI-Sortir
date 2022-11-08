@@ -82,12 +82,6 @@ class CreateEventType extends AbstractType
                 'label' => 'Lieu',
             ])
 
-            ->add('return', ButtonType::class, [
-                'label' => 'Retour',
-                'attr'=> [
-                    'class' => 'btn-lg-perso'
-                ]
-            ])
 
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer',

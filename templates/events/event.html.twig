@@ -40,21 +40,27 @@
 
         <p>{{ event.goers|length }}/{{ event.maxUsers }} places disponibles</p>
 
-        {% if event.state.libelle == "opened" and event.organizater != app.user and app.user not in event.goers%}
-            <a href="{{ path('register_event', {'id':event.id }) }}" class="btn-lg-perso">S'inscrire</a>
+        {% if event.state.libelle == "opened" and event.organizater != app.user and app.user not in event.goers %}
+            <a href="{{ path('register_event', {'id':event.id }) }}" class="btn-lg-perso" onclick="SignupEvent()">S'inscrire</a>
         {% endif %}
 
-        {% if app.user in event.goers%}
-            <a href="{{ path('unRegister_event', {'id':event.id }) }}" class="btn-lg-perso">Se désinscrire</a>
+        {% if (event.state.libelle == "opened" or (event.state.libelle == "closed" and event.subscriptionLimit >  "now" )) and app.user in event.goers %}
+            <a href="{{ path('unRegister_event', {'id':event.id }) }}" class="btn-lg-perso" onclick="SignoutEvent()">Se désinscrire</a>
         {% endif %}
 
         {% if  event.state.libelle == 'created' and  (event.organizater == app.user or is_granted('ROLE_ADMIN')) %}
-            <a href="{{ path('event_modify', {'id':event.id }) }}" class="btn-lg-perso">Modifier sortie</a>
-            <a href="{{ path('event_cancel', {'id':event.id }) }}" class="btn-lg-perso">Annuler sortie</a>
-
+            <a href="{{ path('event_publish', {'id':event.id }) }}" class="btn-lg-perso" onclick="PublishEvent()">Publier sortie</a>
         {% endif %}
 
-        <a href="{{ path('homepage') }}"><button type="button" class="btn-lg-perso" >Retour</button></a>
+        {% if  (event.state.libelle == 'created') and  (event.organizater == app.user or is_granted('ROLE_ADMIN')) %}
+            <a href="{{ path('event_modify', {'id':event.id }) }}" class="btn-lg-perso">Modifier sortie</a>
+            <a href="{{ path('event_cancel', {'id':event.id }) }}" class="btn-lg-perso" onclick="CancelEvent()">Annuler sortie</a>
+        {% endif %}
+        {% if  (event.state.libelle == 'opened') and  (event.organizater == app.user or is_granted('ROLE_ADMIN')) %}
+            <a href="{{ path('event_cancel', {'id':event.id }) }}" class="btn-lg-perso" onclick="CancelEvent()">Annuler sortie</a>
+        {% endif %}
+
+        <a href="{{ path('homepage') }}"><button class="btn-lg-perso" >Retour</button></a>
 
 
 
@@ -67,9 +73,33 @@
         function CancelEvent(){
             Swal.fire({
                 icon: 'warning',
-                title: 'Event saved',
+                title: 'Sortie annulé',
                 showConfirmButton: false,
-                timer: 2000
+                timer: 1750
+            })
+        }
+        function PublishEvent(){
+            Swal.fire({
+                icon: 'success',
+                title: 'Sortie publiée',
+                showConfirmButton: false,
+                timer: 1750
+            })
+        }
+        function SignupEvent(){
+            Swal.fire({
+                icon: 'success',
+                title: 'Inscription validée',
+                showConfirmButton: false,
+                timer: 1750
+            })
+        }
+        function SignoutEvent(){
+            Swal.fire({
+                icon: 'error',
+                title: 'désinscription validée',
+                showConfirmButton: false,
+                timer: 1750
             })
         }
     </script>

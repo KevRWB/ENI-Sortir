@@ -21,10 +21,25 @@
         {{ form_start(profilForm) }}
         {{ form_widget(profilForm) }}
         <div class="btn-flex">
-            <button type="submit" class="btn-lg-perso">Modifier Profil</button>
+            <button type="submit" onclick="AlertSaved()" class="btn-lg-perso">Modifier Profil</button>
             <a href="{{ path('homepage') }}"><button type="button" class="btn-lg-perso" >Retour</button></a>
         </div>
         {{ form_end(profilForm) }}
     </div>
 
 {% endblock %}
+
+{% block javascripts %}
+    <script>
+        function AlertSaved(){
+            Swal.fire({
+                icon: 'success',
+                title: 'Event saved',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        }
+    </script>
+
+{% endblock %}
+
