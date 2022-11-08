@@ -41,6 +41,7 @@ class EventsController extends AbstractController
                 $em->persist($event);
                 $em->flush();
             }
+
             if($eventForm->get('publish')->isClicked()){
                 $event->setOrganizater($this->getUser());
                 $event->setState($getStates->getStateCreated());
@@ -48,8 +49,9 @@ class EventsController extends AbstractController
                 $em->persist($event);
                 $em->flush();
             }
-
+            sleep(1.5);
             return $this->redirectToRoute('homepage');
+
         }
         return $this->render('events/new.html.twig', [
             'eventForm'=>$eventForm->createView(),
@@ -73,6 +75,19 @@ class EventsController extends AbstractController
             'eventForm'=>$eventForm->createView(),
             'event' => $event,
         ]);
+    }
+
+    #[Route('/cancel/{id}', name: 'event_cancel')]
+    public function cancel(EntityManagerInterface $em, EventRepository $eventRepository, int $id, GetStates $getStates): Response
+    {
+
+        $event = $eventRepository->find($id);
+        $stateCancel = $getStates->getStateCanceled();
+        $event->setState($stateCancel);
+        $em->persist($event);
+        $em->flush();
+        return $this->redirectToRoute('event', ['id' => $id]);
+
     }
 
     #[Route('/accueil', name:'homepage')]
