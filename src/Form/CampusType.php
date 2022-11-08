@@ -15,7 +15,6 @@ class CampusType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('save', SubmitType::class, ['label' => 'Save'])
         ;
     }
 

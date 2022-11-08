@@ -9,6 +9,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 
 /**
@@ -56,8 +57,9 @@ class EventRepository extends ServiceEntityRepository
 
         $qb = $this ->createQueryBuilder('events');
 
-        $qb->addSelect('location')
-            ->leftJoin('events.location', 'location')
+        $qb
+//            ->addSelect('goers')
+//            ->leftJoin('events.goers', 'goers')
             ->addSelect('state')
             ->leftJoin('events.state', 'state');
 
@@ -67,7 +69,9 @@ class EventRepository extends ServiceEntityRepository
         }
 
         if (!empty($search->campus)) {
-            $qb->andWhere('events.campus = :c')
+            $qb->addSelect('campus')
+                ->leftJoin('events.campus', 'campus')
+                ->andWhere('campus = :c')
                 ->setParameter('c', $search->campus);
         }
 
@@ -84,12 +88,13 @@ class EventRepository extends ServiceEntityRepository
         }
 
         if ($search->isOrganizer) {
-            $qb->andWhere('events.organizater = :user')
+            $qb->addSelect('organizater')
+                ->leftJoin('events.organizater', 'organizater')
+                ->andWhere('organizater = :user')
                 ->setParameter('user', $this->security->getUser());
         }
 
         if ($search->isBooked) {
-
             $qb->andWhere(':user MEMBER OF events.goers')
                 ->setParameter('user', $this->security->getUser());
         }
@@ -104,12 +109,15 @@ class EventRepository extends ServiceEntityRepository
                 ->setParameter('passed', 'passed');
         }
 
-        $query = $qb->getQuery();
-        $query->setMaxResults(20);
+        $qb->setFirstResult(0);
+        $qb->setMaxResults(15);
 
-        return new Paginator($query);
+        $query = $qb->getQuery();
+
+        return new Paginator($query, true);
 
     }
+
 
     public function findAllEventsWithLocation(): Paginator{
         $qb = $this ->createQueryBuilder('events');

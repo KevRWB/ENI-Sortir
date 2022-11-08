@@ -68,23 +68,11 @@ class EventsController extends AbstractController
 
         if($eventForm->isSubmitted() && $eventForm->isValid()){
 
-            if($eventForm->get('save')->isClicked()){
-                $em->persist($event);
-                $em->flush();
-            }
-            if($eventForm->get('addCity')->isClicked()){
-                return $this->redirectToRoute('city');
-            }
-            if($eventForm->get('addLocation')->isClicked()){
-                return $this->redirectToRoute('event', ['id' => $id]);
-            }
-
-
-
             return $this->redirectToRoute('event', ['id' => $id]);
         }
         return $this->render('events/modify.html.twig', [
             'eventForm'=>$eventForm->createView(),
+            'event' => $event,
         ]);
     }
 
@@ -97,7 +85,7 @@ class EventsController extends AbstractController
         $searchForm = $this->createForm(SearchFormType::class, $searchData);
         $searchForm->handleRequest($request);
 
-        $allEvents =$eventRepository->findAllEventsWithLocation();
+        $allEvents =$eventRepository->findEvents($searchData);
 
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()){
@@ -115,7 +103,6 @@ class EventsController extends AbstractController
             'searchForm' => $searchForm->createView(),
             'allEvents' => $allEvents,
         ]);
-
     }
 
     #[Route('/events/{id}', name: 'event')]
@@ -125,57 +112,6 @@ class EventsController extends AbstractController
 
         $updateEventState->updateEventState($getStates, $em, $event);
 
-
-        //Show "register" button conditions
-        $maxGoersReach = false;
-        $userIsNotGoer = false;
-        $userIsNotOrganizer = false;
-
-        $canRegister = false;
-        $canUnRegister = false;
-
-        $goersList =  $event->getGoers()->getValues();
-
-        if(count($goersList) < $event->getMaxUsers()){
-            $maxGoersReach = true;
-        }
-
-        if(!in_array($this->getUser(), $goersList)){
-            $userIsNotGoer = true;
-        }
-
-        if($this->getUser()->getPseudo() != $event->getOrganizater()->getPseudo()){
-            $userIsNotOrganizer = true;
-        }
-
-        if($maxGoersReach && $userIsNotGoer && $userIsNotOrganizer && $event->getState()->getLibelle() == 'opened'){
-            $canRegister = true;
-        }
-
-        //Show "unregister" button conditions
-        if(!$userIsNotGoer && $event->getState()->getLibelle() == 'opened'){
-            $canUnRegister = true;
-        }
-
-        //register form
-        $registerForm = $this->createForm(RegistrationEventType::class, $event);
-        $registerForm->handleRequest($request);
-
-        if($registerForm->isSubmitted() && $registerForm->isValid()){
-
-            if($canRegister){
-                $event->addGoer($this->getUser());
-            }elseif ($canUnRegister){
-                $event->removeGoer($this->getUser());
-            }
-
-            $em->persist($event);
-            $em->flush();
-
-            return $this->redirectToRoute('event', ['id' => $id]);
-        }
-
-
         // Error if event doesn't exist
         if ($event === null) {
             throw $this->createNotFoundException('Cette sortie n\'existe pas');
@@ -184,10 +120,6 @@ class EventsController extends AbstractController
         //return statement to the view
         return $this->render('events/event.html.twig', [
             'event' => $event,
-            'canRegister' => $canRegister,
-            'canUnRegister' => $canUnRegister,
-            'isOrganizer' => $userIsNotOrganizer,
-            'registerForm' => $registerForm->createView(),
         ]);
     }
 
@@ -208,8 +140,57 @@ class EventsController extends AbstractController
                 'name' => $location->getName()
             );
         }
-
         return $this->json($responseArray);
+    }
+
+    #[Route('/registerEvent/{id}', name: 'register_event')]
+    public function register(int $id, EventRepository $eventRepository, EntityManagerInterface $em){
+
+        $event = $eventRepository->find($id);
+
+        $event->addGoer($this->getUser());
+        $em->persist($event);
+        $em->flush();
+
+        return $this->redirectToRoute('event', ['id'=>$id]);
+
+    }
+
+    #[Route('/unRegisterEvent/{id}', name: 'unRegister_event')]
+    public function unRegister(int $id, EventRepository $eventRepository, EntityManagerInterface $em){
+
+        $event = $eventRepository->find($id);
+
+        $event->removeGoer($this->getUser());
+        $em->persist($event);
+        $em->flush();
+
+        return $this->redirectToRoute('event', ['id'=>$id]);
+
+    }
+
+    #[Route('/deleteEvent/{id}', name: 'delete_event')]
+    public function deleteEvent ($id, EventRepository $eventRepository){
+
+        $event = $eventRepository->find($id);
+
+        $eventRepository->remove($event, true);
+
+        return $this->redirectToRoute('homepage');
+
+    }
+
+    #[Route('/confirmDelete/{id}', name: 'confirm_delete')]
+    public function confirmDelete ($id, EventRepository $eventRepository){
+
+//        $event = $eventRepository->find($id);
+
+        //return statement to the view
+        return $this->render('security/confirm.html.twig', [
+//            'event' => $event,
+            'id'=>$id
+        ]);
+
     }
 
 

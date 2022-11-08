@@ -4,7 +4,7 @@
 {% block content %}
 
     <div class="main-others">
-        <h1>Modify Event</h1>
+        <h1>Modifier sortie</h1>
 
         {{ form_start(eventForm) }}
         {{ form_row(eventForm.name) }}
@@ -16,20 +16,23 @@
         {{ form_row(eventForm.city) }}
 
         {% if is_granted('ROLE_ADMIN') %}
-            {{ form_row(eventForm.addCity) }}
+            <a href="{{ path('city') }}"> <button type="button" class="btn-lg-perso" >Ajouter ville</button></a>
         {% endif %}
 
         {{ form_row(eventForm.location) }}
 
         {% if is_granted('ROLE_ADMIN') %}
-            {{ form_row(eventForm.addLocation) }}
+            <a href="{{ path('location_add') }}"><button type="button" class="btn-lg-perso" >Ajouter lieu</button></a>
         {% endif %}
 
         <div class="btn-flex">
-            {{ form_row(eventForm.save) }}
-            <a href="javascript:history.go(-1)">{{ form_row(eventForm.return) }}</a>
-        </div>
 
+            <a href="{{ path('confirm_delete', {'id':event.id }) }}"><button type="button" class="btn-lg-perso" >Supprimer sortie</button></a>
+
+            {{ form_row(eventForm.save) }}
+
+            <button type="button" onclick="history.go(-1)" class="btn-lg-perso" >Retour</button>
+        </div>
         {{ form_end(eventForm) }}
     </div>
 

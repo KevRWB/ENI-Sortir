@@ -7,13 +7,33 @@
 /*GLOBAL STYLE*/
 *{
     font-family: 'Roboto', sans-serif;
-    color: white;
     padding: 0px;
     margin:0px;
 }
 
+h1, h2, h3, h4, p, label, td {
+    color: white;
+}
+
+h1{
+    font-size: 3rem;
+    color: #cfa8fa;
+    font-weight: bold;
+    padding-bottom: 30px;
+}
+
+h3{
+    font-size: 1.1rem;
+}
+
+h4{
+    font-size: 0.9rem;
+}
+p{
+    font-size: 0.85rem;
+}
+
 body {
-    /*background-color: #a0aecd;*/
     background-image: url("../images/background/back_city_night.jpg");
     background-attachment: fixed;
     background-position: center center;
@@ -31,12 +51,7 @@ body {
 }
 
 
-h1{
-    font-size: 3rem;
-    color: #cfa8fa;
-    font-weight: bold;
-    padding-bottom: 30px;
-}
+
 
 /* NAV STYLE*/
 
@@ -147,7 +162,6 @@ header{
     margin-left: 300px;
     width: 80%;
     min-height: 80vh;
-    /*background-color: #B0413E;*/
 }
 
 .main-others{
@@ -193,62 +207,69 @@ header{
 
 /*Cards event style*/
 .cardEvent{
-    height: 160px;
+    min-height: 160px;
     display: flex;
     justify-content: space-between;
-    width: 80%;
+    width: 90%;
     margin-bottom: 20px;
     border-radius: 20px;
     color: white;
-    background: linear-gradient(90deg, rgb(193, 180, 203) 0%, rgb(145, 110, 168) 100%);
+    background: linear-gradient(90deg, rgb(142, 64, 196) 0%, rgb(64, 36, 121) 100%);
     transition: all .1s ease-in-out;
 }
 
 .cardEvent:hover{
-    background: linear-gradient(90deg, rgb(127, 92, 134) 0%, rgb(118, 18, 185) 100%);
+    background: linear-gradient(90deg, rgb(93, 32, 110) 0%, rgb(46, 22, 91) 100%);
     transform: scale(1.05);
 }
 
 .card-img-div{
-    width: 33%;
+    height: 160px;
+    margin: 0px;
+    width: 30%;
     height: 160px;
 }
 
 .card-img{
     object-fit: cover;
     height: 100%;
-    border-radius: 20px 0px 0px 20px;
 }
 
-.card-name{
-    font-size: 1.5rem;
-    padding-top: 25px;
-    width: 40%;
+.card-txt1{
+    height: 160px;
+    font-size: 1rem;
+    padding-top: 10px;
+    width: 20%;
     text-align: center;
 }
 
 .card-status{
-    min-height: 100px;
-    width: 15%;
+    margin: 0px;
+    height: 160px;
+    width: 10%;
+    font-size: 0.8rem;
     text-align: center;
     padding-top: 20px;
-    background-color: #2f0e86;
-    border-radius: 0px 20px 20px 0px;
+    background-color: #424242;
+    border-radius: 20px 0px 0px 20px;
 
 }
 
 .card-button{
-    width: 10%;
+    width: 20%;
+    height: 160px;
     text-align: center;
     padding-top: 20px;
     padding-right: 50px;
-
+    border-radius: 0px 20px 20px 0px;
+    text-align: center;
+    background-color: #424242;
 }
+
 
 /*PROFIL PAGE STYLE*/
 .sub-header{
     display: flex;
-    /*flex-direction: column;*/
     justify-content: space-between;
     margin-bottom: 30px;
     height: 200px;
@@ -308,12 +329,28 @@ footer{
     font-weight: 200;
 }
 
+.btn-xsm-perso{
+    margin: 2px;
+    padding: 5px;
+    background-color: #2b1a81;
+    color: #c7c7c7;
+    border: 0px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: 100;
+}
+
 .btn-lg-perso:hover{
     background-color: #40328f;
     color: white;
 }
 
 .btn-sm-perso:hover{
+    background-color: #40328f;
+    color: white;
+}
+
+.btn-xsm-perso:hover{
     background-color: #40328f;
     color: white;
 }

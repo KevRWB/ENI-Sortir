@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% form_theme campusForm 'bootstrap_5_horizontal_layout.html.twig' %}
+
+{% block content %}
+
+    <div class="main-others">
+
+        <h1>Ajouter Campus</h1>
+
+        {{ form_start(campusForm) }}
+
+        {{ form_row(campusForm.name) }}
+
+        <div class="btn-flex">
+            <button type="submit" class="btn-lg-perso">Ajouter Campus</button>
+            <a href="javascript:history.go(-1)"><button type="button" class="btn-lg-perso">Retour</button></a>
+        </div>
+        {{ form_end(campusForm) }}
+
+    </div>
+
+{% endblock %}

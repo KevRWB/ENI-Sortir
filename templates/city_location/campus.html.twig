@@ -6,40 +6,24 @@
     <div class="main-others">
         <h2>Gerer les campus</h2>
 
-        <p>Filtrer les campus</p>
-
-
         <table class="listCampus">
-            <thead>
-            <tr>
-                <td>Campus</td>
-                <td>Actions</td>
-            </tr>
-            </thead>
+
             <tbody>
                 {% for campus in campus %}
                     <tr>
                         <td>{{ campus.name }}</td>
                         <td>
-                            <a href=""><button class="btn btn-sm btn-primary">Modifier</button></a>
-                            <a href=""><button class="btn btn-sm btn-primary">Supprimer</button></a>
+                            <a href=""><button class="btn-sm-perso">Modifier</button></a>
+                            <a href=""><button class="btn-sm-perso">Supprimer</button></a>
                         </td>
                     </tr>
                 {% endfor %}
-                {{ form_start(campusForm) }}
-                <tr>
-                    <td>
-                        {{ form_widget(campusForm.name) }}
-                    </td>
-                    <td>
-                        {{ form_widget(campusForm.save) }}
-                    </td>
-                </tr>
-                {{ form_end(campusForm) }}
             </tbody>
         </table>
 
-        <a href="javascript:history.go(-1)"><button class="btn btn-lg btn-primary" >Retour</button></a>
+
+        <a href="{{ path('campus_add') }}"><button class="btn-lg-perso" >Ajouter Campus</button></a>
+        <a href="javascript:history.go(-1)"><button class="btn-lg-perso" >Retour</button></a>
     </div>
 
 {% endblock %}

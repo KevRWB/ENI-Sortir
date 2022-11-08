@@ -25,9 +25,6 @@
 
 </div>
 
-
-
-
 <div id="myNav" class="overlay">
 
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -36,6 +33,13 @@
         <a href="{{ path('homepage') }}" class="nav-link">Accueil</a>
         <a href="{{ path('monProfil') }}" class="nav-link">Mon profil</a>
         <a href="{{ path('event_new') }}" class="nav-link">Créer sortie</a>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('campus') }}" class="nav-link"> Gérer les campus</a>
+            <a href="{{ path('city') }}" class="nav-link" >Gérer les villes</a>
+{#            <a href="{{ path('location_add') }}" class="nav-link">Gérer les lieux</a>#}
+        {% endif %}
+
         {% if app.user %}
             <a href="{{ path('app_logout') }}" class="nav-link">Déconnexion</a>
         {% else %}

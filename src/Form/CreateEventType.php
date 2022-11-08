@@ -40,7 +40,10 @@ class CreateEventType extends AbstractType
 
         $builder
             ->add('name', TextType::class,[
-                'label' => 'Nom'
+                'label' => 'Nom',
+                'attr'=> [
+                    'maxlength'=> '50',
+                ]
             ])
             ->add('startDate', DateTimeType::class,[
                 'widget' => 'single_text',

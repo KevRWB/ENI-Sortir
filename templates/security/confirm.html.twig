@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirm{% endblock %}
+
+
+{% block content %}
+    <div class="main-others">
+
+        <h1>Confirmation</h1>
+
+        <h3>Êtes-vous sûr de vouloir supprimer cette sortie ?</h3>
+
+        <a href="{{ path('delete_event', {'id': id}) }}"  ><button class="btn-lg-perso" type="button">OUI</button></a>
+        <a onclick="history.go(-1)" ><button  class="btn-lg-perso" type="button">NON</button></a>
+
+    </div>
+
+{% endblock %}
