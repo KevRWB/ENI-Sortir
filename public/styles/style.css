@@ -162,9 +162,26 @@ header{
 }
 
 .main-others{
-    width: 60%;
+    width: 50%;
     min-height: 70vh;
     margin: auto;
+    box-sizing: content-box;
+    padding: 20px;
+    background-color: rgba(0,0,0, 0.8);
+    border-radius: 50px;
+}
+
+.block-text{
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    justify-content: center;
+}
+
+.block-title{
+    margin-left: auto;
+    margin-right: auto;
+    width: 20%;
 }
 
 /*HOMEPAGE STYLE*/
@@ -286,14 +303,21 @@ header{
 
 /*TABLES STYLE*/
 .listGoers{
-    width: 40%;
-    border: solid 3px black;
+    width: 80%;
+    background-color: #6495ED;
+    margin-left: auto;
+    margin-right: auto;
+    padding : 30px;
+    border-radius: 50px;
 }
-.listGoers tr td{
-    border: solid 1px dimgrey;
+
+.listGoers table{
+    width: 70%;
+    margin: auto;
 }
-.listGoers thead{
-    border-bottom: solid 2px black;
+
+.listGoers td{
+    padding: 3px 15px;
 }
 
 /*FOOTER STYLE*/
