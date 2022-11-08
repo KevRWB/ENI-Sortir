@@ -31,12 +31,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[Assert\NotBlank(message: 'Vous devez mettre un mot de passe')]
-    #[Assert\Length(min: 6, max:20, minMessage: 'Votre mot de passe doit faire entre {{ min }} et {{ max }} caractères')]
+//    #[Assert\Length(min: 6, max:20, minMessage: 'Votre mot de passe doit faire entre {{ min }} et {{ max }} caractères')]
     #[ORM\Column]
     private ?string $password = null;
 
     #[Assert\NotBlank(message: 'Le nom ne peut pas être vide')]
-    #[Assert\Length(min: 1, max:50, minMessage: 'Le nom doit comporter entre {{ min }} et {{ max }} caractères')]
+    #[Assert\Length(min: 0, max:50, minMessage: 'Le nom doit comporter entre {{ min }} et {{ max }} caractères')]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $lastName = null;
 

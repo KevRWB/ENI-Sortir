@@ -81,10 +81,10 @@
 
 {#            {% if allEvents is defined %}#}
                 {% for event in allEvents %}
-                    <a href="{{ path('event', {'id': event.id}) }}">
-                        <article >
 
-                            <div class="cardEvent">
+                        <article class="cardEvent" >
+
+                            <a href="{{ path('event', {'id': event.id}) }}" class="card-infos">
                                 <div class="card-status">
                                     <h4>Statut</h4>
                                     <p>{{ event.state.libelle }}</p>
@@ -111,12 +111,9 @@
 
                                 </div>
 
+                            </a>
 
-
-
-                            </div>
                             <div class="card-button">
-
 
                                 {% if event.state.libelle == "opened" and event.organizater != app.user and app.user not in event.goers%}
                                     <input type="button" href="{{ path('unRegister_event', {'id':event.id }) }}" value="S'inscrire">
@@ -133,7 +130,7 @@
 
 
                         </article>
-                    </a>
+
                 {% endfor %}
 
 {#            {% endif %}#}

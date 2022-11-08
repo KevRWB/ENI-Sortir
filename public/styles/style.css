@@ -223,6 +223,7 @@ header{
     display: flex;
     width: 80%;
     background-color: #2f0e86;
+    border-radius: 20px 0 0 20px;
 }
 
 .card-status{
