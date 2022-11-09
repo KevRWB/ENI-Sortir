@@ -45,6 +45,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $firstName = null;
 
+    #[Assert\NotBlank(message: 'Le téléphone ne peut pas être vide')]
+    #[Assert\Length(min: 10, max:10, minMessage: 'Le téléphone doit comporter entre {{ min }} et {{ max }} caractères')]
     #[ORM\Column(nullable: true)]
     private ?int $phoneNumber = null;
 

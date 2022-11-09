@@ -62,7 +62,9 @@ class EventRepository extends ServiceEntityRepository
             ->addSelect('campus')
             ->leftJoin('events.campus', 'campus')
             ->addSelect('organizater')
-            ->leftJoin('events.organizater', 'organizater');
+            ->leftJoin('events.organizater', 'organizater')
+            ->addSelect('location')
+            ->leftJoin('events.location', 'location');
 
         if (!empty($search->search)) {
             $qb ->andWhere('events.name LIKE :q')
