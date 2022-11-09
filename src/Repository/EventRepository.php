@@ -95,15 +95,14 @@ class EventRepository extends ServiceEntityRepository
 
         if ($search->isBooked) {
             $qb
-                ->andWhere(':user MEMBER OF goers')
+                ->andWhere(':user MEMBER OF events.goers')
                 ->setParameter('user', $user);
         }
 
         if ($search->isNotBooked) {
 
             $qb
-                ->andWhere(':user MEMBER OF goers')
-                ->andWhere(':user NOT MEMBER OF goers')
+                ->andWhere(':user NOT MEMBER OF events.goers')
                 ->setParameter('user', $user);
         }
 
