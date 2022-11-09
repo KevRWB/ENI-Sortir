@@ -37,54 +37,54 @@
 
 {% endblock %}
 
-{% block javascripts %}
-    <script>
-        window.onload = init;
+{#{% block javascripts %}#}
+{#    <script>#}
+{#        window.onload = init;#}
 
-        function AlertSaved(){
-            Swal.fire({
-                icon: 'success',
-                title: 'Event saved',
-                showConfirmButton: false,
-                timer: 2000
-            })
-        }
+{#        function AlertSaved(){#}
+{#            Swal.fire({#}
+{#                icon: 'success',#}
+{#                title: 'Event saved',#}
+{#                showConfirmButton: false,#}
+{#                timer: 2000#}
+{#            })#}
+{#        }#}
 
-        function init()
-        {
+{#        function init()#}
+{#        {#}
 
-            let select = document.getElementById("create_event_city")
-            console.log(select)
-            select.addEventListener('change', function handleChange(){
-                let idVille = document.getElementById("create_event_city").value;
-                useApi(idVille)
-            })
-        }
+{#            let select = document.getElementById("create_event_city")#}
+{#            console.log(select)#}
+{#            select.addEventListener('change', function handleChange(){#}
+{#                let idVille = document.getElementById("create_event_city").value;#}
+{#                useApi(idVille)#}
+{#            })#}
+{#        }#}
 
-        async function useApi(idVille){
-            let select = document.getElementById("create_event_location");
+{#        async function useApi(idVille){#}
+{#            let select = document.getElementById("create_event_location");#}
 
-            for(let y = select.options.length; y>=0; y--){
-                select.remove(y)
-            }
+{#            for(let y = select.options.length; y>=0; y--){#}
+{#                select.remove(y)#}
+{#            }#}
 
-            let locations = await callApi(idVille)
+{#            let locations = await callApi(idVille)#}
 
-            for(const location of locations){
-                let option = document.createElement('option')
-                option.value = location.id
-                option.text = location.name
-                select.add(option)
-            }
-        }
+{#            for(const location of locations){#}
+{#                let option = document.createElement('option')#}
+{#                option.value = location.id#}
+{#                option.text = location.name#}
+{#                select.add(option)#}
+{#            }#}
+{#        }#}
 
-        async function callApi(idVille){
-            const response = await fetch("{{ path('locations_from_city') }}/"+ idVille)
+{#        async function callApi(idVille){#}
+{#            const response = await fetch("{{ path('locations_from_city') }}/"+ idVille)#}
 
-            if(response.ok){
-                return response.json()
-            }
-        }
+{#            if(response.ok){#}
+{#                return response.json()#}
+{#            }#}
+{#        }#}
 
-    </script>
-{% endblock %}
+{#    </script>#}
+{#{% endblock %}#}

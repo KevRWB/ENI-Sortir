@@ -50,10 +50,13 @@ class EventsController extends AbstractController
                 $em->persist($event);
                 $em->flush();
             }
-            sleep(1.5);
+
+            $this->addFlash('success', 'La sortie a bien été créée');
+
             return $this->redirectToRoute('homepage');
 
         }
+
         return $this->render('events/new.html.twig', [
             'eventForm'=>$eventForm->createView(),
         ]);
@@ -64,21 +67,33 @@ class EventsController extends AbstractController
     {
         $event = $eventRepository->find($id);
 
-        $eventForm = $this->createForm(ModifyEventType::class, $event);
-
-        $eventForm->handleRequest($request);
 
 
-        if($eventForm->isSubmitted() && $eventForm->isValid()){
-            $em->persist($event);
-            $em->flush();
-            sleep(1.7);
-            return $this->redirectToRoute('event', ['id' => $id]);
+        if($this->getUser()->getId() === $event->getOrganizater()->getId()){
+
+            $eventForm = $this->createForm(ModifyEventType::class, $event);
+
+            $eventForm->handleRequest($request);
+
+            if($eventForm->isSubmitted() && $eventForm->isValid()){
+                $em->persist($event);
+                $em->flush();
+                $this->addFlash('success', 'La modification à bien été prise en compte');
+                return $this->redirectToRoute('event', ['id' => $id]);
+            }
+
+            $this->addFlash('error', 'La modification n\'a été prise en compte');
+
+            return $this->render('events/modify.html.twig', [
+                'eventForm'=>$eventForm->createView(),
+                'event' => $event,
+            ]);
+        }else {
+
+            $this->addFlash('error', 'Vous ne pouvez pas modifier cette sortie');
+
+            return $this->redirectToRoute('homepage');
         }
-        return $this->render('events/modify.html.twig', [
-            'eventForm'=>$eventForm->createView(),
-            'event' => $event,
-        ]);
     }
 
 
