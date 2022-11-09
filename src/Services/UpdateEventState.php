@@ -15,31 +15,6 @@ class UpdateEventState
 
         $events = $eventRepository->findAllEventsWithGoersAndState();
 
-        /*Débug zone*/
-
-//        $event = $eventRepository->find(10);
-//        $startDate = $event->getStartDate();
-//        $endDate = clone $startDate;
-//        $duration =$event->getDuration();
-//        $hours = $duration->format('H');
-//        $minutes = $duration->format('i');
-//        $interval = new \DateInterval('PT'.$hours.'H' . $minutes . 'M');
-//        $endDate->add($interval);
-//
-//        $dateArchive = $endDate->add(new \DateInterval('P1M'));
-//        $goersList = $event->getGoers()->getValues();
-//        $limitDate = $event->getSubscriptionLimit();
-//
-//        $isCanceled = $event->getState()->getLibelle() == $getStates->getStateCanceled()->getLibelle();
-//        $isInProgress = $startDate < $now && $endDate > $now;
-//
-//        dd($isInProgress);
-
-
-
-        /*End debug zone*/
-
-
         foreach ($events as $event){
 
             /*Variables for each event checked*/
@@ -58,7 +33,7 @@ class UpdateEventState
             $goersList = $event->getGoers()->getValues();
             $limitDate = $event->getSubscriptionLimit();
 
-            /*Conditions*/
+            /*Variables Conditions*/
             $isCanceled = $event->getState()->getLibelle() == $getStates->getStateCanceled()->getLibelle();
             $isCreated = $event->getState()->getLibelle() == $getStates->getStateCreated()->getLibelle();
             $isInProgress = $startDate > $now && $endDate < $now;
@@ -66,6 +41,7 @@ class UpdateEventState
             $isClosed = ($now >  $limitDate && $now < $endDate) || count($goersList) >= $event->getMaxUsers();
             $isPassed = $now > $endDate;
 
+            /*Condtitions*/
 
             if($isCanceled){
                 $event->setState($getStates->getStateCanceled());
