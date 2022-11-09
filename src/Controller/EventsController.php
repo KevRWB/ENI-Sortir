@@ -68,6 +68,7 @@ class EventsController extends AbstractController
 
         $eventForm->handleRequest($request);
 
+
         if($eventForm->isSubmitted() && $eventForm->isValid()){
             $em->persist($event);
             $em->flush();
