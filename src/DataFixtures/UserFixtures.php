@@ -41,6 +41,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $jesse->setIsActive(true);
         $jesse->setIsAdmin(false);
         $jesse->setCampus($this->getReference('campus-rennes'));
+        $jesse->setProfilePicture("Jesse-profile-636a5d076ba04-636b650911041.png");
         $manager->persist($jesse);
         $this->addReference('jesse', $jesse);
 
@@ -67,6 +68,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $kevin->setIsActive(true);
         $kevin->setIsAdmin(false);
         $kevin->setCampus($this->getReference('campus-niort'));
+        $kevin->setProfilePicture("Kevin-636b65477818d.png");
         $manager->persist($kevin);
         $this->addReference('kevin', $kevin);
 
@@ -80,6 +82,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $maxime->setIsActive(true);
         $maxime->setIsAdmin(false);
         $maxime->setCampus($this->getReference('campus-nantes'));
+        $maxime->setProfilePicture("Max-profile-636a6e3778fa2-636b65885848e.png");
         $manager->persist($maxime);
         $this->addReference('maxime', $maxime);
 
@@ -106,6 +109,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $roman->setIsActive(true);
         $roman->setIsAdmin(false);
         $roman->setCampus($this->getReference('campus-rennes'));
+        $roman->setProfilePicture("Roman-636b65701a2c0.png");
         $manager->persist($roman);
         $this->addReference('roman', $roman);
 
@@ -132,6 +136,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $marcela->setIsActive(true);
         $marcela->setIsAdmin(false);
         $marcela->setCampus($this->getReference('campus-nantes'));
+        $marcela->setProfilePicture("Marcela-636b66275bb61.png");
         $manager->persist($marcela);
         $this->addReference('marcela', $marcela);
 
@@ -145,6 +150,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $axelle->setIsActive(true);
         $axelle->setIsAdmin(false);
         $axelle->setCampus($this->getReference('campus-nantes'));
+        $axelle->setProfilePicture("Axelle-636b65577b8fc.png");
         $manager->persist($axelle);
         $this->addReference('axelle', $axelle);
 
