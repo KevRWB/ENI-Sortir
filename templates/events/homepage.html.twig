@@ -141,7 +141,9 @@
                                     <a href="{{ path('event_modify', {'id':event.id }) }}" class="btn-lg-perso">Modifier sortie</a>
                                 {% endif %}
                                 {% if  (event.state.libelle == 'opened') and  (event.organizater == app.user or is_granted('ROLE_ADMIN')) %}
-                                    <a href="{{ path('event_cancel', {'id':event.id }) }}" class="btn-lg-perso" onclick="CancelEvent()">Annuler sortie</a>
+                                    <a href="{{ path('event_cancel', {'id':event.id }) }}" onclick="CancelEvent()">
+                                        <img class="img-cancel" width="50px" src="{{ asset('images/Icons/cancel.svg') }}" alt="cancelEventBtn">
+                                    </a>
                                 {% endif %}
                             </div>
 

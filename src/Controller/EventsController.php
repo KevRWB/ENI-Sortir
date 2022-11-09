@@ -182,6 +182,8 @@ class EventsController extends AbstractController
             ->getQuery()
             ->getResult();
 
+
+
         $responseArray = array();
         foreach ($locations as $location){
             $responseArray[] = array(
@@ -189,6 +191,7 @@ class EventsController extends AbstractController
                 'name' => $location->getName()
             );
         }
+
         return $this->json($responseArray);
     }
 

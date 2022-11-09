@@ -141,9 +141,9 @@ class EventFixtures extends Fixture  implements DependentFixtureInterface
         for($i=0; $i<20; $i++){
             $events[$i] = new Event();
             $events[$i]->setName($faker->word);
-            $events[$i]->setStartDate(new \DateTime( '2022-11-9 09:00:00'));
+            $events[$i]->setStartDate(new \DateTime( '2022-11-10 09:00:00'));
             $events[$i]->setDuration(new \DateTime('00:30:00'));
-            $events[$i]->setSubscriptionLimit(new \DateTime( '2022-11-8 09:00:00'));
+            $events[$i]->setSubscriptionLimit(new \DateTime( '2022-11-11 09:00:00'));
             $events[$i]->setMaxUsers($faker->numberBetween(2, 50));
             $events[$i]->setInfos($faker->word);
             $events[$i]->setOrganizater($this->getReference('axelle'));
@@ -157,12 +157,28 @@ class EventFixtures extends Fixture  implements DependentFixtureInterface
         for($i=20; $i<40; $i++){
             $events[$i] = new Event();
             $events[$i]->setName($faker->word);
-            $events[$i]->setStartDate(new \DateTime( '2022-11-10 09:00:00'));
+            $events[$i]->setStartDate(new \DateTime( '2022-11-14 11:00:00'));
             $events[$i]->setDuration(new \DateTime('00:50:00'));
-            $events[$i]->setSubscriptionLimit(new \DateTime( '2022-11-9 09:00:00'));
+            $events[$i]->setSubscriptionLimit(new \DateTime( '2022-11-13 09:00:00'));
             $events[$i]->setMaxUsers($faker->numberBetween(2, 50));
             $events[$i]->setInfos($faker->word);
-            $events[$i]->setOrganizater($this->getReference('jesse'));
+            $events[$i]->setOrganizater($this->getReference('marcela'));
+            $events[$i]->setState($this->getReference('opened'));
+            $events[$i]->setCampus($this->getReference('campus-niort'));
+            $events[$i]->setLocation($this->getReference('patinoire-rennes'));
+            $manager->persist($events[$i]);
+            $this->addReference('event'.$i, $events[$i]);
+        }
+
+        for($i=40; $i<50; $i++){
+            $events[$i] = new Event();
+            $events[$i]->setName($faker->word);
+            $events[$i]->setStartDate(new \DateTime( '2022-11-13 11:00:00'));
+            $events[$i]->setDuration(new \DateTime('00:50:00'));
+            $events[$i]->setSubscriptionLimit(new \DateTime( '2022-11-12 09:00:00'));
+            $events[$i]->setMaxUsers($faker->numberBetween(2, 50));
+            $events[$i]->setInfos($faker->word);
+            $events[$i]->setOrganizater($this->getReference('roman'));
             $events[$i]->setState($this->getReference('opened'));
             $events[$i]->setCampus($this->getReference('campus-rennes'));
             $events[$i]->setLocation($this->getReference('patinoire-rennes'));
